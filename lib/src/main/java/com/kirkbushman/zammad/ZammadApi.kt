@@ -57,6 +57,19 @@ interface ZammadApi {
         @HeaderMap header: HashMap<String, String>
     ): Call<Any>
 
+    @GET("/api/v1/overviews")
+    fun overviews(
+        @Query("expand") expanded: Boolean,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<List<Overview>>
+
+    @GET("/api/v1/overviews/{id}")
+    fun overview(
+        @Path("id") id: Int,
+        @Query("expand") expanded: Boolean,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<Overview>
+
     @GET("/api/v1/groups")
     fun groups(
         @Query("expand") expanded: Boolean,

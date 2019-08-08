@@ -32,6 +32,8 @@
         <activity android:name=".activities.UsersActivity"></activity>
         <activity android:name=".activities.GroupActivity"></activity>
         <activity android:name=".activities.GroupsActivity"></activity>
+        <activity android:name=".activities.OverviewActivity"></activity>
+        <activity android:name=".activities.OverviewsActivity"></activity>
         <activity android:name=".activities.OrganizationActivity"></activity>
         <activity android:name=".activities.OrganizationsActivity"></activity>
         <activity android:name=".activities.PriorityActivity"></activity>

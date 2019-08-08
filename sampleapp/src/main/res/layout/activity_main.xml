@@ -63,6 +63,13 @@
                     android:text="@string/bttn_groups" />
 
             <Button
+                    android:id="@+id/bttn_overviews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:text="@string/bttn_overviews" />
+
+            <Button
                     android:id="@+id/bttn_organizations"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

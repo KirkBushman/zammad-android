@@ -213,6 +213,42 @@ class ZammadClient(
         return res.body()
     }
 
+    fun overviews(expanded: Boolean = false): List<Overview>? {
+
+        val authMap = getHeaderMap()
+        val req = api.overviews(expanded, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
+    fun overview(id: Int, expanded: Boolean = false): Overview? {
+
+        val authMap = getHeaderMap()
+        val req = api.overview(id, expanded, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
     fun groups(expanded: Boolean = false): List<Group>? {
 
         val authMap = getHeaderMap()

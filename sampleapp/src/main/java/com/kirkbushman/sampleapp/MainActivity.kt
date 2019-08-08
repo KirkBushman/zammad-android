@@ -36,6 +36,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        bttn_overviews.setOnClickListener {
+
+            val intent = Intent(this, OverviewsActivity::class.java)
+            startActivity(intent)
+        }
+
         bttn_organizations.setOnClickListener {
 
             val intent = Intent(this, OrganizationsActivity::class.java)
