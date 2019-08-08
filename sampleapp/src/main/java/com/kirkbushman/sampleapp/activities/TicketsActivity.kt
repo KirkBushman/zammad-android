@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
+import com.kirkbushman.sampleapp.controllers.OnClickCallback
 import com.kirkbushman.sampleapp.controllers.TicketsController
 import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.Ticket
@@ -14,7 +15,16 @@ class TicketsActivity : AppCompatActivity() {
     private val client by lazy { SampleApplication.instance.getClient() }
 
     private val tickets = ArrayList<Ticket>()
-    private val controller by lazy { TicketsController() }
+    private val controller by lazy {
+        TicketsController(object : OnClickCallback {
+
+            override fun onClick(position: Int) {
+
+                val ticket = tickets[position]
+                TicketActivity.start(this@TicketsActivity, ticket)
+            }
+        })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

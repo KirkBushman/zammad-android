@@ -5,7 +5,7 @@ import com.kirkbushman.sampleapp.models.empty
 import com.kirkbushman.sampleapp.models.state
 import com.kirkbushman.zammad.models.TicketState
 
-class StatesController : EpoxyController() {
+class StatesController(private val callback: OnClickCallback) : EpoxyController() {
 
     private val states = ArrayList<TicketState>()
 
@@ -28,6 +28,7 @@ class StatesController : EpoxyController() {
             state {
                 id(it.id)
                 state(it)
+                clickListener { _, _, _, position -> callback.onClick(position) }
             }
         }
     }

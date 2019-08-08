@@ -26,6 +26,7 @@
 
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".activities.MeActivity"></activity>
+        <activity android:name=".activities.TicketActivity"></activity>
         <activity android:name=".activities.TicketsActivity"></activity>
         <activity android:name=".activities.UserActivity"></activity>
         <activity android:name=".activities.UsersActivity"></activity>
@@ -35,6 +36,7 @@
         <activity android:name=".activities.OrganizationsActivity"></activity>
         <activity android:name=".activities.PriorityActivity"></activity>
         <activity android:name=".activities.PrioritiesActivity"></activity>
+        <activity android:name=".activities.StateActivity"></activity>
         <activity android:name=".activities.StatesActivity"></activity>
 
     </application>

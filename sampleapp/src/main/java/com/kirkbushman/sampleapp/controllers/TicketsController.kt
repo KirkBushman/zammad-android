@@ -5,7 +5,7 @@ import com.kirkbushman.sampleapp.models.empty
 import com.kirkbushman.sampleapp.models.ticket
 import com.kirkbushman.zammad.models.Ticket
 
-class TicketsController : EpoxyController() {
+class TicketsController(private val callback: OnClickCallback) : EpoxyController() {
 
     private val tickets = ArrayList<Ticket>()
 
@@ -28,6 +28,7 @@ class TicketsController : EpoxyController() {
             ticket {
                 id(it.id)
                 ticket(it)
+                clickListener { _, _, _, position -> callback.onClick(position) }
             }
         }
     }
