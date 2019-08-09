@@ -50,6 +50,12 @@ data class Ticket(
     @Json(name = "owner")
     val owner: String?,
 
+    @Json(name = "customer_id")
+    val customerId: Int,
+
+    @Json(name = "customer")
+    val customer: String?,
+
     @Json(name = "organization_id")
     val organizationId: Int?,
 

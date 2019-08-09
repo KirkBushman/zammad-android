@@ -1,6 +1,7 @@
 package com.kirkbushman.sampleapp.activities
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
@@ -29,6 +30,24 @@ class TicketsActivity : AppCompatActivity() {
                 val ticket = tickets[position]
                 ArticlesActivity.start(this@TicketsActivity, ticket)
             }
+
+            override fun onUpdateClick(position: Int) {
+
+                val ticket = tickets[position]
+                TicketUpdateActivity.start(this@TicketsActivity, ticket)
+            }
+
+            override fun onDeleteClick(position: Int) {
+
+                doAsync(doWork = {
+
+                    val ticket = tickets[position]
+                    client?.deleteTicket(ticket.id)
+                }, onPost = {
+
+                    Toast.makeText(this@TicketsActivity, "Ticket deleted!", Toast.LENGTH_SHORT).show()
+                })
+            }
         })
     }
 
@@ -44,6 +63,11 @@ class TicketsActivity : AppCompatActivity() {
 
         list.setHasFixedSize(true)
         list.setController(controller)
+
+        fab.setOnClickListener {
+
+            TicketCreateActivity.start(this)
+        }
 
         doAsync(doWork = {
 

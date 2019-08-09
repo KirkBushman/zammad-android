@@ -28,6 +28,8 @@
         <activity android:name=".activities.MeActivity"></activity>
         <activity android:name=".activities.TicketActivity"></activity>
         <activity android:name=".activities.TicketsActivity"></activity>
+        <activity android:name=".activities.TicketCreateActivity"></activity>
+        <activity android:name=".activities.TicketUpdateActivity"></activity>
         <activity android:name=".activities.UserActivity"></activity>
         <activity android:name=".activities.UsersActivity"></activity>
         <activity android:name=".activities.GroupActivity"></activity>

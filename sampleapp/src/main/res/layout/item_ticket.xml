@@ -31,12 +31,36 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp" />
 
-        <Button
-                android:id="@+id/ticket_articles"
+        <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="@string/bttn_articles" />
+                android:layout_height="wrap_content">
+
+            <Button
+                    android:id="@+id/ticket_articles"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/bttn_articles" />
+
+            <Button
+                    android:id="@+id/ticket_update"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/bttn_update" />
+
+            <Button
+                    android:id="@+id/ticket_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/bttn_delete" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

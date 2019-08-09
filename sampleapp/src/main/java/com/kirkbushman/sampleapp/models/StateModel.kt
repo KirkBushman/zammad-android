@@ -15,7 +15,7 @@ abstract class StateModel : EpoxyModelWithHolder<StateHolder>() {
     @EpoxyAttribute
     lateinit var state: TicketState
 
-    @EpoxyAttribute
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var clickListener: View.OnClickListener
 
     override fun bind(holder: StateHolder) {

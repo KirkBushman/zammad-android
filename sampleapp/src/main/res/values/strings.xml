@@ -15,7 +15,15 @@
     <string name="bttn_states">States</string>
     <string name="bttn_notifications">Notifications</string>
     <string name="bttn_submit">Submit</string>
+    <string name="bttn_update">Update</string>
+    <string name="bttn_delete">Delete</string>
     <string name="bttn_articles">Articles</string>
+
+    <string name="ticket_create">Create new Ticket:</string>
+    <string name="ticket_id">Ticket Id:</string>
+    <string name="ticket_title">Ticket Title:</string>
+    <string name="ticket_article_subject">Subject:</string>
+    <string name="ticket_article_body">Body:</string>
 
     <string name="hint_baseurl">Baseurl:</string>
     <string name="hint_username">Username:</string>

@@ -4,7 +4,7 @@ import android.os.AsyncTask
 
 class doAsync(private val doWork: () -> Unit, private val onPost: (() -> Unit)? = null) : AsyncTask<Void, Void, Void>() {
     init {
-        execute()
+        executeOnExecutor(THREAD_POOL_EXECUTOR)
     }
 
     override fun doInBackground(vararg params: Void?): Void? {

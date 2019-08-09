@@ -15,7 +15,7 @@ abstract class UserModel : EpoxyModelWithHolder<UserHolder>() {
     @EpoxyAttribute
     lateinit var user: User
 
-    @EpoxyAttribute
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var clickListener: View.OnClickListener
 
     override fun bind(holder: UserHolder) {

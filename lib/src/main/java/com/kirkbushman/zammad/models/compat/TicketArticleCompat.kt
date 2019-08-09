@@ -1,4 +1,4 @@
-package com.kirkbushman.zammad.models
+package com.kirkbushman.zammad.models.compat
 
 import android.os.Parcelable
 import com.squareup.moshi.Json

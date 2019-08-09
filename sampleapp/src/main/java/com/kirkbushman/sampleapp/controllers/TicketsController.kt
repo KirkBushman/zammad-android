@@ -30,6 +30,8 @@ class TicketsController(private val callback: OnTicketCallback) : EpoxyControlle
                 ticket(it)
                 clickListener { _, _, _, position -> callback.onClick(position) }
                 articleListener { _, _, _, position -> callback.onArticleClick(position) }
+                updateListener { _, _, _, position -> callback.onUpdateClick(position) }
+                deleteListener { _, _, _, position -> callback.onDeleteClick(position) }
             }
         }
     }

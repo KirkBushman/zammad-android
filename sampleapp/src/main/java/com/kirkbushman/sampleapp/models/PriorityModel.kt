@@ -15,7 +15,7 @@ abstract class PriorityModel : EpoxyModelWithHolder<PriorityHolder>() {
     @EpoxyAttribute
     lateinit var priority: TicketPriority
 
-    @EpoxyAttribute
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var clickListener: View.OnClickListener
 
     override fun bind(holder: PriorityHolder) {

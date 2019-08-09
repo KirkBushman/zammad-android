@@ -16,10 +16,14 @@ abstract class TicketModel : EpoxyModelWithHolder<TicketHolder>() {
     @EpoxyAttribute
     lateinit var ticket: Ticket
 
-    @EpoxyAttribute
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var clickListener: View.OnClickListener
-    @EpoxyAttribute
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var articleListener: View.OnClickListener
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    lateinit var updateListener: View.OnClickListener
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    lateinit var deleteListener: View.OnClickListener
 
     override fun bind(holder: TicketHolder) {
 
@@ -31,11 +35,15 @@ abstract class TicketModel : EpoxyModelWithHolder<TicketHolder>() {
 
         holder.container.setOnClickListener(clickListener)
         holder.ticketArticle.setOnClickListener(articleListener)
+        holder.ticketUpdate.setOnClickListener(updateListener)
+        holder.ticketDelete.setOnClickListener(deleteListener)
     }
 
     override fun unbind(holder: TicketHolder) {
         holder.container.setOnClickListener(null)
         holder.ticketArticle.setOnClickListener(null)
+        holder.ticketUpdate.setOnClickListener(null)
+        holder.ticketDelete.setOnClickListener(null)
     }
 }
 
@@ -46,4 +54,6 @@ class TicketHolder : KotlinHolder() {
     val ticketId by bind<TextView>(R.id.ticket_id)
     val ticketCreated by bind<TextView>(R.id.ticket_created)
     val ticketArticle by bind<Button>(R.id.ticket_articles)
+    val ticketUpdate by bind<Button>(R.id.ticket_update)
+    val ticketDelete by bind<Button>(R.id.ticket_delete)
 }

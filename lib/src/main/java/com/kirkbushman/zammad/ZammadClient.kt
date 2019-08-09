@@ -3,6 +3,8 @@ package com.kirkbushman.zammad
 import android.util.Base64
 import android.util.Log
 import com.kirkbushman.zammad.models.*
+import com.kirkbushman.zammad.models.compat.TicketArticleCompat
+import com.kirkbushman.zammad.models.compat.TicketCompat
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -141,7 +143,7 @@ class ZammadClient(
         return res.body()
     }
 
-    fun deleteUser(id: Int): Any? {
+    fun deleteUser(id: Int): Boolean {
 
         val authMap = getHeaderMap()
         val req = api.deleteUser(id, authMap)
@@ -153,10 +155,10 @@ class ZammadClient(
                 Log.i("Retrofit Error", res.errorBody().toString())
             }
 
-            return null
+            return false
         }
 
-        return res.body()
+        return true
     }
 
     fun organizations(expanded: Boolean = false): List<Organization>? {
@@ -195,7 +197,7 @@ class ZammadClient(
         return res.body()
     }
 
-    fun deleteOrganization(id: Int): Any? {
+    fun deleteOrganization(id: Int): Boolean {
 
         val authMap = getHeaderMap()
         val req = api.deleteOrganization(id, authMap)
@@ -207,10 +209,10 @@ class ZammadClient(
                 Log.i("Retrofit Error", res.errorBody().toString())
             }
 
-            return null
+            return false
         }
 
-        return res.body()
+        return true
     }
 
     fun overviews(expanded: Boolean = false): List<Overview>? {
@@ -285,7 +287,7 @@ class ZammadClient(
         return res.body()
     }
 
-    fun deleteGroup(id: Int): Any? {
+    fun deleteGroup(id: Int): Boolean {
 
         val authMap = getHeaderMap()
         val req = api.deleteGroup(id, authMap)
@@ -297,10 +299,10 @@ class ZammadClient(
                 Log.i("Retrofit Error", res.errorBody().toString())
             }
 
-            return null
+            return false
         }
 
-        return res.body()
+        return true
     }
 
     fun ticketStates(expanded: Boolean = false): List<TicketState>? {
@@ -339,7 +341,7 @@ class ZammadClient(
         return res.body()
     }
 
-    fun deleteTicketState(id: Int): Any? {
+    fun deleteTicketState(id: Int): Boolean {
 
         val authMap = getHeaderMap()
         val req = api.deleteTicketState(id, authMap)
@@ -351,10 +353,10 @@ class ZammadClient(
                 Log.i("Retrofit Error", res.errorBody().toString())
             }
 
-            return null
+            return false
         }
 
-        return res.body()
+        return true
     }
 
     fun ticketPrioritites(expanded: Boolean = false): List<TicketPriority>? {
@@ -393,7 +395,7 @@ class ZammadClient(
         return res.body()
     }
 
-    fun deleteTicketPriority(id: Int): Any? {
+    fun deleteTicketPriority(id: Int): Boolean {
 
         val authMap = getHeaderMap()
         val req = api.deleteTicketPriority(id, authMap)
@@ -405,10 +407,10 @@ class ZammadClient(
                 Log.i("Retrofit Error", res.errorBody().toString())
             }
 
-            return null
+            return false
         }
 
-        return res.body()
+        return true
     }
 
     fun tickets(expanded: Boolean = false): List<Ticket>? {
@@ -470,24 +472,26 @@ class ZammadClient(
 
         val authMap = getHeaderMap()
         val req = api.createTicket(
-            title = title,
-            groupId = groupId,
-            group = group,
-            stateId = stateId,
-            state = state,
-            priorityId = priorityId,
-            priority = priority,
-            customerId = customerId,
-            customer = customer,
-            ownerId = ownerId,
-            owner = owner,
-            article = TicketArticleCompat(
-                subject = subject,
-                body = body,
-                type = type,
-                internal = internal
+            TicketCompat(
+                title = title,
+                groupId = groupId,
+                group = group,
+                stateId = stateId,
+                state = state,
+                priorityId = priorityId,
+                priority = priority,
+                customerId = customerId,
+                customer = customer,
+                ownerId = ownerId,
+                owner = owner,
+                article = TicketArticleCompat(
+                    subject = subject,
+                    body = body,
+                    type = type,
+                    internal = internal
+                ),
+                note = note
             ),
-            note = note,
             header = authMap
         )
 
@@ -514,7 +518,12 @@ class ZammadClient(
         stateId: Int? = null,
         state: String? = null,
         priorityId: Int? = null,
-        priority: String? = null
+        priority: String? = null,
+        ownerId: Int? = null,
+        owner: String? = null,
+        customerId: Int? = null,
+        customer: String? = null,
+        note: String? = null
     ): Ticket? {
 
         val authMap = getHeaderMap()
@@ -527,6 +536,11 @@ class ZammadClient(
             state = state,
             priorityId = priorityId,
             priority = priority,
+            ownerId = ownerId,
+            owner = owner,
+            customerId = customerId,
+            customer = customer,
+            note = note,
             header = authMap
         )
 
@@ -544,7 +558,7 @@ class ZammadClient(
         return res.body()
     }
 
-    fun deleteTicket(id: Int): Any? {
+    fun deleteTicket(id: Int): Boolean {
 
         val authMap = getHeaderMap()
         val req = api.deleteTicket(id, authMap)
@@ -556,16 +570,16 @@ class ZammadClient(
                 Log.i("Retrofit Error", res.errorBody().toString())
             }
 
-            return null
+            return false
         }
 
-        return res.body()
+        return true
     }
 
-    fun searchTickets(query: String, page: Int, perPage: Int): List<Ticket>? {
+    fun searchTickets(query: String, page: Int, perPage: Int, expanded: Boolean = false): List<Ticket>? {
 
         val authMap = getHeaderMap()
-        val req = api.searchTickets(query, page, perPage, true, authMap)
+        val req = api.searchTickets(query, page, perPage, expanded, authMap)
         val res = req.execute()
 
         if (!res.isSuccessful) {
@@ -712,7 +726,7 @@ class ZammadClient(
         return res.body()
     }
 
-    fun deleteOnlineNotification(id: Int): Any? {
+    fun deleteOnlineNotification(id: Int): Boolean {
 
         val authMap = getHeaderMap()
         val req = api.deleteOnlineNotification(id, authMap)
@@ -724,10 +738,10 @@ class ZammadClient(
                 Log.i("Retrofit Error", res.errorBody().toString())
             }
 
-            return null
+            return false
         }
 
-        return res.body()
+        return true
     }
 
     fun markAllOnlineNotificationsAsRead(): Any? {

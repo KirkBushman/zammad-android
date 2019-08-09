@@ -1,6 +1,8 @@
 package com.kirkbushman.zammad
 
 import com.kirkbushman.zammad.models.*
+import com.kirkbushman.zammad.models.compat.TicketCompat
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -28,7 +30,7 @@ interface ZammadApi {
     fun deleteUser(
         @Path("id") id: Int,
         @HeaderMap header: HashMap<String, String>
-    ): Call<Any>
+    ): Call<ResponseBody>
 
     @GET("/api/v1/users/search")
     fun searchUser(
@@ -55,7 +57,7 @@ interface ZammadApi {
     fun deleteOrganization(
         @Path("id") id: Int,
         @HeaderMap header: HashMap<String, String>
-    ): Call<Any>
+    ): Call<ResponseBody>
 
     @GET("/api/v1/overviews")
     fun overviews(
@@ -87,7 +89,7 @@ interface ZammadApi {
     fun deleteGroup(
         @Path("id") id: Int,
         @HeaderMap header: HashMap<String, String>
-    ): Call<Any>
+    ): Call<ResponseBody>
 
     @GET("/api/v1/ticket_states")
     fun ticketStates(
@@ -106,7 +108,7 @@ interface ZammadApi {
     fun deleteTicketState(
         @Path("id") id: Int,
         @HeaderMap header: HashMap<String, String>
-    ): Call<Any>
+    ): Call<ResponseBody>
 
     @GET("/api/v1/ticket_priorities")
     fun ticketPriorities(
@@ -125,7 +127,7 @@ interface ZammadApi {
     fun deleteTicketPriority(
         @Path("id") id: Int,
         @HeaderMap header: HashMap<String, String>
-    ): Call<Any>
+    ): Call<ResponseBody>
 
     @GET("/api/v1/tickets")
     fun tickets(
@@ -140,24 +142,9 @@ interface ZammadApi {
         @HeaderMap header: HashMap<String, String>
     ): Call<Ticket>
 
-    @FormUrlEncoded
     @POST("/api/v1/tickets")
     fun createTicket(
-
-        @Field("title") title: String,
-        @Field("group_id") groupId: Int? = null,
-        @Field("group") group: String? = null,
-        @Field("state_id") stateId: Int? = null,
-        @Field("state") state: String? = null,
-        @Field("priority_id") priorityId: Int? = null,
-        @Field("priority") priority: String? = null,
-        @Field("customer_id") customerId: Int? = null,
-        @Field("customer") customer: String? = null,
-        @Field("owner_id") ownerId: Int? = null,
-        @Field("owner") owner: String? = null,
-        @Field("article") article: TicketArticleCompat,
-        @Field("note") note: String? = null,
-
+        @Body body: TicketCompat,
         @HeaderMap header: HashMap<String, String>
     ): Call<Ticket>
 
@@ -173,6 +160,11 @@ interface ZammadApi {
         @Field("state") state: String? = null,
         @Field("priority_id") priorityId: Int? = null,
         @Field("priority") priority: String? = null,
+        @Field("owner_id") ownerId: Int? = null,
+        @Field("owner") owner: String? = null,
+        @Field("customer_id") customerId: Int? = null,
+        @Field("customer") customer: String? = null,
+        @Field("note") note: String? = null,
 
         @HeaderMap header: HashMap<String, String>
     ): Call<Ticket>
@@ -181,7 +173,7 @@ interface ZammadApi {
     fun deleteTicket(
         @Path("id") id: Int,
         @HeaderMap header: HashMap<String, String>
-    ): Call<Any>
+    ): Call<ResponseBody>
 
     @GET("/api/v1/tickets/search")
     fun searchTickets(
@@ -244,7 +236,7 @@ interface ZammadApi {
     fun deleteOnlineNotification(
         @Path("id") id: Int,
         @HeaderMap header: HashMap<String, String>
-    ): Call<Any>
+    ): Call<ResponseBody>
 
     @POST("/api/v1/online_notifications/mark_all_as_read")
     fun markAllOnlineNotificationsAsRead(
