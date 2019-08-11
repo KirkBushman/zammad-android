@@ -182,7 +182,7 @@ interface ZammadApi {
         @Query("per_page") perPage: Int,
         @Query("expand") expanded: Boolean,
         @HeaderMap header: HashMap<String, String>
-    ): Call<List<Ticket>>
+    ): Call<SearchResult>
 
     @GET("/api/v1/ticket_articles/by_ticket/{ticketId}")
     fun ticketArticles(
@@ -202,8 +202,8 @@ interface ZammadApi {
     @POST("/api/v1/ticket_articles")
     fun createTicketArticle(
         @Field("ticket_id") ticketId: Int,
-        @Field("to") to: String? = "",
-        @Field("cc") cc: String? = "",
+        @Field("to") to: String?,
+        @Field("cc") cc: String?,
         @Field("subject") subject: String,
         @Field("body") body: String,
         @Field("content_type") contentType: String,

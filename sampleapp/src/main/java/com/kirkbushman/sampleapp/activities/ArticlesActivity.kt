@@ -56,6 +56,11 @@ class ArticlesActivity : AppCompatActivity() {
         list.setHasFixedSize(true)
         list.setController(controller)
 
+        fab.setOnClickListener {
+
+            ArticleCreateActivity.start(this, ticket)
+        }
+
         doAsync(doWork = {
 
             articles.addAll(client?.ticketArticles(ticket) ?: listOf())

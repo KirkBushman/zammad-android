@@ -15,6 +15,28 @@
                 android:layout_height="?android:attr/actionBarSize"
                 app:layout_scrollFlags="scroll|enterAlways">
 
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <EditText
+                        android:id="@+id/search_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="4dp" />
+
+                <Button
+                        android:id="@+id/search_bttn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/bttn_submit"
+                        android:layout_margin="4dp" />
+
+            </LinearLayout>
+
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -29,13 +51,5 @@
             app:itemSpacing="16dp"
             app:layoutManager="@string/linear_layout"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_gravity="bottom|end"
-            app:srcCompat="@drawable/ic_add_24dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

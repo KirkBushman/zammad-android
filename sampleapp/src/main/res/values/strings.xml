@@ -7,6 +7,7 @@
     <string name="title_login">Login:</string>
     <string name="bttn_me">Me</string>
     <string name="bttn_tickets">Tickets</string>
+    <string name="bttn_tickets_search">Tickets Search</string>
     <string name="bttn_users">Users</string>
     <string name="bttn_groups">Groups</string>
     <string name="bttn_overviews">Overviews</string>
@@ -24,6 +25,12 @@
     <string name="ticket_title">Ticket Title:</string>
     <string name="ticket_article_subject">Subject:</string>
     <string name="ticket_article_body">Body:</string>
+
+    <string name="article_create">Create new Article:</string>
+    <string name="article_to">To:</string>
+    <string name="article_cc">CC:</string>
+    <string name="article_subject">Subject:</string>
+    <string name="article_body">Body:</string>
 
     <string name="hint_baseurl">Baseurl:</string>
     <string name="hint_username">Username:</string>

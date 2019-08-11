@@ -576,7 +576,7 @@ class ZammadClient(
         return true
     }
 
-    fun searchTickets(query: String, page: Int, perPage: Int, expanded: Boolean = false): List<Ticket>? {
+    fun searchTickets(query: String, page: Int, perPage: Int, expanded: Boolean = false): SearchResult? {
 
         val authMap = getHeaderMap()
         val req = api.searchTickets(query, page, perPage, expanded, authMap)
@@ -638,6 +638,7 @@ class ZammadClient(
     fun createTicketArticle(
 
         ticketId: Int,
+
         to: String? = "",
         cc: String? = "",
         subject: String,

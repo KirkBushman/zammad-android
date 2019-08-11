@@ -24,6 +24,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        bttn_tickets_search.setOnClickListener {
+
+            val intent = Intent(this, ActivitySearch::class.java)
+            startActivity(intent)
+        }
+
         bttn_users.setOnClickListener {
 
             val intent = Intent(this, UsersActivity::class.java)
