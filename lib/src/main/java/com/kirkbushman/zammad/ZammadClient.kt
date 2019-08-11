@@ -287,6 +287,42 @@ class ZammadClient(
         return res.body()
     }
 
+    fun roles(expanded: Boolean = false): List<Role>? {
+
+        val authMap = getHeaderMap()
+        val req = api.roles(expanded, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error [roles]", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
+    fun role(id: Int, expanded: Boolean = false): Role? {
+
+        val authMap = getHeaderMap()
+        val req = api.role(id, expanded, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error [role]", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
     fun deleteGroup(id: Int): Boolean {
 
         val authMap = getHeaderMap()

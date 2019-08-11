@@ -42,6 +42,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        bttn_roles.setOnClickListener {
+
+            val intent = Intent(this, RolesActivity::class.java)
+            startActivity(intent)
+        }
+
         bttn_overviews.setOnClickListener {
 
             val intent = Intent(this, OverviewsActivity::class.java)

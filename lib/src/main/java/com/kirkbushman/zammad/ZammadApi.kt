@@ -85,6 +85,19 @@ interface ZammadApi {
         @HeaderMap header: HashMap<String, String>
     ): Call<Group>
 
+    @GET("/api/v1/roles")
+    fun roles(
+        @Query("expand") expanded: Boolean,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<List<Role>>
+
+    @GET("/api/v1/roles/{id}")
+    fun role(
+        @Path("id") id: Int,
+        @Query("expand") expanded: Boolean,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<Role>
+
     @DELETE("/api/v1/groups/{id}")
     fun deleteGroup(
         @Path("id") id: Int,

@@ -45,4 +45,17 @@ data class Role(
     @Json(name = "permission_ids")
     val permissionIds: List<Int>
 
-) : Parcelable, Identifiable, Creatable, Updatable
+) : Parcelable, Identifiable, Creatable, Updatable {
+
+    override fun hashCode(): Int = id
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Role
+
+        if (id != other.id) return false
+
+        return true
+    }
+}

@@ -52,6 +52,7 @@ data class Organization(
     val members: List<String>?
 
 ) : Parcelable, Identifiable, Creatable, Updatable {
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
