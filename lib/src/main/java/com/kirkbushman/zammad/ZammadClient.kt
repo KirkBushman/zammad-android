@@ -11,7 +11,6 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-@Suppress("unused")
 class ZammadClient(
 
     baseUrl: String,
@@ -128,7 +127,7 @@ class ZammadClient(
     fun searchUsers(query: String, limit: Int? = null, expanded: Boolean = false): List<User>? {
 
         val authMap = getHeaderMap()
-        val req = api.searchUser(query, limit, expanded, authMap)
+        val req = api.searchUsers(query, limit, expanded, authMap)
         val res = req.execute()
 
         if (!res.isSuccessful) {
@@ -141,6 +140,11 @@ class ZammadClient(
         }
 
         return res.body()
+    }
+
+    fun deleteUser(user: User): Boolean {
+
+        return deleteUser(user.id)
     }
 
     fun deleteUser(id: Int): Boolean {
@@ -195,6 +199,29 @@ class ZammadClient(
         }
 
         return res.body()
+    }
+
+    fun searchOrganizations(query: String, limit: Int? = null, expanded: Boolean = false): List<Organization>? {
+
+        val authMap = getHeaderMap()
+        val req = api.searchOrganizations(query, limit, expanded, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
+    fun deleteOrganization(organization: Organization): Boolean {
+
+        return deleteOrganization(organization.id)
     }
 
     fun deleteOrganization(id: Int): Boolean {
@@ -287,6 +314,29 @@ class ZammadClient(
         return res.body()
     }
 
+    fun deleteGroup(group: Group): Boolean {
+
+        return deleteGroup(group.id)
+    }
+
+    fun deleteGroup(id: Int): Boolean {
+
+        val authMap = getHeaderMap()
+        val req = api.deleteGroup(id, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return false
+        }
+
+        return true
+    }
+
     fun roles(expanded: Boolean = false): List<Role>? {
 
         val authMap = getHeaderMap()
@@ -323,22 +373,22 @@ class ZammadClient(
         return res.body()
     }
 
-    fun deleteGroup(id: Int): Boolean {
+    fun tags(): List<Tag>? {
 
         val authMap = getHeaderMap()
-        val req = api.deleteGroup(id, authMap)
+        val req = api.tags(authMap)
         val res = req.execute()
 
         if (!res.isSuccessful) {
 
             if (logging) {
-                Log.i("Retrofit Error", res.errorBody().toString())
+                Log.i("Retrofit Error [tags]", res.errorBody().toString())
             }
 
-            return false
+            return null
         }
 
-        return true
+        return res.body()
     }
 
     fun ticketStates(expanded: Boolean = false): List<TicketState>? {
@@ -375,6 +425,11 @@ class ZammadClient(
         }
 
         return res.body()
+    }
+
+    fun deleteTicketState(ticketState: TicketState): Boolean {
+
+        return deleteTicketState(ticketState.id)
     }
 
     fun deleteTicketState(id: Int): Boolean {
@@ -429,6 +484,11 @@ class ZammadClient(
         }
 
         return res.body()
+    }
+
+    fun deleteTicketPriority(ticketPriority: TicketPriority): Boolean {
+
+        return deleteTicketPriority(ticketPriority.id)
     }
 
     fun deleteTicketPriority(id: Int): Boolean {
@@ -592,6 +652,11 @@ class ZammadClient(
         }
 
         return res.body()
+    }
+
+    fun deleteTicket(ticket: Ticket): Boolean {
+
+        return deleteTicket(ticket.id)
     }
 
     fun deleteTicket(id: Int): Boolean {

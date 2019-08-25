@@ -1,6 +1,7 @@
 package com.kirkbushman.zammad
 
 import com.kirkbushman.zammad.models.*
+import com.kirkbushman.zammad.models.Tag
 import com.kirkbushman.zammad.models.compat.TicketCompat
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -33,7 +34,7 @@ interface ZammadApi {
     ): Call<ResponseBody>
 
     @GET("/api/v1/users/search")
-    fun searchUser(
+    fun searchUsers(
         @Query("query") query: String,
         @Query("limit") limit: Int?,
         @Query("expand") expanded: Boolean,
@@ -58,6 +59,14 @@ interface ZammadApi {
         @Path("id") id: Int,
         @HeaderMap header: HashMap<String, String>
     ): Call<ResponseBody>
+
+    @GET("/api/v1/organizations/search")
+    fun searchOrganizations(
+        @Query("query") query: String,
+        @Query("limit") limit: Int?,
+        @Query("expand") expanded: Boolean,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<List<Organization>>
 
     @GET("/api/v1/overviews")
     fun overviews(
@@ -85,6 +94,12 @@ interface ZammadApi {
         @HeaderMap header: HashMap<String, String>
     ): Call<Group>
 
+    @DELETE("/api/v1/groups/{id}")
+    fun deleteGroup(
+        @Path("id") id: Int,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<ResponseBody>
+
     @GET("/api/v1/roles")
     fun roles(
         @Query("expand") expanded: Boolean,
@@ -98,11 +113,10 @@ interface ZammadApi {
         @HeaderMap header: HashMap<String, String>
     ): Call<Role>
 
-    @DELETE("/api/v1/groups/{id}")
-    fun deleteGroup(
-        @Path("id") id: Int,
+    @GET("/api/v1/tag_list")
+    fun tags(
         @HeaderMap header: HashMap<String, String>
-    ): Call<ResponseBody>
+    ): Call<List<Tag>>
 
     @GET("/api/v1/ticket_states")
     fun ticketStates(

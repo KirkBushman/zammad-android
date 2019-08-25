@@ -37,6 +37,7 @@
         <activity android:name=".activities.GroupsActivity"></activity>
         <activity android:name=".activities.RoleActivity"></activity>
         <activity android:name=".activities.RolesActivity"></activity>
+        <activity android:name=".activities.TagsActivity"></activity>
         <activity android:name=".activities.OverviewActivity"></activity>
         <activity android:name=".activities.OverviewsActivity"></activity>
         <activity android:name=".activities.OrganizationActivity"></activity>

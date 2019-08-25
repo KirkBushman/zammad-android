@@ -20,6 +20,9 @@ data class Ticket(
     @Json(name = "title")
     val title: String,
 
+    @Json(name = "number")
+    val number: String,
+
     @Json(name = "group_id")
     val groupId: Int,
 

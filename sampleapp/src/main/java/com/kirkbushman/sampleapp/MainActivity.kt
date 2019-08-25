@@ -48,6 +48,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        bttn_tags.setOnClickListener {
+
+            val intent = Intent(this, TagsActivity::class.java)
+            startActivity(intent)
+        }
+
         bttn_overviews.setOnClickListener {
 
             val intent = Intent(this, OverviewsActivity::class.java)

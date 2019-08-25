@@ -36,6 +36,12 @@ data class User(
     @Json(name = "email")
     val email: String,
 
+    @Json(name = "image")
+    val image: String?,
+
+    @Json(name = "image_source")
+    val imageSource: String?,
+
     @Json(name = "web")
     val web: String,
 
@@ -83,6 +89,18 @@ data class User(
 
     @Json(name = "login_failed")
     val loginFailed: Int,
+
+    @Json(name = "out_of_office")
+    val outOfOffice: Boolean,
+
+    @Json(name = "out_of_office_start_at")
+    val outOfOfficeStartAt: String?,
+
+    @Json(name = "out_of_office_end_at")
+    val OutOfOfficeEndAt: String?,
+
+    @Json(name = "out_of_office_replacement_id")
+    val outOfOfficeReplacementId: Int?,
 
     @Json(name = "created_by_id")
     override val createdById: Int,

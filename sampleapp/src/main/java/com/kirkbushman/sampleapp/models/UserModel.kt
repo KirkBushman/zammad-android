@@ -23,7 +23,7 @@ abstract class UserModel : EpoxyModelWithHolder<UserHolder>() {
         val userNameText = "${user.firstname} ${user.lastname}"
         holder.userName.text = userNameText
         holder.userId.text = user.id.toString()
-        holder.userCreated.text = user.createdAt
+        holder.userCreated.text = user.createdAt.toString()
 
         holder.container.setOnClickListener(clickListener)
     }
