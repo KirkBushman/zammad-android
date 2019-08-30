@@ -1,6 +1,7 @@
 package com.kirkbushman.sampleapp.models
 
 import android.view.View
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
@@ -18,17 +19,33 @@ abstract class ArticleModel : EpoxyModelWithHolder<ArticleHolder>() {
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var clickListener: View.OnClickListener
 
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    lateinit var attachmentsClick: View.OnClickListener
+
     override fun bind(holder: ArticleHolder) {
 
         holder.articleTo.text = article.to
         holder.articleSubject.text = article.subject
         holder.articleText.text = article.body
 
+        if (article.hasAttachments()) {
+            holder.attachmentsBttn.visibility = View.VISIBLE
+
+            val bttnText = "${article.attachments.size} Attachments"
+            holder.attachmentsBttn.setText(bttnText)
+        } else {
+            holder.attachmentsBttn.visibility = View.GONE
+        }
+
         holder.container.setOnClickListener(clickListener)
+        holder.attachmentsBttn.setOnClickListener(attachmentsClick)
     }
 
     override fun unbind(holder: ArticleHolder) {
+        holder.attachmentsBttn.visibility = View.GONE
+
         holder.container.setOnClickListener(null)
+        holder.attachmentsBttn.setOnClickListener(null)
     }
 }
 
@@ -38,4 +55,5 @@ class ArticleHolder : KotlinHolder() {
     val articleTo by bind<TextView>(R.id.article_to)
     val articleSubject by bind<TextView>(R.id.article_subject)
     val articleText by bind<TextView>(R.id.article_text)
+    val attachmentsBttn by bind<Button>(R.id.attachments_bttn)
 }

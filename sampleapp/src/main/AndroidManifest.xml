@@ -31,6 +31,8 @@
         <activity android:name=".activities.TicketCreateActivity"></activity>
         <activity android:name=".activities.TicketUpdateActivity"></activity>
         <activity android:name=".activities.ActivitySearch"></activity>
+        <activity android:name=".activities.AttachmentActivity"></activity>
+        <activity android:name=".activities.AttachmentsActivity"></activity>
         <activity android:name=".activities.UserActivity"></activity>
         <activity android:name=".activities.UsersActivity"></activity>
         <activity android:name=".activities.GroupActivity"></activity>

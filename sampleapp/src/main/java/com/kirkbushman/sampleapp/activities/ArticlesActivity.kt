@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.controllers.ArticlesController
-import com.kirkbushman.sampleapp.controllers.OnClickCallback
+import com.kirkbushman.sampleapp.controllers.OnArticleCallback
 import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.Ticket
 import com.kirkbushman.zammad.models.TicketArticle
@@ -33,12 +33,18 @@ class ArticlesActivity : AppCompatActivity() {
 
     private val articles = ArrayList<TicketArticle>()
     private val controller by lazy {
-        ArticlesController(object : OnClickCallback {
+        ArticlesController(object : OnArticleCallback {
 
             override fun onClick(position: Int) {
 
                 val article = articles[position]
                 ArticleActivity.start(this@ArticlesActivity, article)
+            }
+
+            override fun onAttachmentsClick(position: Int) {
+
+                val article = articles[position]
+                AttachmentsActivity.start(this@ArticlesActivity, ticket, article)
             }
         })
     }

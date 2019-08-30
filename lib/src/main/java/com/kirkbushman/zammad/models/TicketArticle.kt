@@ -64,7 +64,7 @@ data class TicketArticle(
     val internal: Boolean,
 
     @Json(name = "attachments")
-    val attachment: List<ArticleAttachment>,
+    val attachments: List<ArticleAttachment>,
 
     @Json(name = "created_by_id")
     override val createdById: Int,
@@ -99,6 +99,6 @@ data class TicketArticle(
     }
 
     fun hasAttachments(): Boolean {
-        return attachment.isNotEmpty()
+        return attachments.isNotEmpty()
     }
 }

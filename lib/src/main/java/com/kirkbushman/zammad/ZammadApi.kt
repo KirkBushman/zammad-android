@@ -240,6 +240,15 @@ interface ZammadApi {
         @HeaderMap header: HashMap<String, String>
     ): Call<TicketArticle>
 
+    @Streaming
+    @GET("/api/v1/ticket_attachment/{ticket_id}/{article_id}/{id}")
+    fun ticketArticleAttachment(
+        @Path("ticket_id") ticketId: Int,
+        @Path("article_id") articleId: Int,
+        @Path("id") attachmentId: Int,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<ResponseBody>
+
     @GET("/api/v1/online_notifications")
     fun onlineNotifications(
         @HeaderMap header: HashMap<String, String>

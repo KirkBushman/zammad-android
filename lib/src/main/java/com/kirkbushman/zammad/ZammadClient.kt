@@ -779,6 +779,30 @@ class ZammadClient(
         return res.body()
     }
 
+    fun ticketArticleAttachment(ticket: Ticket, ticketArticle: TicketArticle, articleAttachment: ArticleAttachment): String? {
+
+        return ticketArticleAttachment(ticket.id, ticketArticle.id, articleAttachment.id)
+    }
+
+    fun ticketArticleAttachment(ticketId: Int, articleId: Int, attachmentId: Int): String? {
+
+        val authMap = getHeaderMap()
+        val req = api.ticketArticleAttachment(
+            ticketId = ticketId,
+            articleId = articleId,
+            attachmentId = attachmentId,
+            header = authMap
+        )
+
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+            return null
+        }
+
+        return res.body()?.string()
+    }
+
     fun onlineNotifications(): List<OnlineNotification>? {
 
         val authMap = getHeaderMap()
