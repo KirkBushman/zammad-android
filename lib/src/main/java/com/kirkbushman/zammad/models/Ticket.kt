@@ -7,8 +7,6 @@ import com.kirkbushman.zammad.models.base.Updatable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
-import java.text.SimpleDateFormat
-import java.util.*
 
 @JsonClass(generateAdapter = true)
 @Parcelize
@@ -98,14 +96,5 @@ data class Ticket(
         if (id != other.id) return false
 
         return true
-    }
-
-    fun getDateString(): Date? {
-        return dateFromString(createdAt)
-    }
-
-    private fun dateFromString(dateStr: String): Date? {
-        val format = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-        return format.parse(dateStr.replace('T', ' ').replace('Z', ' '))
     }
 }

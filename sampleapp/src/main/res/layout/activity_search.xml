@@ -26,7 +26,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_margin="4dp"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:hint="@string/hint_search" />
 
                 <Button
                         android:id="@+id/search_bttn"

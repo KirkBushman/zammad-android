@@ -36,6 +36,7 @@
     <string name="hint_baseurl">Baseurl:</string>
     <string name="hint_username">Username:</string>
     <string name="hint_password">Password:</string>
+    <string name="hint_search">Search:</string>
 
     <string name="no_items">No items to show.</string>
 </resources>

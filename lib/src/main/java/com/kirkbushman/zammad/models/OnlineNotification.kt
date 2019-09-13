@@ -1,6 +1,9 @@
 package com.kirkbushman.zammad.models
 
 import android.os.Parcelable
+import com.kirkbushman.zammad.models.base.Creatable
+import com.kirkbushman.zammad.models.base.Identifiable
+import com.kirkbushman.zammad.models.base.Updatable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
@@ -10,7 +13,7 @@ import kotlinx.android.parcel.Parcelize
 data class OnlineNotification(
 
     @Json(name = "id")
-    val id: Int,
+    override val id: Int,
 
     @Json(name = "o_id")
     val objId: Int,
@@ -24,19 +27,25 @@ data class OnlineNotification(
     @Json(name = "seen")
     val seen: Boolean,
 
-    @Json(name = "updated_by_id")
-    val updatedById: Int,
-
-    @Json(name = "created_by_id")
-    val createdById: Int,
-
     @Json(name = "updated_at")
-    val updatedAt: String,
+    override val updatedAt: String,
 
     @Json(name = "created_at")
-    val createdAt: String
+    override val createdAt: String,
 
-) : Parcelable {
+    @Json(name = "created_by")
+    override val createdBy: String?,
+
+    @Json(name = "updated_by")
+    override val updatedBy: String?,
+
+    @Json(name = "updated_by_id")
+    override val updatedById: Int,
+
+    @Json(name = "created_by_id")
+    override val createdById: Int
+
+) : Parcelable, Identifiable, Creatable, Updatable {
 
     override fun hashCode(): Int = id
     override fun equals(other: Any?): Boolean {
