@@ -9,6 +9,6 @@ fun Creatable.createdAtDate(): Date? {
     return convertStringToDate(createdAt)
 }
 
-fun Updatable.createdAtDate(): Date? {
+fun Updatable.updatedAtDate(): Date? {
     return convertStringToDate(updatedAt)
 }
