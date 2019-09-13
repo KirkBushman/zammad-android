@@ -24,6 +24,30 @@ data class ArticleAttachment(
 
 ) : Parcelable {
 
+    fun hasContentType(): Boolean {
+        return preferences.containsKey("Content-Type")
+    }
+
+    fun getContentType(): String? {
+        return preferences["Content-Type"] as String?
+    }
+
+    fun hasMimeType(): Boolean {
+        return preferences.containsKey("Mime-Type")
+    }
+
+    fun getMimeType(): String? {
+        return preferences["Mime-Type"] as String?
+    }
+
+    fun hasCharset(): Boolean {
+        return preferences.containsKey("Charset")
+    }
+
+    fun getCharset(): String? {
+        return preferences["Charset"] as String?
+    }
+
     override fun hashCode(): Int = id
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

@@ -25,18 +25,18 @@ data class SearchResult(
 data class SearchAssets(
 
     @Json(name = "Ticket")
-    val tickets: Map<String, Ticket>,
+    val tickets: Map<String, Ticket>?,
 
     @Json(name = "User")
-    val users: Map<String, User>,
+    val users: Map<String, User>?,
 
     @Json(name = "Role")
-    val roles: Map<String, Role>,
+    val roles: Map<String, Role>?,
 
     @Json(name = "Group")
-    val groups: Map<String, Group>,
+    val groups: Map<String, Group>?,
 
     @Json(name = "Organization")
-    val organizations: Map<String, Organization>
+    val organizations: Map<String, Organization>?
 
 ) : Parcelable

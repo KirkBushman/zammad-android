@@ -37,16 +37,16 @@ data class TicketArticle(
     val replyTo: String?,
 
     @Json(name = "in_reply_to")
-    val inReplyTo: String,
+    val inReplyTo: String?,
 
     @Json(name = "message_id")
-    val messageId: String,
+    val messageId: String?,
 
     @Json(name = "message_id_md5")
     val messageIdMd5: String?,
 
     @Json(name = "references")
-    val references: String,
+    val references: String?,
 
     @Json(name = "body")
     val body: String,

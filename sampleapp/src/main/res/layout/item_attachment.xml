@@ -19,12 +19,28 @@
                 android:layout_margin="8dp" />
 
         <TextView
-                android:id="@+id/attachment_filesize"
+                android:id="@+id/attachment_contenttype"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp" />
 
+        <TextView
+                android:id="@+id/attachment_mimetype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
 
+        <TextView
+                android:id="@+id/attachment_charset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
+
+        <TextView
+                android:id="@+id/attachment_filesize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
 
     </LinearLayout>
 
