@@ -23,7 +23,6 @@
     <string name="bttn_articles">Articles</string>
 
     <string name="ticket_create">Create new Ticket:</string>
-    <string name="ticket_id">Ticket Id:</string>
     <string name="ticket_title">Ticket Title:</string>
     <string name="ticket_article_subject">Subject:</string>
     <string name="ticket_article_body">Body:</string>
