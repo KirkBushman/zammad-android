@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:inputType="text"
-            android:hint="@string/group_name" />
+            android:hint="@string/group_name"
+            android:importantForAutofill="no" />
 
     <CheckBox
             android:id="@+id/group_active"
@@ -33,7 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:inputType="text"
-            android:hint="@string/group_note" />
+            android:hint="@string/group_note"
+            android:importantForAutofill="no" />
 
     <Button
             android:id="@+id/bttn_submit"

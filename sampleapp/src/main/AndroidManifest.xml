@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.kirkbushman.sampleapp">
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.kirkbushman.sampleapp">
 
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -8,13 +9,16 @@
 
     <application
             android:name=".SampleApplication"
-            android:allowBackup="true"
+            android:allowBackup="false"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
-            android:networkSecurityConfig="@xml/network_security_config">
+            android:networkSecurityConfig="@xml/network_security_config"
+
+            tools:targetApi="n"
+            tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -24,41 +28,41 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".activities.MeActivity"></activity>
-        <activity android:name=".activities.TicketActivity"></activity>
-        <activity android:name=".activities.TicketsActivity"></activity>
-        <activity android:name=".activities.TicketCreateActivity"></activity>
-        <activity android:name=".activities.TicketUpdateActivity"></activity>
-        <activity android:name=".activities.ActivitySearch"></activity>
-        <activity android:name=".activities.AttachmentActivity"></activity>
-        <activity android:name=".activities.AttachmentsActivity"></activity>
-        <activity android:name=".activities.UserActivity"></activity>
-        <activity android:name=".activities.UsersActivity"></activity>
-        <activity android:name=".activities.GroupActivity"></activity>
-        <activity android:name=".activities.GroupUpdateActivity"></activity>
-        <activity android:name=".activities.GroupsActivity"></activity>
-        <activity android:name=".activities.RoleActivity"></activity>
-        <activity android:name=".activities.RolesActivity"></activity>
-        <activity android:name=".activities.TagsActivity"></activity>
-        <activity android:name=".activities.OverviewActivity"></activity>
-        <activity android:name=".activities.OverviewsActivity"></activity>
-        <activity android:name=".activities.OrganizationActivity"></activity>
-        <activity android:name=".activities.OrganizationUpdateActivity"></activity>
-        <activity android:name=".activities.OrganizationsActivity"></activity>
-        <activity android:name=".activities.PriorityActivity"></activity>
-        <activity android:name=".activities.PriorityUpdateActivity"></activity>
-        <activity android:name=".activities.PrioritiesActivity"></activity>
-        <activity android:name=".activities.StateActivity"></activity>
-        <activity android:name=".activities.StateUpdateActivity"></activity>
-        <activity android:name=".activities.StatesActivity"></activity>
-        <activity android:name=".activities.NotificationsActivity"></activity>
-        <activity android:name=".activities.ArticleActivity"></activity>
-        <activity android:name=".activities.ArticlesActivity"></activity>
-        <activity android:name=".activities.ArticleCreateActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".activities.MeActivity" />
+        <activity android:name=".activities.TicketActivity" />
+        <activity android:name=".activities.TicketsActivity" />
+        <activity android:name=".activities.TicketCreateActivity" />
+        <activity android:name=".activities.TicketUpdateActivity" />
+        <activity android:name=".activities.ActivitySearch" />
+        <activity android:name=".activities.AttachmentActivity" />
+        <activity android:name=".activities.AttachmentsActivity" />
+        <activity android:name=".activities.UserActivity" />
+        <activity android:name=".activities.UsersActivity" />
+        <activity android:name=".activities.GroupActivity" />
+        <activity android:name=".activities.GroupUpdateActivity" />
+        <activity android:name=".activities.GroupsActivity" />
+        <activity android:name=".activities.RoleActivity" />
+        <activity android:name=".activities.RolesActivity" />
+        <activity android:name=".activities.TagsActivity" />
+        <activity android:name=".activities.OverviewActivity" />
+        <activity android:name=".activities.OverviewsActivity" />
+        <activity android:name=".activities.OrganizationActivity" />
+        <activity android:name=".activities.OrganizationUpdateActivity" />
+        <activity android:name=".activities.OrganizationsActivity" />
+        <activity android:name=".activities.PriorityActivity" />
+        <activity android:name=".activities.PriorityUpdateActivity" />
+        <activity android:name=".activities.PrioritiesActivity" />
+        <activity android:name=".activities.StateActivity" />
+        <activity android:name=".activities.StateUpdateActivity" />
+        <activity android:name=".activities.StatesActivity" />
+        <activity android:name=".activities.NotificationsActivity" />
+        <activity android:name=".activities.ArticleActivity" />
+        <activity android:name=".activities.ArticlesActivity" />
+        <activity android:name=".activities.ArticleCreateActivity" />
+
+        <meta-data android:name="android.max_aspect" android:value="2.1" />
 
     </application>
-
-    <meta-data android:name="android.max_aspect" android:value="2.1" />
 
 </manifest>

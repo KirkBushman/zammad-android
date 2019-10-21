@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:inputType="text"
-            android:hint="@string/ticket_title" />
+            android:hint="@string/ticket_title"
+            android:importantForAutofill="no" />
 
     <Spinner
             android:id="@+id/ticket_group"
@@ -70,7 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:inputType="text"
-            android:hint="@string/ticket_article_subject" />
+            android:hint="@string/ticket_article_subject"
+            android:importantForAutofill="no" />
 
     <EditText
             android:id="@+id/ticket_article_body"
@@ -78,7 +80,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:inputType="text"
-            android:hint="@string/ticket_article_body" />
+            android:hint="@string/ticket_article_body"
+            android:importantForAutofill="no" />
 
     <Button
             android:id="@+id/bttn_submit"

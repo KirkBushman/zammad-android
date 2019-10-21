@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                     android:id="@+id/priority_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                     android:layout_margin="8dp"
                     android:text="@string/bttn_update" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                     android:id="@+id/priority_delete"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

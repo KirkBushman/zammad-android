@@ -19,7 +19,7 @@
             android:layout_margin="8dp"
             android:inputType="text"
             android:hint="@string/priority_name"
-            />
+            android:importantForAutofill="no" />
 
     <CheckBox
             android:id="@+id/priority_active"
@@ -34,7 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:inputType="text"
-            android:hint="@string/priority_note" />
+            android:hint="@string/priority_note"
+            android:importantForAutofill="no" />
 
     <Button
             android:id="@+id/bttn_submit"

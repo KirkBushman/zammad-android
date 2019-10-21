@@ -27,7 +27,8 @@
                         android:layout_weight="1"
                         android:layout_margin="4dp"
                         android:inputType="text"
-                        android:hint="@string/hint_search" />
+                        android:hint="@string/hint_search"
+                        android:importantForAutofill="no" />
 
                 <Button
                         android:id="@+id/search_bttn"
@@ -40,7 +41,6 @@
             </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.airbnb.epoxy.EpoxyRecyclerView

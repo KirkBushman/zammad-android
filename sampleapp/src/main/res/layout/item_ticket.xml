@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                     android:id="@+id/ticket_articles"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                     android:layout_weight="1"
                     android:text="@string/bttn_articles" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                     android:id="@+id/ticket_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                     android:layout_weight="1"
                     android:text="@string/bttn_update" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                     android:id="@+id/ticket_delete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

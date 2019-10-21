@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                     android:id="@+id/group_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                     android:layout_weight="1"
                     android:text="@string/bttn_update" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                     android:id="@+id/group_delete"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

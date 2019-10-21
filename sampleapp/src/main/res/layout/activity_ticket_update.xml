@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:inputType="text"
-            android:hint="@string/ticket_title" />
+            android:hint="@string/ticket_title"
+            android:importantForAutofill="no" />
 
     <Spinner
             android:id="@+id/ticket_group"
