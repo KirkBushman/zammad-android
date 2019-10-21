@@ -22,7 +22,7 @@ data class OnlineNotification(
     val objectType: String,
 
     @Json(name = "type")
-    val type: String,
+    val type: NotificationType,
 
     @Json(name = "seen")
     val seen: Boolean,
@@ -58,4 +58,11 @@ data class OnlineNotification(
 
         return true
     }
+}
+
+enum class NotificationType(val typeStr: String) {
+
+    CREATE("create"),
+    UPDATE("update"),
+    ESCALATION("escalation")
 }

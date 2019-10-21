@@ -142,6 +142,107 @@ class ZammadClient(
         return res.body()
     }
 
+    fun updateUser(id: Int, user: User): User? {
+
+        val authMap = getHeaderMap()
+        val req = api.updateUser(id, user, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
+    fun updateUser(
+
+        id: Int,
+
+        organizationId: Int? = null,
+        organization: String? = null,
+        active: Boolean? = null,
+        login: String? = null,
+        firstname: String? = null,
+        lastname: String? = null,
+        email: String? = null,
+        image: String? = null,
+        imageSource: String? = null,
+        web: String? = null,
+        phone: String? = null,
+        fax: String? = null,
+        mobile: String? = null,
+        department: String? = null,
+        street: String? = null,
+        zip: String? = null,
+        city: String? = null,
+        country: String? = null,
+        address: String? = null,
+        isVip: Boolean? = null,
+        isVerified: Boolean? = null,
+        note: String? = null,
+        source: String? = null,
+        lastLogin: String? = null,
+        loginFailed: Int? = null,
+        outOfOffice: Boolean? = null,
+        outOfOfficeStartAt: String? = null,
+        outOfOfficeEndAt: String? = null,
+        outOfOfficeReplacementId: Int? = null
+    ): User? {
+
+        val authMap = getHeaderMap()
+        val req = api.updateUser(
+            id = id,
+            organizationId = organizationId,
+            organization = organization,
+            active = active,
+            login = login,
+            firstname = firstname,
+            lastname = lastname,
+            email = email,
+            image = image,
+            imageSource = imageSource,
+            web = web,
+            phone = phone,
+            fax = fax,
+            mobile = mobile,
+            department = department,
+            street = street,
+            zip = zip,
+            city = city,
+            country = country,
+            address = address,
+            isVip = isVip,
+            isVerified = isVerified,
+            note = note,
+            source = source,
+            lastLogin = lastLogin,
+            loginFailed = loginFailed,
+            outOfOffice = outOfOffice,
+            outOfOfficeStartAt = outOfOfficeStartAt,
+            outOfOfficeEndAt = outOfOfficeEndAt,
+            outOfOfficeReplacementId = outOfOfficeReplacementId,
+            header = authMap
+        )
+
+        val res = req.execute()
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
     fun deleteUser(user: User): Boolean {
 
         return deleteUser(user.id)
@@ -189,6 +290,61 @@ class ZammadClient(
         val req = api.organization(id, expanded, authMap)
         val res = req.execute()
 
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
+    fun updateOrganization(id: Int, organization: Organization): Organization? {
+
+        val authMap = getHeaderMap()
+        val req = api.updateOrganization(id, organization, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
+    fun updateOrganization(
+
+        id: Int,
+
+        name: String? = null,
+        shared: Boolean? = null,
+        domain: Boolean? = null,
+        domainAssignment: Boolean? = null,
+        active: Boolean? = null,
+        note: String? = null
+    ): Organization? {
+
+        val authMap = getHeaderMap()
+        val req = api.updateOrganization(
+            id = id,
+            name = name,
+            shared = shared,
+            domain = domain,
+            domainAssignment = domainAssignment,
+            active = active,
+            note = note,
+            header = authMap
+        )
+
+        val res = req.execute()
         if (!res.isSuccessful) {
 
             if (logging) {
@@ -314,6 +470,65 @@ class ZammadClient(
         return res.body()
     }
 
+    fun updateGroup(id: Int, group: Group): Group? {
+
+        val authMap = getHeaderMap()
+        val req = api.updateGroup(id, group, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
+    fun updateGroup(
+
+        id: Int,
+
+        name: String? = null,
+        signatureId: Int? = null,
+        emailAddressId: Int? = null,
+        assignmentTimeout: Int? = null,
+        followUpPossible: String? = null,
+        followUpAssignment: Boolean? = null,
+        active: Boolean? = null,
+        note: String? = null
+    ): Group? {
+
+        val authMap = getHeaderMap()
+        val req = api.updateGroup(
+            id = id,
+            name = name,
+            signatureId = signatureId,
+            emailAddressId = emailAddressId,
+            assignmentTimeout = assignmentTimeout,
+            followUpPossible = followUpPossible,
+            followUpAssignment = followUpAssignment,
+            active = active,
+            note = note,
+            header = authMap
+        )
+
+        val res = req.execute()
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
     fun deleteGroup(group: Group): Boolean {
 
         return deleteGroup(group.id)
@@ -427,6 +642,57 @@ class ZammadClient(
         return res.body()
     }
 
+    fun updateTicketState(id: Int, ticketState: TicketState): TicketState? {
+
+        val authMap = getHeaderMap()
+        val req = api.updateTicketState(id, ticketState, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
+    fun updateTicketState(
+
+        id: Int,
+
+        name: String? = null,
+        active: Boolean? = null,
+        ignoreEscalation: Boolean? = null,
+        defaultCreate: Boolean? = null,
+        defaultFollowUp: Boolean? = null,
+        note: String? = null
+    ): TicketState? {
+
+        val authMap = getHeaderMap()
+        val req = api.updateTicketState(
+            id = id,
+            name = name,
+            active = active,
+            ignoreEscalation = ignoreEscalation,
+            defaultCreate = defaultCreate,
+            defaultFollowUp = defaultFollowUp,
+            note = note,
+            header = authMap
+        )
+
+        val res = req.execute()
+        if (res.isSuccessful) {
+
+            return null
+        }
+
+        return res.body()
+    }
+
     fun deleteTicketState(ticketState: TicketState): Boolean {
 
         return deleteTicketState(ticketState.id)
@@ -474,6 +740,55 @@ class ZammadClient(
         val req = api.ticketPriority(id, expanded, authMap)
         val res = req.execute()
 
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
+    fun updateTicketPriority(id: Int, ticketPriority: TicketPriority): TicketPriority? {
+
+        val authMap = getHeaderMap()
+        val req = api.updateTicketPriority(id, ticketPriority, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return null
+    }
+
+    fun updateTicketPriority(
+
+        id: Int,
+
+        name: String? = null,
+        active: Boolean? = null,
+        note: String? = null
+    ): TicketPriority? {
+
+        val authMap = getHeaderMap()
+        val req = api.updateTicketPriority(
+            id = id,
+            name = name,
+            active = active,
+            note = note,
+            header = authMap
+        )
+
+        val res = req.execute()
         if (!res.isSuccessful) {
 
             if (logging) {
@@ -605,7 +920,26 @@ class ZammadClient(
         return res.body()
     }
 
+    fun updateTicket(id: Int, ticket: Ticket): Ticket? {
+
+        val authMap = getHeaderMap()
+        val req = api.updateTicket(id, ticket, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
     fun updateTicket(
+
         id: Int,
 
         title: String? = null,

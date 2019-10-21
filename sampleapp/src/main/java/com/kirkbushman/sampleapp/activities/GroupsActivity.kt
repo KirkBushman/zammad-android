@@ -5,8 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.controllers.GroupsController
-import com.kirkbushman.sampleapp.controllers.OnClickCallback
+import com.kirkbushman.sampleapp.controllers.OnGroupCallback
 import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.showToast
 import com.kirkbushman.zammad.models.Group
 import kotlinx.android.synthetic.main.activity_groups.*
 
@@ -16,12 +17,30 @@ class GroupsActivity : AppCompatActivity() {
 
     private val groups = ArrayList<Group>()
     private val controller by lazy {
-        GroupsController(object : OnClickCallback {
+        GroupsController(object : OnGroupCallback {
 
             override fun onClick(position: Int) {
 
                 val group = groups[position]
                 GroupActivity.start(this@GroupsActivity, group)
+            }
+
+            override fun onUpdateClick(position: Int) {
+
+                val group = groups[position]
+                GroupUpdateActivity.start(this@GroupsActivity, group)
+            }
+
+            override fun onDeleteClick(position: Int) {
+
+                doAsync(doWork = {
+
+                    val group = groups[position]
+                    client?.deleteGroup(group)
+                }, onPost = {
+
+                    showToast("Group deleted!")
+                })
             }
         })
     }

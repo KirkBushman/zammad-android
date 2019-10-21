@@ -1,6 +1,7 @@
 package com.kirkbushman.sampleapp.models
 
 import android.view.View
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
@@ -18,6 +19,11 @@ abstract class OrganizationModel : EpoxyModelWithHolder<OrganizationHolder>() {
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var clickListener: View.OnClickListener
 
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    lateinit var updateListener: View.OnClickListener
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    lateinit var deleteListener: View.OnClickListener
+
     override fun bind(holder: OrganizationHolder) {
 
         holder.organizationName.text = organization.name
@@ -25,10 +31,16 @@ abstract class OrganizationModel : EpoxyModelWithHolder<OrganizationHolder>() {
         holder.organizationCreated.text = organization.createdAt
 
         holder.container.setOnClickListener(clickListener)
+
+        holder.organizationUpdate.setOnClickListener(updateListener)
+        holder.organizationDelete.setOnClickListener(deleteListener)
     }
 
     override fun unbind(holder: OrganizationHolder) {
         holder.container.setOnClickListener(null)
+
+        holder.organizationUpdate.setOnClickListener(null)
+        holder.organizationDelete.setOnClickListener(null)
     }
 }
 
@@ -38,4 +50,7 @@ class OrganizationHolder : KotlinHolder() {
     val organizationName by bind<TextView>(R.id.organization_name)
     val organizationActive by bind<TextView>(R.id.organization_active)
     val organizationCreated by bind<TextView>(R.id.organization_created)
+
+    val organizationUpdate by bind<Button>(R.id.organization_update)
+    val organizationDelete by bind<Button>(R.id.organization_delete)
 }

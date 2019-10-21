@@ -21,6 +21,12 @@ data class Organization(
     @Json(name = "shared")
     val shared: Boolean,
 
+    @Json(name = "domain")
+    val domain: String,
+
+    @Json(name = "domain_assignment")
+    val domainAssignment: Boolean,
+
     @Json(name = "active")
     val active: Boolean,
 

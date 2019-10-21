@@ -5,7 +5,7 @@ import com.kirkbushman.sampleapp.models.empty
 import com.kirkbushman.sampleapp.models.group
 import com.kirkbushman.zammad.models.Group
 
-class GroupsController(private val callback: OnClickCallback) : EpoxyController() {
+class GroupsController(private val callback: OnGroupCallback) : EpoxyController() {
 
     private val groups = ArrayList<Group>()
 
@@ -29,6 +29,8 @@ class GroupsController(private val callback: OnClickCallback) : EpoxyController(
                 id(it.id)
                 group(it)
                 clickListener { _, _, _, position -> callback.onClick(position) }
+                updateListener { _, _, _, position -> callback.onUpdateClick(position) }
+                deleteListener { _, _, _, position -> callback.onDeleteClick(position) }
             }
         }
     }

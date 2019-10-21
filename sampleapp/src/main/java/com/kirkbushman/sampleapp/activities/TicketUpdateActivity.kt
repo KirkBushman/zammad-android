@@ -3,11 +3,11 @@ package com.kirkbushman.sampleapp.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.showToast
 import com.kirkbushman.sampleapp.spinners.GroupSpinnerAdapter
 import com.kirkbushman.sampleapp.spinners.UserSpinnerAdapter
 import com.kirkbushman.sampleapp.spinners.PrioritySpinnerAdapter
@@ -84,7 +84,7 @@ class TicketUpdateActivity : AppCompatActivity() {
                 )
             }, onPost = {
 
-                Toast.makeText(this, "Ticket Updated!", Toast.LENGTH_SHORT).show()
+                showToast("Ticket Updated!")
             })
         }
     }

@@ -36,6 +36,7 @@
         <activity android:name=".activities.UserActivity"></activity>
         <activity android:name=".activities.UsersActivity"></activity>
         <activity android:name=".activities.GroupActivity"></activity>
+        <activity android:name=".activities.GroupUpdateActivity"></activity>
         <activity android:name=".activities.GroupsActivity"></activity>
         <activity android:name=".activities.RoleActivity"></activity>
         <activity android:name=".activities.RolesActivity"></activity>
@@ -43,10 +44,13 @@
         <activity android:name=".activities.OverviewActivity"></activity>
         <activity android:name=".activities.OverviewsActivity"></activity>
         <activity android:name=".activities.OrganizationActivity"></activity>
+        <activity android:name=".activities.OrganizationUpdateActivity"></activity>
         <activity android:name=".activities.OrganizationsActivity"></activity>
         <activity android:name=".activities.PriorityActivity"></activity>
+        <activity android:name=".activities.PriorityUpdateActivity"></activity>
         <activity android:name=".activities.PrioritiesActivity"></activity>
         <activity android:name=".activities.StateActivity"></activity>
+        <activity android:name=".activities.StateUpdateActivity"></activity>
         <activity android:name=".activities.StatesActivity"></activity>
         <activity android:name=".activities.NotificationsActivity"></activity>
         <activity android:name=".activities.ArticleActivity"></activity>

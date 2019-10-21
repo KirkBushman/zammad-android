@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <TextView
             android:layout_width="match_parent"
@@ -10,50 +10,38 @@
             android:layout_margin="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="@string/ticket_update" />
+            android:text="@string/organization_update" />
 
     <EditText
-            android:id="@+id/ticket_title"
+            android:id="@+id/organization_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:inputType="text"
-            android:hint="@string/ticket_title" />
+            android:hint="@string/organization_name"
+            />
 
-    <Spinner
-            android:id="@+id/ticket_group"
+    <CheckBox
+            android:id="@+id/organization_active"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:spinnerMode="dialog" />
+            android:text="@string/organization_active" />
 
-    <Spinner
-            android:id="@+id/ticket_state"
+    <CheckBox
+            android:id="@+id/organization_shared"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:spinnerMode="dialog" />
+            android:text="@string/organization_shared" />
 
-    <Spinner
-            android:id="@+id/ticket_priority"
+    <EditText
+            android:id="@+id/organization_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:spinnerMode="dialog" />
-
-    <Spinner
-            android:id="@+id/ticket_owner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:spinnerMode="dialog" />
-
-    <Spinner
-            android:id="@+id/ticket_customer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:spinnerMode="dialog" />
+            android:inputType="text"
+            android:hint="@string/organization_note" />
 
     <Button
             android:id="@+id/bttn_submit"

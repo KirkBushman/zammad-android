@@ -5,7 +5,7 @@ import com.kirkbushman.sampleapp.models.empty
 import com.kirkbushman.sampleapp.models.organization
 import com.kirkbushman.zammad.models.Organization
 
-class OrganizationsController(private val callback: OnClickCallback) : EpoxyController() {
+class OrganizationsController(private val callback: OnOrganizationCallback) : EpoxyController() {
 
     private val organizations = ArrayList<Organization>()
 
@@ -29,6 +29,8 @@ class OrganizationsController(private val callback: OnClickCallback) : EpoxyCont
                 id(it.id)
                 organization(it)
                 clickListener { _, _, _, position -> callback.onClick(position) }
+                updateListener { _, _, _, position -> callback.onUpdateClick(position) }
+                deleteListener { _, _, _, position -> callback.onDeleteClick(position) }
             }
         }
     }

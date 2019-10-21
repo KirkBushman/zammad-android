@@ -5,7 +5,7 @@ import com.kirkbushman.sampleapp.models.empty
 import com.kirkbushman.sampleapp.models.priority
 import com.kirkbushman.zammad.models.TicketPriority
 
-class PrioritiesController(private val callback: OnClickCallback) : EpoxyController() {
+class PrioritiesController(private val callback: OnPriorityCallback) : EpoxyController() {
 
     private val priorities = ArrayList<TicketPriority>()
 
@@ -29,6 +29,8 @@ class PrioritiesController(private val callback: OnClickCallback) : EpoxyControl
                 id(it.id)
                 priority(it)
                 clickListener { _, _, _, position -> callback.onClick(position) }
+                updateListener { _, _, _, position -> callback.onUpdateClick(position) }
+                deleteListener { _, _, _, position -> callback.onDeleteClick(position) }
             }
         }
     }

@@ -97,7 +97,7 @@ data class User(
     val outOfOfficeStartAt: String?,
 
     @Json(name = "out_of_office_end_at")
-    val OutOfOfficeEndAt: String?,
+    val outOfOfficeEndAt: String?,
 
     @Json(name = "out_of_office_replacement_id")
     val outOfOfficeReplacementId: Int?,

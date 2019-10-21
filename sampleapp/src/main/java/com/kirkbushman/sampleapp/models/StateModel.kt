@@ -1,6 +1,7 @@
 package com.kirkbushman.sampleapp.models
 
 import android.view.View
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.airbnb.epoxy.EpoxyAttribute
@@ -18,6 +19,11 @@ abstract class StateModel : EpoxyModelWithHolder<StateHolder>() {
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var clickListener: View.OnClickListener
 
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    lateinit var updateListener: View.OnClickListener
+    @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
+    lateinit var deleteListener: View.OnClickListener
+
     override fun bind(holder: StateHolder) {
 
         holder.stateName.text = state.name
@@ -25,10 +31,16 @@ abstract class StateModel : EpoxyModelWithHolder<StateHolder>() {
         holder.stateCreated.text = state.createdAt
 
         holder.container.setOnClickListener(clickListener)
+
+        holder.stateUpdate.setOnClickListener(updateListener)
+        holder.stateDelete.setOnClickListener(deleteListener)
     }
 
     override fun unbind(holder: StateHolder) {
         holder.container.setOnClickListener(null)
+
+        holder.stateUpdate.setOnClickListener(null)
+        holder.stateDelete.setOnClickListener(null)
     }
 }
 
@@ -38,4 +50,7 @@ class StateHolder : KotlinHolder() {
     val stateName by bind<TextView>(R.id.state_name)
     val stateActive by bind<TextView>(R.id.state_active)
     val stateCreated by bind<TextView>(R.id.state_created)
+
+    val stateUpdate by bind<Button>(R.id.state_update)
+    val stateDelete by bind<Button>(R.id.state_delete)
 }

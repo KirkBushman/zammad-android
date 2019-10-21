@@ -27,6 +27,52 @@ interface ZammadApi {
         @HeaderMap header: HashMap<String, String>
     ): Call<User>
 
+    @FormUrlEncoded
+    @PUT("/api/v1/users/{id}")
+    fun updateUser(
+        @Path("id") id: Int,
+        @Body body: User,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<User>
+
+    @FormUrlEncoded
+    @PUT("/api/v1/users/{id}")
+    fun updateUser(
+        @Path("id") id: Int,
+
+        organizationId: Int? = null,
+        organization: String? = null,
+        active: Boolean? = null,
+        login: String? = null,
+        firstname: String? = null,
+        lastname: String? = null,
+        email: String? = null,
+        image: String? = null,
+        imageSource: String? = null,
+        web: String? = null,
+        phone: String? = null,
+        fax: String? = null,
+        mobile: String? = null,
+        department: String? = null,
+        street: String? = null,
+        zip: String? = null,
+        city: String? = null,
+        country: String? = null,
+        address: String? = null,
+        isVip: Boolean? = null,
+        isVerified: Boolean? = null,
+        note: String? = null,
+        source: String? = null,
+        lastLogin: String? = null,
+        loginFailed: Int? = null,
+        outOfOffice: Boolean? = null,
+        outOfOfficeStartAt: String? = null,
+        outOfOfficeEndAt: String? = null,
+        outOfOfficeReplacementId: Int? = null,
+
+        @HeaderMap header: HashMap<String, String>
+    ): Call<User>
+
     @DELETE("/api/v1/users/{id}")
     fun deleteUser(
         @Path("id") id: Int,
@@ -51,6 +97,29 @@ interface ZammadApi {
     fun organization(
         @Path("id") id: Int,
         @Query("expand") expanded: Boolean,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<Organization>
+
+    @FormUrlEncoded
+    @PUT("/api/v1/organizations/{id}")
+    fun updateOrganization(
+        @Path("id") id: Int,
+        @Body body: Organization,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<Organization>
+
+    @FormUrlEncoded
+    @PUT("/api/v1/organizations/{id}")
+    fun updateOrganization(
+        @Path("id") id: Int,
+
+        @Field("name") name: String? = null,
+        @Field("shared") shared: Boolean? = null,
+        @Field("domain") domain: Boolean? = null,
+        @Field("domain_assignment") domainAssignment: Boolean? = null,
+        @Field("active") active: Boolean? = null,
+        @Field("note") note: String? = null,
+
         @HeaderMap header: HashMap<String, String>
     ): Call<Organization>
 
@@ -94,6 +163,31 @@ interface ZammadApi {
         @HeaderMap header: HashMap<String, String>
     ): Call<Group>
 
+    @FormUrlEncoded
+    @PUT("/api/v1/groups/{id}")
+    fun updateGroup(
+        @Path("id") id: Int,
+        @Body body: Group,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<Group>
+
+    @FormUrlEncoded
+    @PUT("/api/v1/groups/{id}")
+    fun updateGroup(
+        @Path("id") id: Int,
+
+        @Field("name") name: String? = null,
+        @Field("signature_id") signatureId: Int? = null,
+        @Field("email_address_id") emailAddressId: Int? = null,
+        @Field("assignment_timeout") assignmentTimeout: Int? = null,
+        @Field("follow_up_possible") followUpPossible: String? = null,
+        @Field("follow_up_assignment") followUpAssignment: Boolean? = null,
+        @Field("active") active: Boolean? = null,
+        @Field("note") note: String? = null,
+
+        @HeaderMap header: HashMap<String, String>
+    ): Call<Group>
+
     @DELETE("/api/v1/groups/{id}")
     fun deleteGroup(
         @Path("id") id: Int,
@@ -131,6 +225,29 @@ interface ZammadApi {
         @HeaderMap header: HashMap<String, String>
     ): Call<TicketState>
 
+    @FormUrlEncoded
+    @PUT("/api/v1/ticket_states/{id}")
+    fun updateTicketState(
+        @Path("id") id: Int,
+        @Body body: TicketState,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<TicketState>
+
+    @FormUrlEncoded
+    @PUT("/api/v1/ticket_states/{id}")
+    fun updateTicketState(
+        @Path("id") id: Int,
+
+        @Field("name") name: String? = null,
+        @Field("active") active: Boolean? = null,
+        @Field("ignore_escalation") ignoreEscalation: Boolean? = null,
+        @Field("default_create") defaultCreate: Boolean? = null,
+        @Field("default_follow_up") defaultFollowUp: Boolean? = null,
+        @Field("note") note: String? = null,
+
+        @HeaderMap header: HashMap<String, String>
+    ): Call<TicketState>
+
     @DELETE("/api/v1/ticket_states/{id}")
     fun deleteTicketState(
         @Path("id") id: Int,
@@ -147,6 +264,26 @@ interface ZammadApi {
     fun ticketPriority(
         @Path("id") id: Int,
         @Query("expand") expanded: Boolean,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<TicketPriority>
+
+    @FormUrlEncoded
+    @PUT("/api/v1/ticket_priorities/{id}")
+    fun updateTicketPriority(
+        @Path("id") id: Int,
+        @Body body: TicketPriority,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<TicketPriority>
+
+    @FormUrlEncoded
+    @PUT("/api/v1/ticket_priorities/{id}")
+    fun updateTicketPriority(
+        @Path("id") id: Int,
+
+        @Field("name") name: String? = null,
+        @Field("active") active: Boolean? = null,
+        @Field("note") note: String? = null,
+
         @HeaderMap header: HashMap<String, String>
     ): Call<TicketPriority>
 
@@ -172,6 +309,14 @@ interface ZammadApi {
     @POST("/api/v1/tickets")
     fun createTicket(
         @Body body: TicketCompat,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<Ticket>
+
+    @FormUrlEncoded
+    @PUT("/api/v1/tickets/{id}")
+    fun updateTicket(
+        @Path("id") id: Int,
+        @Body body: Ticket,
         @HeaderMap header: HashMap<String, String>
     ): Call<Ticket>
 

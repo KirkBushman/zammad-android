@@ -4,9 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.controllers.OnClickCallback
+import com.kirkbushman.sampleapp.controllers.OnStateCallback
 import com.kirkbushman.sampleapp.controllers.StatesController
 import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.showToast
 import com.kirkbushman.zammad.models.TicketState
 import kotlinx.android.synthetic.main.activity_groups.*
 
@@ -16,12 +17,30 @@ class StatesActivity : AppCompatActivity() {
 
     private val states = ArrayList<TicketState>()
     private val controller by lazy {
-        StatesController(object : OnClickCallback {
+        StatesController(object : OnStateCallback {
 
             override fun onClick(position: Int) {
 
                 val state = states[position]
                 StateActivity.start(this@StatesActivity, state)
+            }
+
+            override fun onUpdateClick(position: Int) {
+
+                val state = states[position]
+                StateUpdateActivity.start(this@StatesActivity, state)
+            }
+
+            override fun onDeleteClick(position: Int) {
+
+                doAsync(doWork = {
+
+                    val state = states[position]
+                    client?.deleteTicketState(state)
+                }, onPost = {
+
+                    showToast("State deleted!")
+                })
             }
         })
     }

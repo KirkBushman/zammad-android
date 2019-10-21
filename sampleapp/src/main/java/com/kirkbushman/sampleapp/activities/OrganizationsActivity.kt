@@ -4,9 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.controllers.OnClickCallback
+import com.kirkbushman.sampleapp.controllers.OnOrganizationCallback
 import com.kirkbushman.sampleapp.controllers.OrganizationsController
 import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.showToast
 import com.kirkbushman.zammad.models.Organization
 import kotlinx.android.synthetic.main.activity_groups.*
 
@@ -16,12 +17,30 @@ class OrganizationsActivity : AppCompatActivity() {
 
     private val organizations = ArrayList<Organization>()
     private val controller by lazy {
-        OrganizationsController(object : OnClickCallback {
+        OrganizationsController(object : OnOrganizationCallback {
 
             override fun onClick(position: Int) {
 
                 val organization = organizations[position]
                 OrganizationActivity.start(this@OrganizationsActivity, organization)
+            }
+
+            override fun onUpdateClick(position: Int) {
+
+                val organization = organizations[position]
+                OrganizationUpdateActivity.start(this@OrganizationsActivity, organization)
+            }
+
+            override fun onDeleteClick(position: Int) {
+
+                doAsync(doWork = {
+
+                    val organization = organizations[position]
+                    client?.deleteOrganization(organization)
+                }, onPost = {
+
+                    showToast("Organization deleted!")
+                })
             }
         })
     }

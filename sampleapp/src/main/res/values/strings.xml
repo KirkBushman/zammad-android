@@ -23,6 +23,7 @@
     <string name="bttn_articles">Articles</string>
 
     <string name="ticket_create">Create new Ticket:</string>
+    <string name="ticket_update">Update Ticket:</string>
     <string name="ticket_title">Ticket Title:</string>
     <string name="ticket_article_subject">Subject:</string>
     <string name="ticket_article_body">Body:</string>
@@ -32,6 +33,27 @@
     <string name="article_cc">CC:</string>
     <string name="article_subject">Subject:</string>
     <string name="article_body">Body:</string>
+
+    <string name="group_update">Update Group:</string>
+    <string name="group_name">Name:</string>
+    <string name="group_active">Active:</string>
+    <string name="group_note">Note:</string>
+
+    <string name="organization_update">Update Organization:</string>
+    <string name="organization_name">Name:</string>
+    <string name="organization_active">Active:</string>
+    <string name="organization_shared">Shared:</string>
+    <string name="organization_note">Note:</string>
+    
+    <string name="state_update">Update Ticket State:</string>
+    <string name="state_name">Name:</string>
+    <string name="state_active">Active:</string>
+    <string name="state_note">Note:</string>
+
+    <string name="priority_update">Update Ticket Priority:</string>
+    <string name="priority_name">Name:</string>
+    <string name="priority_active">Active:</string>
+    <string name="priority_note">Note:</string>
 
     <string name="hint_baseurl">Baseurl:</string>
     <string name="hint_username">Username:</string>

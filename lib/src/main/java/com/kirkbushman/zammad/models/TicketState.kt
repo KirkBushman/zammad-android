@@ -21,6 +21,15 @@ data class TicketState(
     @Json(name = "active")
     val active: Boolean,
 
+    @Json(name = "ignore_escalation")
+    val ignoreEscalation: Boolean,
+
+    @Json(name = "default_create")
+    val defaultCreate: Boolean,
+
+    @Json(name = "default_follow_up")
+    val defaultFollowUp: Boolean,
+
     @Json(name = "note")
     val note: String,
 
