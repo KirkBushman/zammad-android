@@ -19,10 +19,10 @@ data class OnlineNotification(
     val objId: Int,
 
     @Json(name = "object")
-    val objectType: String,
+    val objectType: String?,
 
     @Json(name = "type")
-    val type: NotificationType,
+    val type: NotificationType?,
 
     @Json(name = "seen")
     val seen: Boolean,
