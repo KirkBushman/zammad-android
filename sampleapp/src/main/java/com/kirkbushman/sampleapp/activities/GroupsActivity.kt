@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.controllers.GroupsController
-import com.kirkbushman.sampleapp.controllers.OnGroupCallback
+import com.kirkbushman.sampleapp.controllers.OnUpDelCallback
 import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.sampleapp.showToast
 import com.kirkbushman.zammad.models.Group
@@ -17,7 +17,7 @@ class GroupsActivity : AppCompatActivity() {
 
     private val groups = ArrayList<Group>()
     private val controller by lazy {
-        GroupsController(object : OnGroupCallback {
+        GroupsController(object : OnUpDelCallback {
 
             override fun onClick(position: Int) {
 

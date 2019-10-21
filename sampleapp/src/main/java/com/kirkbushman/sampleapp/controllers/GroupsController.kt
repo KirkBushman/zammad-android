@@ -5,7 +5,7 @@ import com.kirkbushman.sampleapp.models.empty
 import com.kirkbushman.sampleapp.models.group
 import com.kirkbushman.zammad.models.Group
 
-class GroupsController(private val callback: OnGroupCallback) : EpoxyController() {
+class GroupsController(private val callback: OnUpDelCallback) : EpoxyController() {
 
     private val groups = ArrayList<Group>()
 

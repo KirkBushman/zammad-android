@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.controllers.OnStateCallback
+import com.kirkbushman.sampleapp.controllers.OnUpDelCallback
 import com.kirkbushman.sampleapp.controllers.StatesController
 import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.sampleapp.showToast
@@ -17,7 +17,7 @@ class StatesActivity : AppCompatActivity() {
 
     private val states = ArrayList<TicketState>()
     private val controller by lazy {
-        StatesController(object : OnStateCallback {
+        StatesController(object : OnUpDelCallback {
 
             override fun onClick(position: Int) {
 

@@ -5,7 +5,7 @@ import com.kirkbushman.sampleapp.models.empty
 import com.kirkbushman.sampleapp.models.organization
 import com.kirkbushman.zammad.models.Organization
 
-class OrganizationsController(private val callback: OnOrganizationCallback) : EpoxyController() {
+class OrganizationsController(private val callback: OnUpDelCallback) : EpoxyController() {
 
     private val organizations = ArrayList<Organization>()
 

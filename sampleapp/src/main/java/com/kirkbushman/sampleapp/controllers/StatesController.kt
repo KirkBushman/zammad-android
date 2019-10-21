@@ -5,7 +5,7 @@ import com.kirkbushman.sampleapp.models.empty
 import com.kirkbushman.sampleapp.models.state
 import com.kirkbushman.zammad.models.TicketState
 
-class StatesController(private val callback: OnStateCallback) : EpoxyController() {
+class StatesController(private val callback: OnUpDelCallback) : EpoxyController() {
 
     private val states = ArrayList<TicketState>()
 

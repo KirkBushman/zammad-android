@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
     <TextView
             android:layout_width="match_parent"
@@ -10,33 +10,62 @@
             android:layout_margin="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="@string/organization_update" />
+            android:text="@string/state_update" />
 
     <EditText
-            android:id="@+id/organization_name"
+            android:id="@+id/user_firstname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:inputType="text"
-            android:hint="@string/hint_name"
+            android:hint="@string/hint_firstname"
+            android:importantForAutofill="no" />
+
+    <EditText
+            android:id="@+id/user_lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:inputType="text"
+            android:hint="@string/hint_lastname"
             android:importantForAutofill="no" />
 
     <CheckBox
-            android:id="@+id/organization_active"
+            android:id="@+id/user_active"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="@string/hint_active" />
 
-    <CheckBox
-            android:id="@+id/organization_shared"
+    <EditText
+            android:id="@+id/user_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/hint_shared" />
+            android:inputType="textEmailAddress"
+            android:hint="@string/hint_email"
+            android:importantForAutofill="no" />
 
     <EditText
-            android:id="@+id/organization_note"
+            android:id="@+id/user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:inputType="phone"
+            android:hint="@string/hint_phone"
+            android:importantForAutofill="no" />
+
+    <EditText
+            android:id="@+id/user_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:inputType="phone"
+            android:hint="@string/hint_mobile"
+            android:importantForAutofill="no" />
+
+    <EditText
+            android:id="@+id/user_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"

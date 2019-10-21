@@ -5,7 +5,7 @@ import com.kirkbushman.sampleapp.models.empty
 import com.kirkbushman.sampleapp.models.user
 import com.kirkbushman.zammad.models.User
 
-class UsersController(private val callback: OnClickCallback) : EpoxyController() {
+class UsersController(private val callback: OnUpDelCallback) : EpoxyController() {
 
     private val users = ArrayList<User>()
 
@@ -29,6 +29,8 @@ class UsersController(private val callback: OnClickCallback) : EpoxyController()
                 id(it.id)
                 user(it)
                 clickListener { _, _, _, position -> callback.onClick(position) }
+                updateListener { _, _, _, position -> callback.onUpdateClick(position) }
+                deleteListener { _, _, _, position -> callback.onDeleteClick(position) }
             }
         }
     }

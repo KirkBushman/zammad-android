@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.controllers.OnOrganizationCallback
+import com.kirkbushman.sampleapp.controllers.OnUpDelCallback
 import com.kirkbushman.sampleapp.controllers.OrganizationsController
 import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.sampleapp.showToast
@@ -17,7 +17,7 @@ class OrganizationsActivity : AppCompatActivity() {
 
     private val organizations = ArrayList<Organization>()
     private val controller by lazy {
-        OrganizationsController(object : OnOrganizationCallback {
+        OrganizationsController(object : OnUpDelCallback {
 
             override fun onClick(position: Int) {
 

@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.controllers.OnPriorityCallback
+import com.kirkbushman.sampleapp.controllers.OnUpDelCallback
 import com.kirkbushman.sampleapp.controllers.PrioritiesController
 import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.sampleapp.showToast
@@ -17,7 +17,7 @@ class PrioritiesActivity : AppCompatActivity() {
 
     private val priorities = ArrayList<TicketPriority>()
     private val controller by lazy {
-        PrioritiesController(object : OnPriorityCallback {
+        PrioritiesController(object : OnUpDelCallback {
 
             override fun onClick(position: Int) {
 

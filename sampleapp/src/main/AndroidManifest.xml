@@ -38,6 +38,7 @@
         <activity android:name=".activities.AttachmentActivity" />
         <activity android:name=".activities.AttachmentsActivity" />
         <activity android:name=".activities.UserActivity" />
+        <activity android:name=".activities.UserUpdateActivity" />
         <activity android:name=".activities.UsersActivity" />
         <activity android:name=".activities.GroupActivity" />
         <activity android:name=".activities.GroupUpdateActivity" />
