@@ -394,6 +394,17 @@ interface ZammadApi {
         @HeaderMap header: HashMap<String, String>
     ): Call<ResponseBody>
 
+    @GET("/api/v1/object_manager_attributes")
+    fun objects(
+        @HeaderMap header: HashMap<String, String>
+    ): Call<List<Object>>
+
+    @GET("/api/v1/object_manager_attributes/{id}")
+    fun `object`(
+        @Path("id") id: Int,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<Object>
+
     @GET("/api/v1/online_notifications")
     fun onlineNotifications(
         @HeaderMap header: HashMap<String, String>

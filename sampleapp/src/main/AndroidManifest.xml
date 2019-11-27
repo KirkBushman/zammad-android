@@ -57,6 +57,8 @@
         <activity android:name=".activities.StateActivity" />
         <activity android:name=".activities.StateUpdateActivity" />
         <activity android:name=".activities.StatesActivity" />
+        <activity android:name=".activities.ObjectActivity" />
+        <activity android:name=".activities.ObjectsActivity" />
         <activity android:name=".activities.NotificationsActivity" />
         <activity android:name=".activities.ArticleActivity" />
         <activity android:name=".activities.ArticlesActivity" />

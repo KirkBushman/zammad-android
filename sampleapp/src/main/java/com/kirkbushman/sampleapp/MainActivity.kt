@@ -78,6 +78,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        bttn_objects.setOnClickListener {
+
+            val intent = Intent(this, ObjectsActivity::class.java)
+            startActivity(intent)
+        }
+
         bttn_notifications.setOnClickListener {
 
             val intent = Intent(this, NotificationsActivity::class.java)

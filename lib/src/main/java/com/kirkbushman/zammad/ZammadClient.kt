@@ -1137,6 +1137,42 @@ class ZammadClient(
         return res.body()?.string()
     }
 
+    fun objects(): List<Object>? {
+
+        val authMap = getHeaderMap()
+        val req = api.objects(authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
+    fun `object`(id: Int): Object? {
+
+        val authMap = getHeaderMap()
+        val req = api.`object`(id, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
     fun onlineNotifications(): List<OnlineNotification>? {
 
         val authMap = getHeaderMap()
