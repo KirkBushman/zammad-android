@@ -86,18 +86,6 @@ data class TicketArticle(
 
 ) : Parcelable, Identifiable, Creatable, Updatable {
 
-    override fun hashCode(): Int = id
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as TicketArticle
-
-        if (id != other.id) return false
-
-        return true
-    }
-
     fun hasAttachments(): Boolean {
         return attachments.isNotEmpty()
     }

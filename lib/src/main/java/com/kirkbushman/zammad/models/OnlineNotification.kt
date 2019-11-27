@@ -45,20 +45,7 @@ data class OnlineNotification(
     @Json(name = "created_by_id")
     override val createdById: Int
 
-) : Parcelable, Identifiable, Creatable, Updatable {
-
-    override fun hashCode(): Int = id
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as OnlineNotification
-
-        if (id != other.id) return false
-
-        return true
-    }
-}
+) : Parcelable, Identifiable, Creatable, Updatable
 
 enum class NotificationType(val typeStr: String) {
 

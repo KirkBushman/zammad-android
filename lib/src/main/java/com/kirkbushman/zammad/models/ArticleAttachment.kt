@@ -47,16 +47,4 @@ data class ArticleAttachment(
     fun getCharset(): String? {
         return preferences["Charset"] as String?
     }
-
-    override fun hashCode(): Int = id
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as ArticleAttachment
-
-        if (id != other.id) return false
-
-        return true
-    }
 }

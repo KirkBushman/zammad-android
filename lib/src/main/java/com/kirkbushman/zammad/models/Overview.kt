@@ -63,20 +63,7 @@ data class Overview(
     @Json(name = "users")
     val users: List<String>?
 
-) : Parcelable, Identifiable, Creatable, Updatable {
-
-    override fun hashCode(): Int = id
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Overview
-
-        if (id != other.id) return false
-
-        return true
-    }
-}
+) : Parcelable, Identifiable, Creatable, Updatable
 
 @JsonClass(generateAdapter = true)
 @Parcelize

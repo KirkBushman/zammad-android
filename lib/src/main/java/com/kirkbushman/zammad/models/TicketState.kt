@@ -51,17 +51,4 @@ data class TicketState(
     @Json(name = "updated_by")
     override val updatedBy: String?
 
-) : Parcelable, Identifiable, Creatable, Updatable {
-
-    override fun hashCode() = id.hashCode()
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as TicketState
-
-        if (id != other.id) return false
-
-        return true
-    }
-}
+) : Parcelable, Identifiable, Creatable, Updatable
