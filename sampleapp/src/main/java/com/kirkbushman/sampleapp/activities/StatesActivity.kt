@@ -63,7 +63,7 @@ class StatesActivity : AppCompatActivity() {
             states.addAll(client?.ticketStates() ?: listOf())
         }, onPost = {
 
-            controller.setStates(states)
+            controller.setItems(states)
         })
     }
 }

@@ -1,34 +1,15 @@
 package com.kirkbushman.sampleapp.controllers
 
-import com.airbnb.epoxy.EpoxyController
-import com.kirkbushman.sampleapp.models.empty
 import com.kirkbushman.sampleapp.models.notification
 import com.kirkbushman.zammad.models.OnlineNotification
 
-class NotificationsController : EpoxyController() {
+class NotificationsController(callback: OnClickCallback) : BaseController<OnlineNotification>(callback) {
 
-    private val notifications = ArrayList<OnlineNotification>()
+    override fun onItem(item: OnlineNotification) {
 
-    fun setNotifications(notifications: Collection<OnlineNotification>) {
-        this.notifications.clear()
-        this.notifications.addAll(notifications)
-        requestModelBuild()
-    }
-
-    override fun buildModels() {
-
-        if (notifications.isEmpty()) {
-            empty {
-                id("empty_items")
-            }
-        }
-
-        notifications.forEach {
-
-            notification {
-                id(it.id)
-                notification(it)
-            }
+        notification {
+            id(item.id)
+            notification(item)
         }
     }
 }

@@ -1,37 +1,18 @@
 package com.kirkbushman.sampleapp.controllers
 
-import com.airbnb.epoxy.EpoxyController
-import com.kirkbushman.sampleapp.models.empty
 import com.kirkbushman.sampleapp.models.priority
 import com.kirkbushman.zammad.models.TicketPriority
 
-class PrioritiesController(private val callback: OnUpDelCallback) : EpoxyController() {
+class PrioritiesController(callback: OnUpDelCallback) : BaseController<TicketPriority>(callback) {
 
-    private val priorities = ArrayList<TicketPriority>()
+    override fun onItem(item: TicketPriority) {
 
-    fun setPriorities(priorities: Collection<TicketPriority>) {
-        this.priorities.clear()
-        this.priorities.addAll(priorities)
-        requestModelBuild()
-    }
-
-    override fun buildModels() {
-
-        if (priorities.isEmpty()) {
-            empty {
-                id("empty_items")
-            }
-        }
-
-        priorities.forEach {
-
-            priority {
-                id(it.id)
-                priority(it)
-                clickListener { _, _, _, position -> callback.onClick(position) }
-                updateListener { _, _, _, position -> callback.onUpdateClick(position) }
-                deleteListener { _, _, _, position -> callback.onDeleteClick(position) }
-            }
+        priority {
+            id(item.id)
+            priority(item)
+            clickListener { _, _, _, position -> callback.onClick(position) }
+            updateListener { _, _, _, position -> (callback as OnUpDelCallback).onUpdateClick(position) }
+            deleteListener { _, _, _, position -> (callback as OnUpDelCallback).onDeleteClick(position) }
         }
     }
 }

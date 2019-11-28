@@ -59,6 +59,6 @@ class AttachmentsActivity : AppCompatActivity() {
         list.setController(controller)
 
         attachments.addAll(article.attachments)
-        controller.setAttachments(attachments)
+        controller.setItems(attachments)
     }
 }

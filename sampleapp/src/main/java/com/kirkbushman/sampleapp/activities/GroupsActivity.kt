@@ -63,7 +63,7 @@ class GroupsActivity : AppCompatActivity() {
             groups.addAll(client?.groups() ?: listOf())
         }, onPost = {
 
-            controller.setGroups(groups)
+            controller.setItems(groups)
         })
     }
 }

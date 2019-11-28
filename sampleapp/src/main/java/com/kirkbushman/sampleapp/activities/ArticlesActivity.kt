@@ -72,7 +72,7 @@ class ArticlesActivity : AppCompatActivity() {
             articles.addAll(client?.ticketArticles(ticket) ?: listOf())
         }, onPost = {
 
-            controller.setArticles(articles)
+            controller.setItems(articles)
         })
     }
 }

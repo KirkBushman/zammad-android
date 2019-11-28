@@ -44,7 +44,7 @@ class RolesActivity : AppCompatActivity() {
             roles.addAll(client?.roles() ?: listOf())
         }, onPost = {
 
-            controller.setRoles(roles)
+            controller.setItems(roles)
         })
     }
 }

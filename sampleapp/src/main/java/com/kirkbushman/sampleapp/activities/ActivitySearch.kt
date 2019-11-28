@@ -79,7 +79,7 @@ class ActivitySearch : AppCompatActivity() {
                     tickets.addAll(searchResult?.assets?.tickets?.values ?: listOf())
                 }, onPost = {
 
-                    controller.setTickets(tickets)
+                    controller.setItems(tickets)
                 })
             }
         }

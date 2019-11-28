@@ -63,7 +63,7 @@ class UsersActivity : AppCompatActivity() {
             users.addAll(client?.users() ?: listOf())
         }, onPost = {
 
-            controller.setUsers(users)
+            controller.setItems(users)
         })
     }
 }

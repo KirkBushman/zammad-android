@@ -74,7 +74,7 @@ class TicketsActivity : AppCompatActivity() {
             tickets.addAll(client?.tickets() ?: listOf())
         }, onPost = {
 
-            controller.setTickets(tickets)
+            controller.setItems(tickets)
         })
     }
 }

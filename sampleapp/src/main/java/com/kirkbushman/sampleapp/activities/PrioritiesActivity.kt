@@ -63,7 +63,7 @@ class PrioritiesActivity : AppCompatActivity() {
             priorities.addAll(client?.ticketPrioritites() ?: listOf())
         }, onPost = {
 
-            controller.setPriorities(priorities)
+            controller.setItems(priorities)
         })
     }
 }

@@ -1,35 +1,16 @@
 package com.kirkbushman.sampleapp.controllers
 
-import com.airbnb.epoxy.EpoxyController
-import com.kirkbushman.sampleapp.models.empty
 import com.kirkbushman.sampleapp.models.role
 import com.kirkbushman.zammad.models.Role
 
-class RolesController(private val callback: OnClickCallback) : EpoxyController() {
+class RolesController(callback: OnClickCallback) : BaseController<Role>(callback) {
 
-    private val roles = ArrayList<Role>()
+    override fun onItem(item: Role) {
 
-    fun setRoles(roles: Collection<Role>) {
-        this.roles.clear()
-        this.roles.addAll(roles)
-        requestModelBuild()
-    }
-
-    override fun buildModels() {
-
-        if (roles.isEmpty()) {
-            empty {
-                id("empty_items")
-            }
-        }
-
-        roles.forEach {
-
-            role {
-                id(it.id)
-                role(it)
-                clickListener { _, _, _, position -> callback.onClick(position) }
-            }
+        role {
+            id(item.id)
+            role(item)
+            clickListener { _, _, _, position -> callback.onClick(position) }
         }
     }
 }

@@ -44,7 +44,7 @@ class ObjectsActivity : AppCompatActivity() {
             objects.addAll(client?.objects() ?: emptyList())
         }, onPost = {
 
-            controller.setObjects(objects)
+            controller.setItems(objects)
         })
     }
 }

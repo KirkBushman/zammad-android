@@ -63,7 +63,7 @@ class OrganizationsActivity : AppCompatActivity() {
             organizations.addAll(client?.organizations() ?: listOf())
         }, onPost = {
 
-            controller.setOrganizations(organizations)
+            controller.setItems(organizations)
         })
     }
 }

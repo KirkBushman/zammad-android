@@ -44,7 +44,7 @@ class OverviewsActivity : AppCompatActivity() {
             overviews.addAll(client?.overviews() ?: listOf())
         }, onPost = {
 
-            controller.setOverviews(overviews)
+            controller.setItems(overviews)
         })
     }
 }

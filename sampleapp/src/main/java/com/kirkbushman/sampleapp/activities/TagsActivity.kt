@@ -40,7 +40,7 @@ class TagsActivity : AppCompatActivity() {
             tags.addAll(client?.tags() ?: listOf())
         }, onPost = {
 
-            controller.setTags(tags)
+            controller.setItems(tags)
         })
     }
 }
