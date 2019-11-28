@@ -407,12 +407,14 @@ interface ZammadApi {
 
     @GET("/api/v1/online_notifications")
     fun onlineNotifications(
+        @Query("expand") expanded: Boolean,
         @HeaderMap header: HashMap<String, String>
     ): Call<List<OnlineNotification>>
 
     @GET("/api/v1/online_notifications/{id}")
     fun onlineNotification(
         @Path("id") id: Int,
+        @Query("expand") expanded: Boolean,
         @HeaderMap header: HashMap<String, String>
     ): Call<OnlineNotification>
 

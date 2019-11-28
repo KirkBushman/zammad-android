@@ -18,11 +18,23 @@ data class OnlineNotification(
     @Json(name = "o_id")
     val objId: Int,
 
+    @Json(name = "object_lookup_id")
+    val objLookupId: Int,
+
     @Json(name = "object")
-    val objectType: String?,
+    val obj: String?,
+
+    @Json(name = "type_lookup_id")
+    val typeLookupId: Int,
 
     @Json(name = "type")
     val type: NotificationType?,
+
+    @Json(name = "user_id")
+    val userId: Int,
+
+    @Json(name = "user")
+    val user: String?,
 
     @Json(name = "seen")
     val seen: Boolean,
@@ -49,7 +61,7 @@ data class OnlineNotification(
 
 enum class NotificationType(val typeStr: String) {
 
-    CREATE("create"),
-    UPDATE("update"),
-    ESCALATION("escalation")
+    @Json(name = "create") CREATE("create"),
+    @Json(name = "update") UPDATE("update"),
+    @Json(name = "escalation") ESCALATION("escalation")
 }

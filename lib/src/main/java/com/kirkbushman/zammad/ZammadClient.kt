@@ -1173,10 +1173,10 @@ class ZammadClient(
         return res.body()
     }
 
-    fun onlineNotifications(): List<OnlineNotification>? {
+    fun onlineNotifications(expanded: Boolean = false): List<OnlineNotification>? {
 
         val authMap = getHeaderMap()
-        val req = api.onlineNotifications(authMap)
+        val req = api.onlineNotifications(expanded, authMap)
         val res = req.execute()
 
         if (!res.isSuccessful) {
@@ -1191,10 +1191,10 @@ class ZammadClient(
         return res.body()
     }
 
-    fun onlineNotification(id: Int): OnlineNotification? {
+    fun onlineNotification(id: Int, expanded: Boolean = false): OnlineNotification? {
 
         val authMap = getHeaderMap()
-        val req = api.onlineNotification(id, authMap)
+        val req = api.onlineNotification(id, expanded, authMap)
         val res = req.execute()
 
         if (!res.isSuccessful) {

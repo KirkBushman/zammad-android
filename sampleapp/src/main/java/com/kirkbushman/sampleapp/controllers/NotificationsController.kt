@@ -10,6 +10,7 @@ class NotificationsController(callback: OnClickCallback) : BaseController<Online
         notification {
             id(item.id)
             notification(item)
+            clickListener { _, _, _, position -> callback.onClick(position) }
         }
     }
 }

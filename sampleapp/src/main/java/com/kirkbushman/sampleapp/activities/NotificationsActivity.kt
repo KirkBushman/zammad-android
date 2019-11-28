@@ -18,7 +18,11 @@ class NotificationsActivity : AppCompatActivity() {
     private val controller by lazy {
         NotificationsController(object : OnClickCallback {
 
-            override fun onClick(position: Int) {}
+            override fun onClick(position: Int) {
+
+                val notification = notifications[position]
+                NotificationActivity.start(this@NotificationsActivity, notification)
+            }
         })
     }
 
@@ -37,7 +41,7 @@ class NotificationsActivity : AppCompatActivity() {
 
         doAsync(doWork = {
 
-            notifications.addAll(client?.onlineNotifications() ?: listOf())
+            notifications.addAll(client?.onlineNotifications(true) ?: listOf())
         }, onPost = {
 
             controller.setItems(notifications)
