@@ -8,7 +8,7 @@ import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.Group
-import kotlinx.android.synthetic.main.activity_group.*
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class GroupActivity : AppCompatActivity() {
 
@@ -30,7 +30,7 @@ class GroupActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_group)
+        setContentView(R.layout.activity_detail)
 
         var newGroup: Group? = null
         doAsync(doWork = {
@@ -38,7 +38,7 @@ class GroupActivity : AppCompatActivity() {
             newGroup = client?.group(group.id, true)
         }, onPost = {
 
-            group_text.text = newGroup.toString()
+            model_text.text = newGroup.toString()
         })
     }
 }

@@ -10,7 +10,7 @@ import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.ArticleAttachment
 import com.kirkbushman.zammad.models.Ticket
 import com.kirkbushman.zammad.models.TicketArticle
-import kotlinx.android.synthetic.main.activity_attachment.*
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class AttachmentActivity : AppCompatActivity() {
 
@@ -39,7 +39,7 @@ class AttachmentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_attachment)
+        setContentView(R.layout.activity_detail)
 
         var fileContent = ""
         doAsync(doWork = {
@@ -47,7 +47,7 @@ class AttachmentActivity : AppCompatActivity() {
             fileContent = client?.ticketArticleAttachment(ticket, article, attachment) ?: ""
         }, onPost = {
 
-            attachment_text.text = fileContent
+            model_text.text = fileContent
         })
     }
 }

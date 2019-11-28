@@ -8,7 +8,7 @@ import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.OnlineNotification
-import kotlinx.android.synthetic.main.activity_notification.*
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class NotificationActivity : AppCompatActivity() {
 
@@ -30,7 +30,7 @@ class NotificationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notification)
+        setContentView(R.layout.activity_detail)
 
         var newNotification: OnlineNotification? = null
         doAsync(doWork = {
@@ -38,7 +38,7 @@ class NotificationActivity : AppCompatActivity() {
             newNotification = client?.onlineNotification(notification.id, true)
         }, onPost = {
 
-            notification_text.text = newNotification.toString()
+            model_text.text = newNotification.toString()
         })
     }
 }

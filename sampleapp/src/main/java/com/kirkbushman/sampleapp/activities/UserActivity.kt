@@ -8,7 +8,7 @@ import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.User
-import kotlinx.android.synthetic.main.activity_user.*
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class UserActivity : AppCompatActivity() {
 
@@ -30,7 +30,7 @@ class UserActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user)
+        setContentView(R.layout.activity_detail)
 
         var newUser: User? = null
         doAsync(doWork = {
@@ -38,7 +38,7 @@ class UserActivity : AppCompatActivity() {
             newUser = client?.user(user.id, true)
         }, onPost = {
 
-            user_text.text = newUser.toString()
+            model_text.text = newUser.toString()
         })
     }
 }

@@ -8,7 +8,7 @@ import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.Overview
-import kotlinx.android.synthetic.main.activity_overview.*
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class OverviewActivity : AppCompatActivity() {
 
@@ -30,7 +30,7 @@ class OverviewActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_overview)
+        setContentView(R.layout.activity_detail)
 
         var newOverview: Overview? = null
         doAsync(doWork = {
@@ -38,7 +38,7 @@ class OverviewActivity : AppCompatActivity() {
             newOverview = client?.overview(overview.id, true)
         }, onPost = {
 
-            overview_text.text = newOverview.toString()
+            model_text.text = newOverview.toString()
         })
     }
 }

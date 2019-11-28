@@ -8,7 +8,7 @@ import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.TicketPriority
-import kotlinx.android.synthetic.main.activity_priority.*
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class PriorityActivity : AppCompatActivity() {
 
@@ -30,7 +30,7 @@ class PriorityActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_priority)
+        setContentView(R.layout.activity_detail)
 
         var newPriority: TicketPriority? = null
         doAsync(doWork = {
@@ -38,7 +38,7 @@ class PriorityActivity : AppCompatActivity() {
             newPriority = client?.ticketPriority(priority.id, true)
         }, onPost = {
 
-            priority_text.text = newPriority.toString()
+            model_text.text = newPriority.toString()
         })
     }
 }

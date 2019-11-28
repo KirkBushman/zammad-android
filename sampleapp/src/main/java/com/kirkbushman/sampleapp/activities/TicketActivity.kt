@@ -8,7 +8,7 @@ import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.Ticket
-import kotlinx.android.synthetic.main.activity_ticket.*
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class TicketActivity : AppCompatActivity() {
 
@@ -30,7 +30,7 @@ class TicketActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ticket)
+        setContentView(R.layout.activity_detail)
 
         var newTicket: Ticket? = null
         doAsync(doWork = {
@@ -38,7 +38,7 @@ class TicketActivity : AppCompatActivity() {
             newTicket = client?.ticket(ticket.id, true)
         }, onPost = {
 
-            ticket_text.text = newTicket.toString()
+            model_text.text = newTicket.toString()
         })
     }
 }

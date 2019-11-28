@@ -8,7 +8,7 @@ import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.Organization
-import kotlinx.android.synthetic.main.activity_organization.*
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class OrganizationActivity : AppCompatActivity() {
 
@@ -30,7 +30,7 @@ class OrganizationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_organization)
+        setContentView(R.layout.activity_detail)
 
         var newOrganization: Organization? = null
         doAsync(doWork = {
@@ -38,7 +38,7 @@ class OrganizationActivity : AppCompatActivity() {
             newOrganization = client?.organization(organization.id, true)
         }, onPost = {
 
-            organization_text.text = newOrganization.toString()
+            model_text.text = newOrganization.toString()
         })
     }
 }

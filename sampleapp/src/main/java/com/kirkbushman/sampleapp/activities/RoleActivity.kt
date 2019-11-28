@@ -8,7 +8,7 @@ import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.Role
-import kotlinx.android.synthetic.main.activity_role.*
+import kotlinx.android.synthetic.main.activity_detail.*
 
 class RoleActivity : AppCompatActivity() {
 
@@ -30,7 +30,7 @@ class RoleActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_role)
+        setContentView(R.layout.activity_detail)
 
         var newRole: Role? = null
         doAsync(doWork = {
@@ -38,7 +38,7 @@ class RoleActivity : AppCompatActivity() {
             newRole = client?.role(role.id, true)
         }, onPost = {
 
-            role_text.text = newRole.toString()
+            model_text.text = newRole.toString()
         })
     }
 }
