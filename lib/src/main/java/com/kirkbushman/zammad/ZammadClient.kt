@@ -5,11 +5,8 @@ import android.util.Log
 import com.kirkbushman.zammad.models.*
 import com.kirkbushman.zammad.models.compat.TicketArticleCompat
 import com.kirkbushman.zammad.models.compat.TicketCompat
-import com.squareup.moshi.Moshi
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
+import com.kirkbushman.zammad.utils.Utils.buildRetrofit
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 
 class ZammadClient(
 
@@ -24,12 +21,69 @@ class ZammadClient(
 
     companion object {
 
+        @Volatile
+        private var retrofit: Retrofit? = null
+        @Volatile
+        private var api: ZammadApi? = null
+
+        @Synchronized
+        fun getRetrofit(baseUrl: String, logging: Boolean): Retrofit {
+            synchronized(this) {
+
+                if (retrofit == null) {
+                    retrofit = buildRetrofit(baseUrl, logging)
+                }
+
+                return retrofit!!
+            }
+        }
+
+        @Synchronized
+        fun getRetrofit(): Retrofit {
+            synchronized(this) {
+
+                if (retrofit == null) {
+                    throw IllegalStateException("Retrofit instance is null, have you called `getRetrofit(baseUrl, logging)`?")
+                }
+
+                return retrofit!!
+            }
+        }
+
+        @Synchronized
+        fun getApi(baseUrl: String, logging: Boolean): ZammadApi {
+            synchronized(this) {
+
+                if (api == null) {
+                    api = getRetrofit(baseUrl, logging).create(ZammadApi::class.java)
+                }
+
+                return api!!
+            }
+        }
+
+        @Synchronized
+        fun getApi(): ZammadApi {
+            synchronized(this) {
+
+                if (api == null) {
+
+                    if (retrofit == null) {
+                        throw IllegalStateException("Retrofit instance is null, have you called `getRetrofit(baseUrl, logging)`?")
+                    }
+
+                    api = getRetrofit().create(ZammadApi::class.java)
+                }
+
+                return api!!
+            }
+        }
+
         fun me(baseUrl: String, username: String, password: String, logging: Boolean): User? {
 
             val auth = "$username:$password"
             val authMap = hashMapOf("Authorization" to "Basic ".plus(String(Base64.encode(auth.toByteArray(), Base64.NO_WRAP))))
-            val retrofit = getRetrofit(baseUrl, logging)
-            val api = retrofit.create(ZammadApi::class.java)
+            val api = getApi(baseUrl, logging)
             val req = api.me(authMap)
             val res = req.execute()
 
@@ -39,36 +93,9 @@ class ZammadClient(
 
             return res.body()
         }
-
-        private fun getRetrofit(baseUrl: String, logging: Boolean): Retrofit {
-
-            val moshi = Moshi.Builder().build()
-            val moshiFactory = MoshiConverterFactory.create(moshi)
-
-            val httpClient = if (logging) {
-
-                val logger = HttpLoggingInterceptor()
-                logger.level = HttpLoggingInterceptor.Level.BODY
-
-                OkHttpClient.Builder()
-                    .addInterceptor(logger)
-                    .build()
-            } else {
-
-                OkHttpClient.Builder()
-                    .build()
-            }
-
-            return Retrofit.Builder()
-                .baseUrl(baseUrl)
-                .addConverterFactory(moshiFactory)
-                .client(httpClient)
-                .build()
-        }
     }
 
-    private val retrofit = getRetrofit(baseUrl, logging)
-    private val api = retrofit.create(ZammadApi::class.java)
+    private val api = getApi(baseUrl, logging)
 
     fun me(): User? {
 

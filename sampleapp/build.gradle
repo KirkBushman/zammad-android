@@ -43,7 +43,7 @@ dependencies {
 
     implementation project(":lib")
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:$junit_ver"
     androidTestImplementation 'androidx.test:runner:1.2.0'
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leak_ver"
