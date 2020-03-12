@@ -139,9 +139,9 @@ data class User(
     val authorizations: List<String>?,
     
     @Json(name = "group_ids")
-    val groupIds: List<Int>,
+    val groupIds: @RawValue Map<Int, List<String>>,
 
     @Json(name = "groups")
-    val groups: List<String>?
+    val groups: @RawValue Map<String, List<String>>?
 
 ) : Parcelable, Identifiable, Creatable, Updatable
