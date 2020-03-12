@@ -11,6 +11,7 @@ interface ZammadApi {
 
     @GET("/api/v1/users/me")
     fun me(
+        @Query("expand") expanded: Boolean,
         @HeaderMap header: HashMap<String, String>
     ): Call<User>
 
