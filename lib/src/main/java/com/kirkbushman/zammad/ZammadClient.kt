@@ -97,10 +97,10 @@ class ZammadClient(
 
     private val api = getApi(baseUrl, logging)
 
-    fun me(): User? {
+    fun me(expanded: Boolean = false): User? {
 
         val authMap = getHeaderMap()
-        val req = api.me(authMap)
+        val req = api.me(expanded, authMap)
         val res = req.execute()
 
         if (!res.isSuccessful) {
