@@ -136,6 +136,12 @@ data class User(
     val authorizationIds: List<Int>,
 
     @Json(name = "authorizations")
-    val authorizations: List<String>?
+    val authorizations: List<String>?,
+    
+    @Json(name = "group_ids")
+    val groupIds: List<Int>,
+
+    @Json(name = "groups")
+    val groups: List<String>?
 
 ) : Parcelable, Identifiable, Creatable, Updatable
