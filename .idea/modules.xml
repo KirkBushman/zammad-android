@@ -5,6 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/ZammadAndroid.iml" filepath="$PROJECT_DIR$/ZammadAndroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/sampleapp/sampleapp.iml" filepath="$PROJECT_DIR$/sampleapp/sampleapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zammad-android.iml" filepath="$PROJECT_DIR$/zammad-android.iml" group="zammad-android" />
+      <module fileurl="file://$PROJECT_DIR$/lib/zammad-android-lib.iml" filepath="$PROJECT_DIR$/lib/zammad-android-lib.iml" group="zammad-android/lib" />
+      <module fileurl="file://$PROJECT_DIR$/sampleapp/zammad-android-sampleapp.iml" filepath="$PROJECT_DIR$/sampleapp/zammad-android-sampleapp.iml" group="zammad-android/sampleapp" />
     </modules>
   </component>
 </project>
