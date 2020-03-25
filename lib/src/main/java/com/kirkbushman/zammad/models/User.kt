@@ -7,6 +7,7 @@ import com.kirkbushman.zammad.models.base.Updatable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
 @JsonClass(generateAdapter = true)
 @Parcelize
@@ -136,6 +137,12 @@ data class User(
     val authorizationIds: List<Int>,
 
     @Json(name = "authorizations")
-    val authorizations: List<String>?
+    val authorizations: List<String>?,
 
-) : Parcelable, Identifiable, Creatable, Updatable
+    @Json(name = "group_ids")
+    val groupIds: @RawValue Map<Int, List<String>>,
+
+    @Json(name = "groups")
+    val groups: @RawValue Map<String, List<String>>?
+
+): Parcelable, Identifiable, Creatable, Updatable

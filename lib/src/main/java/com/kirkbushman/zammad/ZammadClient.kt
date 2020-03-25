@@ -79,12 +79,12 @@ class ZammadClient(
             }
         }
 
-        fun me(baseUrl: String, username: String, password: String, logging: Boolean): User? {
+        fun me(baseUrl: String, username: String, password: String, logging: Boolean, expanded: Boolean = false): User? {
 
             val auth = "$username:$password"
             val authMap = hashMapOf("Authorization" to "Basic ".plus(String(Base64.encode(auth.toByteArray(), Base64.NO_WRAP))))
             val api = getApi(baseUrl, logging)
-            val req = api.me(authMap)
+            val req = api.me(expanded, authMap)
             val res = req.execute()
 
             if (!res.isSuccessful) {
@@ -97,10 +97,10 @@ class ZammadClient(
 
     private val api = getApi(baseUrl, logging)
 
-    fun me(): User? {
+    fun me(expanded: Boolean = false): User? {
 
         val authMap = getHeaderMap()
-        val req = api.me(authMap)
+        val req = api.me(expanded, authMap)
         val res = req.execute()
 
         if (!res.isSuccessful) {
