@@ -145,4 +145,4 @@ data class User(
     @Json(name = "groups")
     val groups: @RawValue Map<String, List<String>>?
 
-): Parcelable, Identifiable, Creatable, Updatable
+) : Parcelable, Identifiable, Creatable, Updatable
