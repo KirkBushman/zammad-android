@@ -39,12 +39,13 @@ class NotificationsActivity : AppCompatActivity() {
         list.setHasFixedSize(true)
         list.setController(controller)
 
-        doAsync(doWork = {
-
-            notifications.addAll(client?.onlineNotifications(true) ?: listOf())
-        }, onPost = {
-
-            controller.setItems(notifications)
-        })
+        doAsync(
+            doWork = {
+                notifications.addAll(client?.onlineNotifications(true) ?: listOf())
+            },
+            onPost = {
+                controller.setItems(notifications)
+            }
+        )
     }
 }

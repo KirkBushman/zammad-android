@@ -39,12 +39,13 @@ class ObjectsActivity : AppCompatActivity() {
         list.setHasFixedSize(true)
         list.setController(controller)
 
-        doAsync(doWork = {
-
-            objects.addAll(client?.objects() ?: emptyList())
-        }, onPost = {
-
-            controller.setItems(objects)
-        })
+        doAsync(
+            doWork = {
+                objects.addAll(client?.objects() ?: emptyList())
+            },
+            onPost = {
+                controller.setItems(objects)
+            }
+        )
     }
 }

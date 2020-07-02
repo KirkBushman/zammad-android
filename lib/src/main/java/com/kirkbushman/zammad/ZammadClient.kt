@@ -14,7 +14,6 @@ class ZammadClient(
 
     private val auth: String,
     private val logging: Boolean
-
 ) {
 
     constructor(baseUrl: String, username: String, password: String, logging: Boolean) : this(baseUrl, "$username:$password", logging)

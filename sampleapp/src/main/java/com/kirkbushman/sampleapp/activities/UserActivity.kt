@@ -33,12 +33,13 @@ class UserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         var newUser: User? = null
-        doAsync(doWork = {
-
-            newUser = client?.user(user.id, true)
-        }, onPost = {
-
-            model_text.text = newUser.toString()
-        })
+        doAsync(
+            doWork = {
+                newUser = client?.user(user.id, true)
+            },
+            onPost = {
+                model_text.text = newUser.toString()
+            }
+        )
     }
 }

@@ -17,12 +17,13 @@ class MeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         var me: User? = null
-        doAsync(doWork = {
-
-            me = client?.me()
-        }, onPost = {
-
-            model_text.text = me.toString()
-        })
+        doAsync(
+            doWork = {
+                me = client?.me()
+            },
+            onPost = {
+                model_text.text = me.toString()
+            }
+        )
     }
 }

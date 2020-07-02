@@ -39,14 +39,16 @@ class TicketsActivity : AppCompatActivity() {
 
             override fun onDeleteClick(position: Int) {
 
-                doAsync(doWork = {
+                doAsync(
+                    doWork = {
 
-                    val ticket = tickets[position]
-                    client?.deleteTicket(ticket.id)
-                }, onPost = {
-
-                    Toast.makeText(this@TicketsActivity, "Ticket deleted!", Toast.LENGTH_SHORT).show()
-                })
+                        val ticket = tickets[position]
+                        client?.deleteTicket(ticket.id)
+                    },
+                    onPost = {
+                        Toast.makeText(this@TicketsActivity, "Ticket deleted!", Toast.LENGTH_SHORT).show()
+                    }
+                )
             }
         })
     }
@@ -69,12 +71,13 @@ class TicketsActivity : AppCompatActivity() {
             TicketCreateActivity.start(this)
         }
 
-        doAsync(doWork = {
-
-            tickets.addAll(client?.tickets() ?: listOf())
-        }, onPost = {
-
-            controller.setItems(tickets)
-        })
+        doAsync(
+            doWork = {
+                tickets.addAll(client?.tickets() ?: listOf())
+            },
+            onPost = {
+                controller.setItems(tickets)
+            }
+        )
     }
 }

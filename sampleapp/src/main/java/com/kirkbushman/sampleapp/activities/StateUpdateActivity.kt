@@ -43,18 +43,20 @@ class StateUpdateActivity : AppCompatActivity() {
             val active = state_active.isChecked
             val note = state_note.text.toString()
 
-            doAsync(doWork = {
+            doAsync(
+                doWork = {
 
-                client?.updateTicketState(
-                    id = state.id,
-                    name = name,
-                    active = active,
-                    note = note
-                )
-            }, onPost = {
-
-                showToast("TicketState Updated!")
-            })
+                    client?.updateTicketState(
+                        id = state.id,
+                        name = name,
+                        active = active,
+                        note = note
+                    )
+                },
+                onPost = {
+                    showToast("TicketState Updated!")
+                }
+            )
         }
     }
 }

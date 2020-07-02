@@ -33,14 +33,16 @@ class UsersActivity : AppCompatActivity() {
 
             override fun onDeleteClick(position: Int) {
 
-                doAsync(doWork = {
+                doAsync(
+                    doWork = {
 
-                    val user = users[position]
-                    client?.deleteUser(user)
-                }, onPost = {
-
-                    showToast("User deleted!")
-                })
+                        val user = users[position]
+                        client?.deleteUser(user)
+                    },
+                    onPost = {
+                        showToast("User deleted!")
+                    }
+                )
             }
         })
     }
@@ -58,12 +60,13 @@ class UsersActivity : AppCompatActivity() {
         list.setHasFixedSize(true)
         list.setController(controller)
 
-        doAsync(doWork = {
-
-            users.addAll(client?.users() ?: listOf())
-        }, onPost = {
-
-            controller.setItems(users)
-        })
+        doAsync(
+            doWork = {
+                users.addAll(client?.users() ?: listOf())
+            },
+            onPost = {
+                controller.setItems(users)
+            }
+        )
     }
 }

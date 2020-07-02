@@ -43,18 +43,20 @@ class PriorityUpdateActivity : AppCompatActivity() {
             val active = priority_active.isChecked
             val note = priority_note.text.toString()
 
-            doAsync(doWork = {
+            doAsync(
+                doWork = {
 
-                client?.updateTicketPriority(
-                    id = priority.id,
-                    name = name,
-                    active = active,
-                    note = note
-                )
-            }, onPost = {
-
-                showToast("TicketPriority Updated!")
-            })
+                    client?.updateTicketPriority(
+                        id = priority.id,
+                        name = name,
+                        active = active,
+                        note = note
+                    )
+                },
+                onPost = {
+                    showToast("TicketPriority Updated!")
+                }
+            )
         }
     }
 }

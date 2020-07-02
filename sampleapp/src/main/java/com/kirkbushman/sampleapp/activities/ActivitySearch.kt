@@ -41,14 +41,16 @@ class ActivitySearch : AppCompatActivity() {
 
             override fun onDeleteClick(position: Int) {
 
-                doAsync(doWork = {
+                doAsync(
+                    doWork = {
 
-                    val ticket = tickets[position]
-                    client?.deleteTicket(ticket.id)
-                }, onPost = {
-
-                    Toast.makeText(this@ActivitySearch, "Ticket deleted!", Toast.LENGTH_SHORT).show()
-                })
+                        val ticket = tickets[position]
+                        client?.deleteTicket(ticket.id)
+                    },
+                    onPost = {
+                        Toast.makeText(this@ActivitySearch, "Ticket deleted!", Toast.LENGTH_SHORT).show()
+                    }
+                )
             }
         })
     }
@@ -73,14 +75,16 @@ class ActivitySearch : AppCompatActivity() {
 
                 tickets.clear()
 
-                doAsync(doWork = {
+                doAsync(
+                    doWork = {
 
-                    searchResult = client?.searchTickets(query = "title:$query", page = 1, perPage = 20)
-                    tickets.addAll(searchResult?.assets?.tickets?.values ?: listOf())
-                }, onPost = {
-
-                    controller.setItems(tickets)
-                })
+                        searchResult = client?.searchTickets(query = "title:$query", page = 1, perPage = 20)
+                        tickets.addAll(searchResult?.assets?.tickets?.values ?: listOf())
+                    },
+                    onPost = {
+                        controller.setItems(tickets)
+                    }
+                )
             }
         }
     }

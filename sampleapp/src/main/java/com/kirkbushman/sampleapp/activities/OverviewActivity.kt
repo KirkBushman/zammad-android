@@ -33,12 +33,13 @@ class OverviewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         var newOverview: Overview? = null
-        doAsync(doWork = {
-
-            newOverview = client?.overview(overview.id, true)
-        }, onPost = {
-
-            model_text.text = newOverview.toString()
-        })
+        doAsync(
+            doWork = {
+                newOverview = client?.overview(overview.id, true)
+            },
+            onPost = {
+                model_text.text = newOverview.toString()
+            }
+        )
     }
 }

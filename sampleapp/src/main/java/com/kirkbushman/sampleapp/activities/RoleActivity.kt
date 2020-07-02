@@ -33,12 +33,13 @@ class RoleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         var newRole: Role? = null
-        doAsync(doWork = {
-
-            newRole = client?.role(role.id, true)
-        }, onPost = {
-
-            model_text.text = newRole.toString()
-        })
+        doAsync(
+            doWork = {
+                newRole = client?.role(role.id, true)
+            },
+            onPost = {
+                model_text.text = newRole.toString()
+            }
+        )
     }
 }

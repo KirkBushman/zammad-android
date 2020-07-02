@@ -39,12 +39,13 @@ class RolesActivity : AppCompatActivity() {
         list.setHasFixedSize(true)
         list.setController(controller)
 
-        doAsync(doWork = {
-
-            roles.addAll(client?.roles() ?: listOf())
-        }, onPost = {
-
-            controller.setItems(roles)
-        })
+        doAsync(
+            doWork = {
+                roles.addAll(client?.roles() ?: listOf())
+            },
+            onPost = {
+                controller.setItems(roles)
+            }
+        )
     }
 }

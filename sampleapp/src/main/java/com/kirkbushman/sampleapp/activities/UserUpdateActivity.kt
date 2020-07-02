@@ -51,22 +51,25 @@ class UserUpdateActivity : AppCompatActivity() {
             val mobile = user_mobile.text.toString()
             val note = user_note.text.toString()
 
-            doAsync(doWork = {
+            doAsync(
+                doWork = {
 
-                client?.updateUser(
-                    id = user.id,
-                    firstname = firstname,
-                    lastname = lastname,
-                    active = active,
-                    email = email,
-                    phone = phone,
-                    mobile = mobile,
-                    note = note
-                )
-            }, onPost = {
+                    client?.updateUser(
+                        id = user.id,
+                        firstname = firstname,
+                        lastname = lastname,
+                        active = active,
+                        email = email,
+                        phone = phone,
+                        mobile = mobile,
+                        note = note
+                    )
+                },
+                onPost = {
 
-                showToast("User Updated!")
-            })
+                    showToast("User Updated!")
+                }
+            )
         }
     }
 }

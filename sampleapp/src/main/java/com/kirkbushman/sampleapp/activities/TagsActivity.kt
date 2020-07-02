@@ -35,12 +35,13 @@ class TagsActivity : AppCompatActivity() {
         list.setHasFixedSize(true)
         list.setController(controller)
 
-        doAsync(doWork = {
-
-            tags.addAll(client?.tags() ?: listOf())
-        }, onPost = {
-
-            controller.setItems(tags)
-        })
+        doAsync(
+            doWork = {
+                tags.addAll(client?.tags() ?: listOf())
+            },
+            onPost = {
+                controller.setItems(tags)
+            }
+        )
     }
 }

@@ -33,14 +33,16 @@ class StatesActivity : AppCompatActivity() {
 
             override fun onDeleteClick(position: Int) {
 
-                doAsync(doWork = {
+                doAsync(
+                    doWork = {
 
-                    val state = states[position]
-                    client?.deleteTicketState(state)
-                }, onPost = {
-
-                    showToast("State deleted!")
-                })
+                        val state = states[position]
+                        client?.deleteTicketState(state)
+                    },
+                    onPost = {
+                        showToast("State deleted!")
+                    }
+                )
             }
         })
     }
@@ -58,12 +60,13 @@ class StatesActivity : AppCompatActivity() {
         list.setHasFixedSize(true)
         list.setController(controller)
 
-        doAsync(doWork = {
-
-            states.addAll(client?.ticketStates() ?: listOf())
-        }, onPost = {
-
-            controller.setItems(states)
-        })
+        doAsync(
+            doWork = {
+                states.addAll(client?.ticketStates() ?: listOf())
+            },
+            onPost = {
+                controller.setItems(states)
+            }
+        )
     }
 }

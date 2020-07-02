@@ -33,14 +33,16 @@ class PrioritiesActivity : AppCompatActivity() {
 
             override fun onDeleteClick(position: Int) {
 
-                doAsync(doWork = {
+                doAsync(
+                    doWork = {
 
-                    val priority = priorities[position]
-                    client?.deleteTicketPriority(priority)
-                }, onPost = {
-
-                    showToast("Priority deleted!")
-                })
+                        val priority = priorities[position]
+                        client?.deleteTicketPriority(priority)
+                    },
+                    onPost = {
+                        showToast("Priority deleted!")
+                    }
+                )
             }
         })
     }
@@ -58,12 +60,13 @@ class PrioritiesActivity : AppCompatActivity() {
         list.setHasFixedSize(true)
         list.setController(controller)
 
-        doAsync(doWork = {
-
-            priorities.addAll(client?.ticketPrioritites() ?: listOf())
-        }, onPost = {
-
-            controller.setItems(priorities)
-        })
+        doAsync(
+            doWork = {
+                priorities.addAll(client?.ticketPrioritites() ?: listOf())
+            },
+            onPost = {
+                controller.setItems(priorities)
+            }
+        )
     }
 }

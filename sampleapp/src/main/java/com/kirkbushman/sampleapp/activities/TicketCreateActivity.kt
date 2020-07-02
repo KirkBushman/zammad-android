@@ -36,29 +36,46 @@ class TicketCreateActivity : AppCompatActivity() {
         setContentView(R.layout.activity_ticket_create)
 
         val groups = ArrayList<Group>()
-        doAsync(doWork = { groups.addAll(client?.groups() ?: listOf()) }, onPost = {
-
-            bindGroupSpinner(groups)
-        })
+        doAsync(
+            doWork = {
+                groups.addAll(client?.groups() ?: listOf())
+            },
+            onPost = {
+                bindGroupSpinner(groups)
+            }
+        )
 
         val states = ArrayList<TicketState>()
-        doAsync(doWork = { states.addAll(client?.ticketStates() ?: listOf()) }, onPost = {
-
-            bindStateSpinner(states)
-        })
+        doAsync(
+            doWork = {
+                states.addAll(client?.ticketStates() ?: listOf())
+            },
+            onPost = {
+                bindStateSpinner(states)
+            }
+        )
 
         val priorities = ArrayList<TicketPriority>()
-        doAsync(doWork = { priorities.addAll(client?.ticketPrioritites() ?: listOf()) }, onPost = {
-
-            bindPrioritySpinner(priorities)
-        })
+        doAsync(
+            doWork = {
+                priorities.addAll(client?.ticketPrioritites() ?: listOf())
+            },
+            onPost = {
+                bindPrioritySpinner(priorities)
+            }
+        )
 
         val users = ArrayList<User?>()
-        doAsync(doWork = { users.addAll(client?.users() ?: listOf()) }, onPost = {
+        doAsync(
+            doWork = {
+                users.addAll(client?.users() ?: listOf())
+            },
+            onPost = {
 
-            bindOwnerSpinner(users)
-            bindCustomerSpinner(users)
-        })
+                bindOwnerSpinner(users)
+                bindCustomerSpinner(users)
+            }
+        )
 
         bttn_submit.setOnClickListener {
 
@@ -68,24 +85,26 @@ class TicketCreateActivity : AppCompatActivity() {
             val owner = users[ticket_owner.selectedItemPosition]
             val customer = users[ticket_customer.selectedItemPosition]
 
-            doAsync(doWork = {
+            doAsync(
+                doWork = {
 
-                client?.createTicket(
-                    title = ticket_title.text.trim().toString(),
-                    groupId = group.id,
-                    stateId = state.id,
-                    priorityId = priority.id,
-                    ownerId = owner?.id,
-                    customerId = customer?.id,
-                    subject = ticket_article_subject.text.trim().toString(),
-                    body = ticket_article_body.text.trim().toString(),
-                    type = "note",
-                    internal = false
-                )
-            }, onPost = {
-
-                Toast.makeText(this, "Ticket Created!", Toast.LENGTH_SHORT).show()
-            })
+                    client?.createTicket(
+                        title = ticket_title.text.trim().toString(),
+                        groupId = group.id,
+                        stateId = state.id,
+                        priorityId = priority.id,
+                        ownerId = owner?.id,
+                        customerId = customer?.id,
+                        subject = ticket_article_subject.text.trim().toString(),
+                        body = ticket_article_body.text.trim().toString(),
+                        type = "note",
+                        internal = false
+                    )
+                },
+                onPost = {
+                    Toast.makeText(this, "Ticket Created!", Toast.LENGTH_SHORT).show()
+                }
+            )
         }
     }
 

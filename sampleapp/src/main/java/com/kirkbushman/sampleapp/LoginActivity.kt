@@ -41,27 +41,29 @@ class LoginActivity : AppCompatActivity() {
             }
 
             var me: User? = null
-            doAsync(doWork = {
+            doAsync(
+                doWork = {
+                    me = ZammadClient.me(baseUrl, username, password, true)
+                },
+                onPost = {
 
-                me = ZammadClient.me(baseUrl, username, password, true)
-            }, onPost = {
+                    if (me != null) {
 
-                if (me != null) {
+                        app.setClient(ZammadClient(baseUrl, username, password, true))
 
-                    app.setClient(ZammadClient(baseUrl, username, password, true))
+                        with(app.prefs) {
+                            setIsLoggedIn(true)
+                            setBaseUrl(baseUrl)
+                            setUsername(username)
+                            setPassword(password)
+                        }
 
-                    with(app.prefs) {
-                        setIsLoggedIn(true)
-                        setBaseUrl(baseUrl)
-                        setUsername(username)
-                        setPassword(password)
+                        startActivity(Intent(this, MainActivity::class.java))
+                    } else {
+                        Toast.makeText(this, "Error while trying to login!", Toast.LENGTH_SHORT).show()
                     }
-
-                    startActivity(Intent(this, MainActivity::class.java))
-                } else {
-                    Toast.makeText(this, "Error while trying to login!", Toast.LENGTH_SHORT).show()
                 }
-            })
+            )
         }
     }
 }

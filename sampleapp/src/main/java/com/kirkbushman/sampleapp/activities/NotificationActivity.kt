@@ -33,12 +33,13 @@ class NotificationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         var newNotification: OnlineNotification? = null
-        doAsync(doWork = {
-
-            newNotification = client?.onlineNotification(notification.id, true)
-        }, onPost = {
-
-            model_text.text = newNotification.toString()
-        })
+        doAsync(
+            doWork = {
+                newNotification = client?.onlineNotification(notification.id, true)
+            },
+            onPost = {
+                model_text.text = newNotification.toString()
+            }
+        )
     }
 }

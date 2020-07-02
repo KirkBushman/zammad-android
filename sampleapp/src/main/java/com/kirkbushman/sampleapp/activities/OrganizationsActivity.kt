@@ -33,14 +33,16 @@ class OrganizationsActivity : AppCompatActivity() {
 
             override fun onDeleteClick(position: Int) {
 
-                doAsync(doWork = {
+                doAsync(
+                    doWork = {
 
-                    val organization = organizations[position]
-                    client?.deleteOrganization(organization)
-                }, onPost = {
-
-                    showToast("Organization deleted!")
-                })
+                        val organization = organizations[position]
+                        client?.deleteOrganization(organization)
+                    },
+                    onPost = {
+                        showToast("Organization deleted!")
+                    }
+                )
             }
         })
     }
@@ -58,12 +60,13 @@ class OrganizationsActivity : AppCompatActivity() {
         list.setHasFixedSize(true)
         list.setController(controller)
 
-        doAsync(doWork = {
-
-            organizations.addAll(client?.organizations() ?: listOf())
-        }, onPost = {
-
-            controller.setItems(organizations)
-        })
+        doAsync(
+            doWork = {
+                organizations.addAll(client?.organizations() ?: listOf())
+            },
+            onPost = {
+                controller.setItems(organizations)
+            }
+        )
     }
 }

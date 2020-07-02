@@ -42,12 +42,13 @@ class AttachmentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         var fileContent = ""
-        doAsync(doWork = {
-
-            fileContent = client?.ticketArticleAttachment(ticket, article, attachment) ?: ""
-        }, onPost = {
-
-            model_text.text = fileContent
-        })
+        doAsync(
+            doWork = {
+                fileContent = client?.ticketArticleAttachment(ticket, article, attachment) ?: ""
+            },
+            onPost = {
+                model_text.text = fileContent
+            }
+        )
     }
 }

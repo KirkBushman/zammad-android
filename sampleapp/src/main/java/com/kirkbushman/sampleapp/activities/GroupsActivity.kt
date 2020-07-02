@@ -33,14 +33,16 @@ class GroupsActivity : AppCompatActivity() {
 
             override fun onDeleteClick(position: Int) {
 
-                doAsync(doWork = {
+                doAsync(
+                    doWork = {
 
-                    val group = groups[position]
-                    client?.deleteGroup(group)
-                }, onPost = {
-
-                    showToast("Group deleted!")
-                })
+                        val group = groups[position]
+                        client?.deleteGroup(group)
+                    },
+                    onPost = {
+                        showToast("Group deleted!")
+                    }
+                )
             }
         })
     }
@@ -58,12 +60,13 @@ class GroupsActivity : AppCompatActivity() {
         list.setHasFixedSize(true)
         list.setController(controller)
 
-        doAsync(doWork = {
-
-            groups.addAll(client?.groups() ?: listOf())
-        }, onPost = {
-
-            controller.setItems(groups)
-        })
+        doAsync(
+            doWork = {
+                groups.addAll(client?.groups() ?: listOf())
+            },
+            onPost = {
+                controller.setItems(groups)
+            }
+        )
     }
 }

@@ -39,12 +39,13 @@ class OverviewsActivity : AppCompatActivity() {
         list.setHasFixedSize(true)
         list.setController(controller)
 
-        doAsync(doWork = {
-
-            overviews.addAll(client?.overviews() ?: listOf())
-        }, onPost = {
-
-            controller.setItems(overviews)
-        })
+        doAsync(
+            doWork = {
+                overviews.addAll(client?.overviews() ?: listOf())
+            },
+            onPost = {
+                controller.setItems(overviews)
+            }
+        )
     }
 }

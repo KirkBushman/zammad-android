@@ -23,13 +23,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility jvm_version
+        targetCompatibility jvm_version
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
-        noReflect = true
+        jvmTarget = kotlin_target
+        noReflect = kotlin_no_reflect
     }
 }
 
@@ -54,5 +54,5 @@ dependencies {
     kapt "com.airbnb.android:epoxy-processor:$epoxy_ver"
 
     implementation "com.google.android.material:material:$mdc_ver"
-    implementation 'androidx.core:core-ktx:1.3.0-rc01'
+    implementation 'androidx.core:core-ktx:1.3.0'
 }

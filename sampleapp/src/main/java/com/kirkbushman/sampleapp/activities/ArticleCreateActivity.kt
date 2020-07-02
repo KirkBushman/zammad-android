@@ -40,24 +40,26 @@ class ArticleCreateActivity : AppCompatActivity() {
             val subject = article_subject.text.trim().toString()
             val body = article_body.text.trim().toString()
 
-            doAsync(doWork = {
+            doAsync(
+                doWork = {
 
-                client?.createTicketArticle(
-                    ticketId = ticket.id,
+                    client?.createTicketArticle(
+                        ticketId = ticket.id,
 
-                    to = to,
-                    cc = cc,
-                    subject = subject,
-                    body = body,
-                    contentType = "plain/text",
-                    type = "note",
-                    internal = false,
-                    timeUnit = "12"
-                )
-            }, onPost = {
-
-                Toast.makeText(this, "Article Created!", Toast.LENGTH_SHORT).show()
-            })
+                        to = to,
+                        cc = cc,
+                        subject = subject,
+                        body = body,
+                        contentType = "plain/text",
+                        type = "note",
+                        internal = false,
+                        timeUnit = "12"
+                    )
+                },
+                onPost = {
+                    Toast.makeText(this, "Article Created!", Toast.LENGTH_SHORT).show()
+                }
+            )
         }
     }
 }

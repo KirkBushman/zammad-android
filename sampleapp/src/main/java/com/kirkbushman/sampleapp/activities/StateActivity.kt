@@ -33,12 +33,13 @@ class StateActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         var newState: TicketState? = null
-        doAsync(doWork = {
-
-            newState = client?.ticketState(state.id, true)
-        }, onPost = {
-
-            model_text.text = newState.toString()
-        })
+        doAsync(
+            doWork = {
+                newState = client?.ticketState(state.id, true)
+            },
+            onPost = {
+                model_text.text = newState.toString()
+            }
+        )
     }
 }

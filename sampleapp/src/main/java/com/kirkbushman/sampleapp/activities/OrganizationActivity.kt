@@ -33,12 +33,13 @@ class OrganizationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         var newOrganization: Organization? = null
-        doAsync(doWork = {
-
-            newOrganization = client?.organization(organization.id, true)
-        }, onPost = {
-
-            model_text.text = newOrganization.toString()
-        })
+        doAsync(
+            doWork = {
+                newOrganization = client?.organization(organization.id, true)
+            },
+            onPost = {
+                model_text.text = newOrganization.toString()
+            }
+        )
     }
 }

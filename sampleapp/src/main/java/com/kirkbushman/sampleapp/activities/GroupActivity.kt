@@ -33,12 +33,13 @@ class GroupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         var newGroup: Group? = null
-        doAsync(doWork = {
-
-            newGroup = client?.group(group.id, true)
-        }, onPost = {
-
-            model_text.text = newGroup.toString()
-        })
+        doAsync(
+            doWork = {
+                newGroup = client?.group(group.id, true)
+            },
+            onPost = {
+                model_text.text = newGroup.toString()
+            }
+        )
     }
 }

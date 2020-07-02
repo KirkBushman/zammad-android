@@ -33,12 +33,13 @@ class ObjectActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         var newObject: Object? = null
-        doAsync(doWork = {
-
-            newObject = client?.`object`(`object`.id)
-        }, onPost = {
-
-            model_text.text = newObject.toString()
-        })
+        doAsync(
+            doWork = {
+                newObject = client?.`object`(`object`.id)
+            },
+            onPost = {
+                model_text.text = newObject.toString()
+            }
+        )
     }
 }

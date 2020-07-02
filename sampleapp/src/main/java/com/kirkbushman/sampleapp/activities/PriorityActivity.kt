@@ -33,12 +33,13 @@ class PriorityActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         var newPriority: TicketPriority? = null
-        doAsync(doWork = {
-
-            newPriority = client?.ticketPriority(priority.id, true)
-        }, onPost = {
-
-            model_text.text = newPriority.toString()
-        })
+        doAsync(
+            doWork = {
+                newPriority = client?.ticketPriority(priority.id, true)
+            },
+            onPost = {
+                model_text.text = newPriority.toString()
+            }
+        )
     }
 }

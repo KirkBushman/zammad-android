@@ -33,12 +33,13 @@ class ArticleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         var newArticle: TicketArticle? = null
-        doAsync(doWork = {
-
-            newArticle = client?.ticketArticle(article.id, true)
-        }, onPost = {
-
-            model_text.text = newArticle.toString()
-        })
+        doAsync(
+            doWork = {
+                newArticle = client?.ticketArticle(article.id, true)
+            },
+            onPost = {
+                model_text.text = newArticle.toString()
+            }
+        )
     }
 }

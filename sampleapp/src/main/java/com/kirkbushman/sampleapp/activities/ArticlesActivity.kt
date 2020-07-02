@@ -67,12 +67,13 @@ class ArticlesActivity : AppCompatActivity() {
             ArticleCreateActivity.start(this, ticket)
         }
 
-        doAsync(doWork = {
-
-            articles.addAll(client?.ticketArticles(ticket) ?: listOf())
-        }, onPost = {
-
-            controller.setItems(articles)
-        })
+        doAsync(
+            doWork = {
+                articles.addAll(client?.ticketArticles(ticket) ?: listOf())
+            },
+            onPost = {
+                controller.setItems(articles)
+            }
+        )
     }
 }

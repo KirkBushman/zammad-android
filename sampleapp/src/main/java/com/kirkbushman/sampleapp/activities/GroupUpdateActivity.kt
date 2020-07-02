@@ -43,18 +43,20 @@ class GroupUpdateActivity : AppCompatActivity() {
             val active = group_active.isChecked
             val note = group_note.text.toString()
 
-            doAsync(doWork = {
+            doAsync(
+                doWork = {
 
-                client?.updateGroup(
-                    id = group.id,
-                    name = name,
-                    active = active,
-                    note = note
-                )
-            }, onPost = {
-
-                showToast("Group Updated!")
-            })
+                    client?.updateGroup(
+                        id = group.id,
+                        name = name,
+                        active = active,
+                        note = note
+                    )
+                },
+                onPost = {
+                    showToast("Group Updated!")
+                }
+            )
         }
     }
 }

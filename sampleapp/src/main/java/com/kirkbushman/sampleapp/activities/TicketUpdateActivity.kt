@@ -38,29 +38,46 @@ class TicketUpdateActivity : AppCompatActivity() {
         setContentView(R.layout.activity_ticket_update)
 
         val groups = ArrayList<Group>()
-        doAsync(doWork = { groups.addAll(client?.groups() ?: listOf()) }, onPost = {
-
-            bindGroupSpinner(groups)
-        })
+        doAsync(
+            doWork = {
+                groups.addAll(client?.groups() ?: listOf())
+            },
+            onPost = {
+                bindGroupSpinner(groups)
+            }
+        )
 
         val states = ArrayList<TicketState>()
-        doAsync(doWork = { states.addAll(client?.ticketStates() ?: listOf()) }, onPost = {
-
-            bindStateSpinner(states)
-        })
+        doAsync(
+            doWork = {
+                states.addAll(client?.ticketStates() ?: listOf())
+            },
+            onPost = {
+                bindStateSpinner(states)
+            }
+        )
 
         val priorities = ArrayList<TicketPriority>()
-        doAsync(doWork = { priorities.addAll(client?.ticketPrioritites() ?: listOf()) }, onPost = {
-
-            bindPrioritySpinner(priorities)
-        })
+        doAsync(
+            doWork = {
+                priorities.addAll(client?.ticketPrioritites() ?: listOf())
+            },
+            onPost = {
+                bindPrioritySpinner(priorities)
+            }
+        )
 
         val users = ArrayList<User?>()
-        doAsync(doWork = { users.addAll(client?.users() ?: listOf()) }, onPost = {
+        doAsync(
+            doWork = {
+                users.addAll(client?.users() ?: listOf())
+            },
+            onPost = {
 
-            bindOwnerSpinner(users)
-            bindCustomersSpinner(users)
-        })
+                bindOwnerSpinner(users)
+                bindCustomersSpinner(users)
+            }
+        )
 
         ticket_title.setText(ticket.title)
 
@@ -72,20 +89,22 @@ class TicketUpdateActivity : AppCompatActivity() {
             val owner = users[ticket_owner.selectedItemPosition]
             val customer = users[ticket_customer.selectedItemPosition]
 
-            doAsync(doWork = {
+            doAsync(
+                doWork = {
 
-                client?.updateTicket(
-                    id = ticket.id,
-                    groupId = group.id,
-                    stateId = state.id,
-                    priorityId = priority.id,
-                    ownerId = owner?.id,
-                    customerId = customer?.id
-                )
-            }, onPost = {
-
-                showToast("Ticket Updated!")
-            })
+                    client?.updateTicket(
+                        id = ticket.id,
+                        groupId = group.id,
+                        stateId = state.id,
+                        priorityId = priority.id,
+                        ownerId = owner?.id,
+                        customerId = customer?.id
+                    )
+                },
+                onPost = {
+                    showToast("Ticket Updated!")
+                }
+            )
         }
     }
 

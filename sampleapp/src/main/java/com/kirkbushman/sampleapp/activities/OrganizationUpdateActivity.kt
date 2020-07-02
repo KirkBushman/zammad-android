@@ -45,19 +45,21 @@ class OrganizationUpdateActivity : AppCompatActivity() {
             val shared = organization_shared.isChecked
             val note = organization_note.text.toString()
 
-            doAsync(doWork = {
+            doAsync(
+                doWork = {
 
-                client?.updateOrganization(
-                    id = organization.id,
-                    name = name,
-                    active = active,
-                    shared = shared,
-                    note = note
-                )
-            }, onPost = {
-
-                showToast("Organization Updated!", true)
-            })
+                    client?.updateOrganization(
+                        id = organization.id,
+                        name = name,
+                        active = active,
+                        shared = shared,
+                        note = note
+                    )
+                },
+                onPost = {
+                    showToast("Organization Updated!", true)
+                }
+            )
         }
     }
 }
