@@ -12,7 +12,7 @@ import com.kirkbushman.zammad.models.Ticket
 import com.kirkbushman.zammad.models.TicketArticle
 import kotlinx.android.synthetic.main.activity_detail.*
 
-class AttachmentActivity : AppCompatActivity() {
+class AttachmentActivity : AppCompatActivity(R.layout.activity_detail) {
 
     companion object {
 
@@ -33,13 +33,12 @@ class AttachmentActivity : AppCompatActivity() {
 
     private val client by lazy { SampleApplication.instance.getClient() }
 
-    private val ticket by lazy { intent.getParcelableExtra(PARAM_TICKET) as Ticket }
-    private val article by lazy { intent.getParcelableExtra(PARAM_ARTICLE) as TicketArticle }
-    private val attachment by lazy { intent.getParcelableExtra(PARAM_ATTACHMENT) as ArticleAttachment }
+    private val ticket by lazy { intent.getParcelableExtra<Ticket>(PARAM_TICKET)!! }
+    private val article by lazy { intent.getParcelableExtra<TicketArticle>(PARAM_ARTICLE)!! }
+    private val attachment by lazy { intent.getParcelableExtra<ArticleAttachment>(PARAM_ATTACHMENT)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
 
         var fileContent = ""
         doAsync(

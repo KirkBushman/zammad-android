@@ -26,7 +26,7 @@ class OrganizationActivity : AppCompatActivity() {
     }
 
     private val client by lazy { SampleApplication.instance.getClient() }
-    private val organization by lazy { intent.getParcelableExtra(PARAM_ORGAN) as Organization }
+    private val organization by lazy { intent.getParcelableExtra<Organization>(PARAM_ORGAN)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

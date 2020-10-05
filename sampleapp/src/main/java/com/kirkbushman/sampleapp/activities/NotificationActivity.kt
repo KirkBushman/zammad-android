@@ -10,7 +10,7 @@ import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.OnlineNotification
 import kotlinx.android.synthetic.main.activity_detail.*
 
-class NotificationActivity : AppCompatActivity() {
+class NotificationActivity : AppCompatActivity(R.layout.activity_detail) {
 
     companion object {
 
@@ -26,11 +26,10 @@ class NotificationActivity : AppCompatActivity() {
     }
 
     private val client by lazy { SampleApplication.instance.getClient() }
-    private val notification by lazy { intent.getParcelableExtra(PARAM_NOTIFICATION) as OnlineNotification }
+    private val notification by lazy { intent.getParcelableExtra<OnlineNotification>(PARAM_NOTIFICATION)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
 
         var newNotification: OnlineNotification? = null
         doAsync(

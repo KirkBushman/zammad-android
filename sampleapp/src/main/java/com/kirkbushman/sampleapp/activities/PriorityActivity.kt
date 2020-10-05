@@ -10,7 +10,7 @@ import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.TicketPriority
 import kotlinx.android.synthetic.main.activity_detail.*
 
-class PriorityActivity : AppCompatActivity() {
+class PriorityActivity : AppCompatActivity(R.layout.activity_detail) {
 
     companion object {
 
@@ -26,11 +26,10 @@ class PriorityActivity : AppCompatActivity() {
     }
 
     private val client by lazy { SampleApplication.instance.getClient() }
-    private val priority by lazy { intent.getParcelableExtra(PARAM_PRIORITY) as TicketPriority }
+    private val priority by lazy { intent.getParcelableExtra<TicketPriority>(PARAM_PRIORITY)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
 
         var newPriority: TicketPriority? = null
         doAsync(

@@ -13,7 +13,7 @@ import com.kirkbushman.zammad.models.Ticket
 import com.kirkbushman.zammad.models.TicketArticle
 import kotlinx.android.synthetic.main.activity_tickets.*
 
-class ArticlesActivity : AppCompatActivity() {
+class ArticlesActivity : AppCompatActivity(R.layout.activity_articles) {
 
     companion object {
 
@@ -29,7 +29,7 @@ class ArticlesActivity : AppCompatActivity() {
     }
 
     private val client by lazy { SampleApplication.instance.getClient() }
-    private val ticket by lazy { intent.getParcelableExtra(PARAM_TICKET) as Ticket }
+    private val ticket by lazy { intent.getParcelableExtra<Ticket>(PARAM_TICKET)!! }
 
     private val articles = ArrayList<TicketArticle>()
     private val controller by lazy {
@@ -51,7 +51,6 @@ class ArticlesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_articles)
 
         setSupportActionBar(toolbar)
         supportActionBar?.let {

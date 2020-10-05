@@ -10,7 +10,7 @@ import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.User
 import kotlinx.android.synthetic.main.activity_detail.*
 
-class UserActivity : AppCompatActivity() {
+class UserActivity : AppCompatActivity(R.layout.activity_detail) {
 
     companion object {
 
@@ -26,11 +26,10 @@ class UserActivity : AppCompatActivity() {
     }
 
     private val client by lazy { SampleApplication.instance.getClient() }
-    private val user by lazy { intent.getParcelableExtra(PARAM_USER) as User }
+    private val user by lazy { intent.getParcelableExtra<User>(PARAM_USER)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
 
         var newUser: User? = null
         doAsync(

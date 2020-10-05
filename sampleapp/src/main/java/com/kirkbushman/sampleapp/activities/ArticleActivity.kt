@@ -10,7 +10,7 @@ import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.TicketArticle
 import kotlinx.android.synthetic.main.activity_detail.*
 
-class ArticleActivity : AppCompatActivity() {
+class ArticleActivity : AppCompatActivity(R.layout.activity_detail) {
 
     companion object {
 
@@ -26,11 +26,10 @@ class ArticleActivity : AppCompatActivity() {
     }
 
     private val client by lazy { SampleApplication.instance.getClient() }
-    private val article by lazy { intent.getParcelableExtra(PARAM_ARTICLE) as TicketArticle }
+    private val article by lazy { intent.getParcelableExtra<TicketArticle>(PARAM_ARTICLE)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
 
         var newArticle: TicketArticle? = null
         doAsync(

@@ -10,7 +10,7 @@ import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.Group
 import kotlinx.android.synthetic.main.activity_detail.*
 
-class GroupActivity : AppCompatActivity() {
+class GroupActivity : AppCompatActivity(R.layout.activity_detail) {
 
     companion object {
 
@@ -26,11 +26,10 @@ class GroupActivity : AppCompatActivity() {
     }
 
     private val client by lazy { SampleApplication.instance.getClient() }
-    private val group by lazy { intent.getParcelableExtra(PARAM_GROUP) as Group }
+    private val group by lazy { intent.getParcelableExtra<Group>(PARAM_GROUP)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
 
         var newGroup: Group? = null
         doAsync(

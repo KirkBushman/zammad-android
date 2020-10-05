@@ -10,7 +10,7 @@ import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.Role
 import kotlinx.android.synthetic.main.activity_detail.*
 
-class RoleActivity : AppCompatActivity() {
+class RoleActivity : AppCompatActivity(R.layout.activity_detail) {
 
     companion object {
 
@@ -26,11 +26,10 @@ class RoleActivity : AppCompatActivity() {
     }
 
     private val client by lazy { SampleApplication.instance.getClient() }
-    private val role by lazy { intent.getParcelableExtra(PARAM_ROLE) as Role }
+    private val role by lazy { intent.getParcelableExtra<Role>(PARAM_ROLE)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
 
         var newRole: Role? = null
         doAsync(

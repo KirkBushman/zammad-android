@@ -29,8 +29,8 @@ class AttachmentsActivity : AppCompatActivity() {
         }
     }
 
-    private val ticket by lazy { intent.getParcelableExtra(PARAM_TICKET) as Ticket }
-    private val article by lazy { intent.getParcelableExtra(PARAM_ARTICLE) as TicketArticle }
+    private val ticket by lazy { intent.getParcelableExtra<Ticket>(PARAM_TICKET)!! }
+    private val article by lazy { intent.getParcelableExtra<TicketArticle>(PARAM_ARTICLE)!! }
 
     private val attachments = ArrayList<ArticleAttachment>()
 

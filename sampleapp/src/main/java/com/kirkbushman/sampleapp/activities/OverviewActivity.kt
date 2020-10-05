@@ -10,7 +10,7 @@ import com.kirkbushman.sampleapp.doAsync
 import com.kirkbushman.zammad.models.Overview
 import kotlinx.android.synthetic.main.activity_detail.*
 
-class OverviewActivity : AppCompatActivity() {
+class OverviewActivity : AppCompatActivity(R.layout.activity_detail) {
 
     companion object {
 
@@ -26,11 +26,10 @@ class OverviewActivity : AppCompatActivity() {
     }
 
     private val client by lazy { SampleApplication.instance.getClient() }
-    private val overview by lazy { intent.getParcelableExtra(PARAM_OVER) as Overview }
+    private val overview by lazy { intent.getParcelableExtra<Overview>(PARAM_OVER)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
 
         var newOverview: Overview? = null
         doAsync(

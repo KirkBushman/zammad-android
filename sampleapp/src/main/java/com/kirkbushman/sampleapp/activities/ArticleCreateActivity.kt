@@ -27,7 +27,7 @@ class ArticleCreateActivity : AppCompatActivity() {
     }
 
     private val client by lazy { SampleApplication.instance.getClient() }
-    private val ticket by lazy { intent.getParcelableExtra(PARAM_TICKET) as Ticket }
+    private val ticket by lazy { intent.getParcelableExtra<Ticket>(PARAM_TICKET)!! }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -5,27 +5,43 @@ buildscript {
     ext {
         android_gradle_ver = '4.0.0'
 
+        compile_sdk_ver = 30
+        build_tools_ver = '30.0.2'
+
+        min_sdk_ver = 19
+        compile_sdk_ver = 30
+
         jvm_version = JavaVersion.VERSION_1_8
 
         kotlin_target = '1.8'
         kotlin_no_reflect = true
 
-        kotlin_ver   = '1.3.72'
-        ktlint_ver   = '0.37.2'
+        kotlin_ver = '1.4.10'
+        ktlint_ver = '0.39.0'
+
+        ax_appcompat_ver = '1.2.0'
+        ax_activity_ver = '1.1.0'
+        ax_fragment_ver = '1.2.5'
+
+        mdc_ver = '1.2.1'
+
         retrofit_ver = '2.9.0'
-        moshi_ver    = '1.9.3'
-        okhttp_ver   = '4.7.2'
-        mdc_ver      = '1.1.0'
-        epoxy_ver    = '3.11.0'
-        junit_ver    = '4.13'
-        leak_ver     = '2.4'
+        moshi_ver = '1.10.0'
+        okhttp_ver = '4.9.0'
+
+        epoxy_ver = '4.1.0'
+
+        junit_ver = '4.13'
+        leak_ver = '2.5'
     }
+
     repositories {
         google()
         jcenter()
     }
+
     dependencies {
-        classpath "com.android.tools.build:gradle:${android_gradle_ver}"
+        classpath "com.android.tools.build:gradle:$android_gradle_ver"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_ver"
     }
 }
