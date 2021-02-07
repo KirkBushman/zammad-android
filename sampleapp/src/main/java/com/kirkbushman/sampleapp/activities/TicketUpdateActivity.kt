@@ -5,17 +5,20 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.doAsync
-import com.kirkbushman.sampleapp.showToast
+import com.kirkbushman.sampleapp.databinding.ActivityTicketUpdateBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.sampleapp.utils.showToast
 import com.kirkbushman.sampleapp.spinners.GroupSpinnerAdapter
 import com.kirkbushman.sampleapp.spinners.UserSpinnerAdapter
 import com.kirkbushman.sampleapp.spinners.PrioritySpinnerAdapter
 import com.kirkbushman.sampleapp.spinners.StatesSpinnerAdapter
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.*
-import kotlinx.android.synthetic.main.activity_ticket_update.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class TicketUpdateActivity : AppCompatActivity(R.layout.activity_ticket_update) {
+@AndroidEntryPoint
+class TicketUpdateActivity : AppCompatActivity() {
 
     companion object {
 
@@ -30,16 +33,23 @@ class TicketUpdateActivity : AppCompatActivity(R.layout.activity_ticket_update) 
         }
     }
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
+
     private val ticket by lazy { intent.getParcelableExtra<Ticket>(PARAM_TICKET)!! }
+
+    private lateinit var binding: ActivityTicketUpdateBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding = ActivityTicketUpdateBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         val groups = ArrayList<Group>()
-        doAsync(
+        DoAsync(
             doWork = {
-                groups.addAll(client?.groups() ?: listOf())
+                groups.addAll(client.groups() ?: listOf())
             },
             onPost = {
                 bindGroupSpinner(groups)
@@ -47,9 +57,9 @@ class TicketUpdateActivity : AppCompatActivity(R.layout.activity_ticket_update) 
         )
 
         val states = ArrayList<TicketState>()
-        doAsync(
+        DoAsync(
             doWork = {
-                states.addAll(client?.ticketStates() ?: listOf())
+                states.addAll(client.ticketStates() ?: listOf())
             },
             onPost = {
                 bindStateSpinner(states)
@@ -57,9 +67,9 @@ class TicketUpdateActivity : AppCompatActivity(R.layout.activity_ticket_update) 
         )
 
         val priorities = ArrayList<TicketPriority>()
-        doAsync(
+        DoAsync(
             doWork = {
-                priorities.addAll(client?.ticketPrioritites() ?: listOf())
+                priorities.addAll(client.ticketPrioritites() ?: listOf())
             },
             onPost = {
                 bindPrioritySpinner(priorities)
@@ -67,9 +77,9 @@ class TicketUpdateActivity : AppCompatActivity(R.layout.activity_ticket_update) 
         )
 
         val users = ArrayList<User?>()
-        doAsync(
+        DoAsync(
             doWork = {
-                users.addAll(client?.users() ?: listOf())
+                users.addAll(client.users() ?: listOf())
             },
             onPost = {
 
@@ -78,20 +88,20 @@ class TicketUpdateActivity : AppCompatActivity(R.layout.activity_ticket_update) 
             }
         )
 
-        ticket_title.setText(ticket.title)
+        binding.ticketTitle.setText(ticket.title)
 
-        bttn_submit.setOnClickListener {
+        binding.bttnSubmit.setOnClickListener {
 
-            val group = groups[ticket_group.selectedItemPosition]
-            val state = states[ticket_state.selectedItemPosition]
-            val priority = priorities[ticket_priority.selectedItemPosition]
-            val owner = users[ticket_owner.selectedItemPosition]
-            val customer = users[ticket_customer.selectedItemPosition]
+            val group = groups[binding.ticketGroup.selectedItemPosition]
+            val state = states[binding.ticketState.selectedItemPosition]
+            val priority = priorities[binding.ticketPriority.selectedItemPosition]
+            val owner = users[binding.ticketOwner.selectedItemPosition]
+            val customer = users[binding.ticketCustomer.selectedItemPosition]
 
-            doAsync(
+            DoAsync(
                 doWork = {
 
-                    client?.updateTicket(
+                    client.updateTicket(
                         id = ticket.id,
                         groupId = group.id,
                         stateId = state.id,
@@ -112,12 +122,12 @@ class TicketUpdateActivity : AppCompatActivity(R.layout.activity_ticket_update) 
             setDropDownViewResource(R.layout.spinner_group_item)
         }
 
-        ticket_group.adapter = groupsAdapter
+        binding.ticketGroup.adapter = groupsAdapter
 
         val selectedGroup = groups.find { it.id == ticket.groupId }
         if (selectedGroup != null) {
 
-            ticket_group.setSelection(groups.indexOf(selectedGroup))
+            binding.ticketGroup.setSelection(groups.indexOf(selectedGroup))
         }
     }
 
@@ -126,12 +136,12 @@ class TicketUpdateActivity : AppCompatActivity(R.layout.activity_ticket_update) 
             setDropDownViewResource(R.layout.spinner_state_item)
         }
 
-        ticket_state.adapter = statesAdapter
+        binding.ticketState.adapter = statesAdapter
 
         val selectedState = states.find { it.id == ticket.stateId }
         if (selectedState != null) {
 
-            ticket_state.setSelection(states.indexOf(selectedState))
+            binding.ticketState.setSelection(states.indexOf(selectedState))
         }
     }
 
@@ -140,12 +150,12 @@ class TicketUpdateActivity : AppCompatActivity(R.layout.activity_ticket_update) 
             setDropDownViewResource(R.layout.spinner_priority_item)
         }
 
-        ticket_priority.adapter = prioritiesAdapter
+        binding.ticketPriority.adapter = prioritiesAdapter
 
         val selectedPriority = priorities.find { it.id == ticket.priorityId }
         if (selectedPriority != null) {
 
-            ticket_priority.setSelection(priorities.indexOf(selectedPriority))
+            binding.ticketPriority.setSelection(priorities.indexOf(selectedPriority))
         }
     }
 
@@ -154,12 +164,12 @@ class TicketUpdateActivity : AppCompatActivity(R.layout.activity_ticket_update) 
             setDropDownViewResource(R.layout.spinner_user_item)
         }
 
-        ticket_owner.adapter = ownersAdapter
+        binding.ticketOwner.adapter = ownersAdapter
 
         val selectedOwner = owners.find { it?.id == ticket.ownerId }
         if (selectedOwner != null) {
 
-            ticket_owner.setSelection(owners.indexOf(selectedOwner))
+            binding.ticketOwner.setSelection(owners.indexOf(selectedOwner))
         }
     }
 
@@ -168,12 +178,12 @@ class TicketUpdateActivity : AppCompatActivity(R.layout.activity_ticket_update) 
             setDropDownViewResource(R.layout.spinner_user_item)
         }
 
-        ticket_customer.adapter = customersAdapter
+        binding.ticketCustomer.adapter = customersAdapter
 
         val selectedCustomer = customers.find { it?.id == ticket.ownerId }
         if (selectedCustomer != null) {
 
-            ticket_customer.setSelection(customers.indexOf(selectedCustomer))
+            binding.ticketCustomer.setSelection(customers.indexOf(selectedCustomer))
         }
     }
 }

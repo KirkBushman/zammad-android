@@ -1,7 +1,10 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+plugins {
+    id "com.android.application"
+    id "org.jetbrains.kotlin.android"
+    id "org.jetbrains.kotlin.plugin.parcelize"
+    id "org.jetbrains.kotlin.kapt"
+    id "dagger.hilt.android.plugin"
+}
 
 android {
     compileSdkVersion compile_sdk_ver
@@ -33,6 +36,14 @@ android {
         jvmTarget = kotlin_target
         noReflect = kotlin_no_reflect
     }
+
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 kapt {
@@ -41,20 +52,25 @@ kapt {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(":lib")
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_ver"
-    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_ver"
 
+    implementation "com.google.dagger:hilt-android:$hilt_ver"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$ax_hilt_ver"
+    kapt "androidx.hilt:hilt-compiler:$ax_hilt_ver"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_ver"
+
+    implementation "androidx.core:core-ktx:$ax_core_ver"
     implementation "androidx.appcompat:appcompat:$ax_appcompat_ver"
     implementation "androidx.appcompat:appcompat-resources:$ax_appcompat_ver"
     implementation "androidx.activity:activity-ktx:$ax_activity_ver"
     implementation "androidx.fragment:fragment-ktx:$ax_fragment_ver"
 
+    implementation "androidx.constraintlayout:constraintlayout:$constr_ver"
     implementation "com.google.android.material:material:$mdc_ver"
-
 
     implementation "com.airbnb.android:epoxy:$epoxy_ver"
     kapt "com.airbnb.android:epoxy-processor:$epoxy_ver"

@@ -6,8 +6,8 @@ import com.kirkbushman.zammad.models.base.Identifiable
 import com.kirkbushman.zammad.models.base.Updatable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 
 @JsonClass(generateAdapter = true)
 @Parcelize

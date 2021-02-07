@@ -4,13 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.doAsync
-import com.kirkbushman.sampleapp.showToast
+import com.kirkbushman.sampleapp.databinding.ActivityPriorityUpdateBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.sampleapp.utils.showToast
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.TicketPriority
-import kotlinx.android.synthetic.main.activity_priority_update.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class PriorityUpdateActivity : AppCompatActivity() {
 
     companion object {
@@ -26,27 +28,33 @@ class PriorityUpdateActivity : AppCompatActivity() {
         }
     }
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
+
     private val priority by lazy { intent.getParcelableExtra<TicketPriority>(PARAM_PRIORITY)!! }
+
+    private lateinit var binding: ActivityPriorityUpdateBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_priority_update)
 
-        priority_name.setText(priority.name)
-        priority_active.isChecked = priority.active
-        priority_note.setText(priority.note)
+        binding = ActivityPriorityUpdateBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        bttn_submit.setOnClickListener {
+        binding.priorityName.setText(priority.name)
+        binding.priorityActive.isChecked = priority.active
+        binding.priorityNote.setText(priority.note)
 
-            val name = priority_name.text.toString()
-            val active = priority_active.isChecked
-            val note = priority_note.text.toString()
+        binding.bttnSubmit.setOnClickListener {
 
-            doAsync(
+            val name = binding.priorityName.text.toString()
+            val active = binding.priorityActive.isChecked
+            val note = binding.priorityNote.text.toString()
+
+            DoAsync(
                 doWork = {
 
-                    client?.updateTicketPriority(
+                    client.updateTicketPriority(
                         id = priority.id,
                         name = name,
                         active = active,

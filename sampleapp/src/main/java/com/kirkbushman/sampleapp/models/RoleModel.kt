@@ -7,9 +7,10 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.kirkbushman.sampleapp.R
+import com.kirkbushman.sampleapp.models.base.KotlinHolder
 import com.kirkbushman.zammad.models.Role
 
-@EpoxyModelClass(layout = R.layout.item_role)
+@EpoxyModelClass
 abstract class RoleModel : EpoxyModelWithHolder<RoleHolder>() {
 
     @EpoxyAttribute
@@ -17,6 +18,10 @@ abstract class RoleModel : EpoxyModelWithHolder<RoleHolder>() {
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var clickListener: View.OnClickListener
+
+    override fun getDefaultLayout(): Int {
+        return R.layout.item_role
+    }
 
     override fun bind(holder: RoleHolder) {
 

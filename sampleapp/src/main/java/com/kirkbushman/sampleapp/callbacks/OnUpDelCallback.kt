@@ -1,4 +1,4 @@
-package com.kirkbushman.sampleapp.controllers
+package com.kirkbushman.sampleapp.callbacks
 
 interface OnUpDelCallback : OnClickCallback {
 

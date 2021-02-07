@@ -4,29 +4,40 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.kirkbushman.sampleapp.data.Preferences
+import com.kirkbushman.sampleapp.databinding.ActivityLoginBinding
+import com.kirkbushman.sampleapp.di.SingletonModule
 import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.User
-import kotlinx.android.synthetic.main.activity_login.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var prefs: Preferences
+
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
 
-        val app = SampleApplication.instance
-        if (app.prefs.getIsLoggedIn()) {
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-            app.setClient(ZammadClient(app.prefs.getBaseUrl(), app.prefs.getUsername(), app.prefs.getPassword(), true))
+        if (prefs.getIsLoggedIn()) {
+
+            SingletonModule.setClient(ZammadClient(prefs.getBaseUrl(), prefs.getUsername(), prefs.getPassword(), true))
 
             startActivity(Intent(this, MainActivity::class.java))
         }
 
-        bttn_submit.setOnClickListener {
+        binding.bttnSubmit.setOnClickListener {
 
-            val baseUrl = baseurl_edit.text.trim().toString()
-            val username = email_edit.text.trim().toString()
-            val password = password_edit.text.trim().toString()
+            val baseUrl = binding.baseurlEdit.text.trim().toString()
+            val username = binding.emailEdit.text.trim().toString()
+            val password = binding.passwordEdit.text.trim().toString()
 
             if (baseUrl == "") {
                 Toast.makeText(this, "baseurl not found!", Toast.LENGTH_SHORT).show()
@@ -41,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             var me: User? = null
-            doAsync(
+            DoAsync(
                 doWork = {
                     me = ZammadClient.me(baseUrl, username, password, true)
                 },
@@ -49,9 +60,9 @@ class LoginActivity : AppCompatActivity() {
 
                     if (me != null) {
 
-                        app.setClient(ZammadClient(baseUrl, username, password, true))
+                        SingletonModule.setClient(ZammadClient(baseUrl, username, password, true))
 
-                        with(app.prefs) {
+                        with(prefs) {
                             setIsLoggedIn(true)
                             setBaseUrl(baseUrl)
                             setUsername(username)

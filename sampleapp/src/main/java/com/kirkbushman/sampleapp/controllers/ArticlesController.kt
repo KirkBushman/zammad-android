@@ -1,5 +1,6 @@
 package com.kirkbushman.sampleapp.controllers
 
+import com.kirkbushman.sampleapp.callbacks.OnArticleCallback
 import com.kirkbushman.sampleapp.models.article
 import com.kirkbushman.zammad.models.TicketArticle
 

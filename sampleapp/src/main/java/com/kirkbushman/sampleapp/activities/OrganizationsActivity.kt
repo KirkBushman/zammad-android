@@ -2,18 +2,21 @@ package com.kirkbushman.sampleapp.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.controllers.OnUpDelCallback
+import com.kirkbushman.sampleapp.callbacks.OnUpDelCallback
 import com.kirkbushman.sampleapp.controllers.OrganizationsController
-import com.kirkbushman.sampleapp.doAsync
-import com.kirkbushman.sampleapp.showToast
+import com.kirkbushman.sampleapp.databinding.ActivityOrganizationsBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.sampleapp.utils.showToast
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.Organization
-import kotlinx.android.synthetic.main.activity_groups.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class OrganizationsActivity : AppCompatActivity() {
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
 
     private val organizations = ArrayList<Organization>()
     private val controller by lazy {
@@ -33,11 +36,11 @@ class OrganizationsActivity : AppCompatActivity() {
 
             override fun onDeleteClick(position: Int) {
 
-                doAsync(
+                DoAsync(
                     doWork = {
 
                         val organization = organizations[position]
-                        client?.deleteOrganization(organization)
+                        client.deleteOrganization(organization)
                     },
                     onPost = {
                         showToast("Organization deleted!")
@@ -47,22 +50,26 @@ class OrganizationsActivity : AppCompatActivity() {
         })
     }
 
+    private lateinit var binding: ActivityOrganizationsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_organizations)
 
-        setSupportActionBar(toolbar)
+        binding = ActivityOrganizationsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
         }
 
-        list.setHasFixedSize(true)
-        list.setController(controller)
+        binding.list.setHasFixedSize(true)
+        binding.list.setController(controller)
 
-        doAsync(
+        DoAsync(
             doWork = {
-                organizations.addAll(client?.organizations() ?: listOf())
+                organizations.addAll(client.organizations() ?: listOf())
             },
             onPost = {
                 controller.setItems(organizations)

@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.kirkbushman.sampleapp.R
+import com.kirkbushman.sampleapp.databinding.SpinnerStateItemBinding
 import com.kirkbushman.zammad.models.TicketState
-import kotlinx.android.synthetic.main.spinner_state_item.view.*
 
 class StatesSpinnerAdapter(
 
@@ -30,8 +30,9 @@ class StatesSpinnerAdapter(
 
     private fun getCustomView(position: Int, convertView: View?, parent: ViewGroup): View {
         val layout = convertView ?: inflater.inflate(R.layout.spinner_state_item, parent, false)
+        val binding = SpinnerStateItemBinding.bind(layout)
 
-        layout.spinner_text.text = objects[position].name
+        binding.spinnerText.text = objects[position].name
 
         return layout
     }

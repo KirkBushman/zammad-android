@@ -1,6 +1,7 @@
 package com.kirkbushman.sampleapp.controllers
 
 import com.airbnb.epoxy.EpoxyController
+import com.kirkbushman.sampleapp.callbacks.OnClickCallback
 import com.kirkbushman.sampleapp.models.empty
 
 abstract class BaseController<T>(protected val callback: OnClickCallback) : EpoxyController() {

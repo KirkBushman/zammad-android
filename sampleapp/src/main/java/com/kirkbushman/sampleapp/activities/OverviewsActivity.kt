@@ -2,17 +2,20 @@ package com.kirkbushman.sampleapp.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.controllers.OnClickCallback
+import com.kirkbushman.sampleapp.callbacks.OnClickCallback
 import com.kirkbushman.sampleapp.controllers.OverviewsController
-import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.databinding.ActivityOverviewsBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.Overview
-import kotlinx.android.synthetic.main.activity_tickets.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class OverviewsActivity : AppCompatActivity() {
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
 
     private val overviews = ArrayList<Overview>()
     private val controller by lazy {
@@ -26,22 +29,26 @@ class OverviewsActivity : AppCompatActivity() {
         })
     }
 
+    private lateinit var binding: ActivityOverviewsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_overviews)
 
-        setSupportActionBar(toolbar)
+        binding = ActivityOverviewsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
         }
 
-        list.setHasFixedSize(true)
-        list.setController(controller)
+        binding.list.setHasFixedSize(true)
+        binding.list.setController(controller)
 
-        doAsync(
+        DoAsync(
             doWork = {
-                overviews.addAll(client?.overviews() ?: listOf())
+                overviews.addAll(client.overviews() ?: listOf())
             },
             onPost = {
                 controller.setItems(overviews)

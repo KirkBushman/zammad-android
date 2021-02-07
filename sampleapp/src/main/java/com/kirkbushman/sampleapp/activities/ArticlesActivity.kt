@@ -4,16 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.controllers.ArticlesController
-import com.kirkbushman.sampleapp.controllers.OnArticleCallback
-import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.callbacks.OnArticleCallback
+import com.kirkbushman.sampleapp.databinding.ActivityArticlesBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.Ticket
 import com.kirkbushman.zammad.models.TicketArticle
-import kotlinx.android.synthetic.main.activity_tickets.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class ArticlesActivity : AppCompatActivity(R.layout.activity_articles) {
+@AndroidEntryPoint
+class ArticlesActivity : AppCompatActivity() {
 
     companion object {
 
@@ -28,7 +30,9 @@ class ArticlesActivity : AppCompatActivity(R.layout.activity_articles) {
         }
     }
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
+
     private val ticket by lazy { intent.getParcelableExtra<Ticket>(PARAM_TICKET)!! }
 
     private val articles = ArrayList<TicketArticle>()
@@ -49,26 +53,31 @@ class ArticlesActivity : AppCompatActivity(R.layout.activity_articles) {
         })
     }
 
+    private lateinit var binding: ActivityArticlesBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setSupportActionBar(toolbar)
+        binding = ActivityArticlesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
         }
 
-        list.setHasFixedSize(true)
-        list.setController(controller)
+        binding.list.setHasFixedSize(true)
+        binding.list.setController(controller)
 
-        fab.setOnClickListener {
+        binding.fab.setOnClickListener {
 
             ArticleCreateActivity.start(this, ticket)
         }
 
-        doAsync(
+        DoAsync(
             doWork = {
-                articles.addAll(client?.ticketArticles(ticket) ?: listOf())
+                articles.addAll(client.ticketArticles(ticket) ?: listOf())
             },
             onPost = {
                 controller.setItems(articles)

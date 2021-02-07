@@ -8,9 +8,10 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.kirkbushman.sampleapp.R
+import com.kirkbushman.sampleapp.models.base.KotlinHolder
 import com.kirkbushman.zammad.models.TicketState
 
-@EpoxyModelClass(layout = R.layout.item_state)
+@EpoxyModelClass
 abstract class StateModel : EpoxyModelWithHolder<StateHolder>() {
 
     @EpoxyAttribute
@@ -23,6 +24,10 @@ abstract class StateModel : EpoxyModelWithHolder<StateHolder>() {
     lateinit var updateListener: View.OnClickListener
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var deleteListener: View.OnClickListener
+
+    override fun getDefaultLayout(): Int {
+        return R.layout.item_state
+    }
 
     override fun bind(holder: StateHolder) {
 

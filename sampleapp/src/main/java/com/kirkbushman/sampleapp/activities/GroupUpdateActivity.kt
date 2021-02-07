@@ -4,13 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.doAsync
-import com.kirkbushman.sampleapp.showToast
+import com.kirkbushman.sampleapp.databinding.ActivityGroupUpdateBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.sampleapp.utils.showToast
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.Group
-import kotlinx.android.synthetic.main.activity_group_update.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class GroupUpdateActivity : AppCompatActivity() {
 
     companion object {
@@ -26,27 +28,33 @@ class GroupUpdateActivity : AppCompatActivity() {
         }
     }
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
+
     private val group by lazy { intent.getParcelableExtra<Group>(PARAM_GROUP)!! }
+
+    private lateinit var binding: ActivityGroupUpdateBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_group_update)
 
-        group_name.setText(group.name)
-        group_active.isChecked = group.active
-        group_note.setText(group.note)
+        binding = ActivityGroupUpdateBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        bttn_submit.setOnClickListener {
+        binding.groupName.setText(group.name)
+        binding.groupActive.isChecked = group.active
+        binding.groupNote.setText(group.note)
 
-            val name = group_name.text.toString()
-            val active = group_active.isChecked
-            val note = group_note.text.toString()
+        binding.bttnSubmit.setOnClickListener {
 
-            doAsync(
+            val name = binding.groupName.text.toString()
+            val active = binding.groupActive.isChecked
+            val note = binding.groupNote.text.toString()
+
+            DoAsync(
                 doWork = {
 
-                    client?.updateGroup(
+                    client.updateGroup(
                         id = group.id,
                         name = name,
                         active = active,

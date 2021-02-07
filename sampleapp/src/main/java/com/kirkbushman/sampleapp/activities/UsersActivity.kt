@@ -2,18 +2,21 @@ package com.kirkbushman.sampleapp.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.controllers.OnUpDelCallback
+import com.kirkbushman.sampleapp.callbacks.OnUpDelCallback
 import com.kirkbushman.sampleapp.controllers.UsersController
-import com.kirkbushman.sampleapp.doAsync
-import com.kirkbushman.sampleapp.showToast
+import com.kirkbushman.sampleapp.databinding.ActivityUsersBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.sampleapp.utils.showToast
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.User
-import kotlinx.android.synthetic.main.activity_users.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class UsersActivity : AppCompatActivity() {
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
 
     private val users = ArrayList<User>()
     private val controller by lazy {
@@ -33,11 +36,11 @@ class UsersActivity : AppCompatActivity() {
 
             override fun onDeleteClick(position: Int) {
 
-                doAsync(
+                DoAsync(
                     doWork = {
 
                         val user = users[position]
-                        client?.deleteUser(user)
+                        client.deleteUser(user)
                     },
                     onPost = {
                         showToast("User deleted!")
@@ -47,22 +50,26 @@ class UsersActivity : AppCompatActivity() {
         })
     }
 
+    private lateinit var binding: ActivityUsersBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_users)
 
-        setSupportActionBar(toolbar)
+        binding = ActivityUsersBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
         }
 
-        list.setHasFixedSize(true)
-        list.setController(controller)
+        binding.list.setHasFixedSize(true)
+        binding.list.setController(controller)
 
-        doAsync(
+        DoAsync(
             doWork = {
-                users.addAll(client?.users() ?: listOf())
+                users.addAll(client.users() ?: listOf())
             },
             onPost = {
                 controller.setItems(users)

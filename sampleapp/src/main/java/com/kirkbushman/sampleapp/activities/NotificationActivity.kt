@@ -4,13 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.databinding.ActivityDetailBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.OnlineNotification
-import kotlinx.android.synthetic.main.activity_detail.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class NotificationActivity : AppCompatActivity(R.layout.activity_detail) {
+@AndroidEntryPoint
+class NotificationActivity : AppCompatActivity() {
 
     companion object {
 
@@ -25,19 +27,26 @@ class NotificationActivity : AppCompatActivity(R.layout.activity_detail) {
         }
     }
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
+
     private val notification by lazy { intent.getParcelableExtra<OnlineNotification>(PARAM_NOTIFICATION)!! }
+
+    private lateinit var binding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         var newNotification: OnlineNotification? = null
-        doAsync(
+        DoAsync(
             doWork = {
-                newNotification = client?.onlineNotification(notification.id, true)
+                newNotification = client.onlineNotification(notification.id, true)
             },
             onPost = {
-                model_text.text = newNotification.toString()
+                binding.modelText.text = newNotification.toString()
             }
         )
     }

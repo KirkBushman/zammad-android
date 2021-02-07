@@ -2,18 +2,21 @@ package com.kirkbushman.sampleapp.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.controllers.OnUpDelCallback
+import com.kirkbushman.sampleapp.callbacks.OnUpDelCallback
 import com.kirkbushman.sampleapp.controllers.PrioritiesController
-import com.kirkbushman.sampleapp.doAsync
-import com.kirkbushman.sampleapp.showToast
+import com.kirkbushman.sampleapp.databinding.ActivityPrioritiesBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.sampleapp.utils.showToast
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.TicketPriority
-import kotlinx.android.synthetic.main.activity_groups.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class PrioritiesActivity : AppCompatActivity() {
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
 
     private val priorities = ArrayList<TicketPriority>()
     private val controller by lazy {
@@ -33,11 +36,11 @@ class PrioritiesActivity : AppCompatActivity() {
 
             override fun onDeleteClick(position: Int) {
 
-                doAsync(
+                DoAsync(
                     doWork = {
 
                         val priority = priorities[position]
-                        client?.deleteTicketPriority(priority)
+                        client.deleteTicketPriority(priority)
                     },
                     onPost = {
                         showToast("Priority deleted!")
@@ -47,22 +50,26 @@ class PrioritiesActivity : AppCompatActivity() {
         })
     }
 
+    private lateinit var binding: ActivityPrioritiesBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_priorities)
 
-        setSupportActionBar(toolbar)
+        binding = ActivityPrioritiesBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
         }
 
-        list.setHasFixedSize(true)
-        list.setController(controller)
+        binding.list.setHasFixedSize(true)
+        binding.list.setController(controller)
 
-        doAsync(
+        DoAsync(
             doWork = {
-                priorities.addAll(client?.ticketPrioritites() ?: listOf())
+                priorities.addAll(client.ticketPrioritites() ?: listOf())
             },
             onPost = {
                 controller.setItems(priorities)

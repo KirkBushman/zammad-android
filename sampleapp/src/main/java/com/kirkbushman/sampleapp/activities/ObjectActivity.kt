@@ -4,13 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.databinding.ActivityDetailBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.Object
-import kotlinx.android.synthetic.main.activity_detail.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class ObjectActivity : AppCompatActivity(R.layout.activity_detail) {
+@AndroidEntryPoint
+class ObjectActivity : AppCompatActivity() {
 
     companion object {
 
@@ -25,19 +27,26 @@ class ObjectActivity : AppCompatActivity(R.layout.activity_detail) {
         }
     }
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
+
     private val `object` by lazy { intent.getParcelableExtra<Object>(PARAM_OBJECT)!! }
+
+    private lateinit var binding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         var newObject: Object? = null
-        doAsync(
+        DoAsync(
             doWork = {
-                newObject = client?.`object`(`object`.id)
+                newObject = client.`object`(`object`.id)
             },
             onPost = {
-                model_text.text = newObject.toString()
+                binding.modelText.text = newObject.toString()
             }
         )
     }

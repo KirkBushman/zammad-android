@@ -8,6 +8,7 @@ import com.airbnb.epoxy.EpoxyAttribute.Option.DoNotHash
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.kirkbushman.sampleapp.R
+import com.kirkbushman.sampleapp.models.base.KotlinHolder
 import com.kirkbushman.zammad.models.Object
 
 @EpoxyModelClass(layout = R.layout.item_object)

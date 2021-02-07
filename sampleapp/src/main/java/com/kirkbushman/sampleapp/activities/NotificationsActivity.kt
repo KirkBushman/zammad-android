@@ -2,17 +2,20 @@ package com.kirkbushman.sampleapp.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.controllers.NotificationsController
-import com.kirkbushman.sampleapp.controllers.OnClickCallback
-import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.callbacks.OnClickCallback
+import com.kirkbushman.sampleapp.databinding.ActivityNotificationsBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.OnlineNotification
-import kotlinx.android.synthetic.main.activity_users.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class NotificationsActivity : AppCompatActivity() {
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
 
     private val notifications = ArrayList<OnlineNotification>()
     private val controller by lazy {
@@ -26,22 +29,26 @@ class NotificationsActivity : AppCompatActivity() {
         })
     }
 
+    private lateinit var binding: ActivityNotificationsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notifications)
 
-        setSupportActionBar(toolbar)
+        binding = ActivityNotificationsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
         }
 
-        list.setHasFixedSize(true)
-        list.setController(controller)
+        binding.list.setHasFixedSize(true)
+        binding.list.setController(controller)
 
-        doAsync(
+        DoAsync(
             doWork = {
-                notifications.addAll(client?.onlineNotifications(true) ?: listOf())
+                notifications.addAll(client.onlineNotifications(true) ?: listOf())
             },
             onPost = {
                 controller.setItems(notifications)

@@ -1,5 +1,6 @@
 package com.kirkbushman.sampleapp.controllers
 
+import com.kirkbushman.sampleapp.callbacks.OnClickCallback
 import com.kirkbushman.sampleapp.models.`object`
 import com.kirkbushman.zammad.models.Object
 

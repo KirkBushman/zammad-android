@@ -4,13 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.doAsync
-import com.kirkbushman.sampleapp.showToast
+import com.kirkbushman.sampleapp.databinding.ActivityStateUpdateBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.sampleapp.utils.showToast
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.TicketState
-import kotlinx.android.synthetic.main.activity_state_update.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class StateUpdateActivity : AppCompatActivity() {
 
     companion object {
@@ -26,27 +28,33 @@ class StateUpdateActivity : AppCompatActivity() {
         }
     }
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
+
     private val state by lazy { intent.getParcelableExtra<TicketState>(PARAM_STATE)!! }
+
+    private lateinit var binding: ActivityStateUpdateBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_state_update)
 
-        state_name.setText(state.name)
-        state_active.isChecked = state.active
-        state_note.setText(state.note)
+        binding = ActivityStateUpdateBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        bttn_submit.setOnClickListener {
+        binding.stateName.setText(state.name)
+        binding.stateActive.isChecked = state.active
+        binding.stateNote.setText(state.note)
 
-            val name = state_name.text.toString()
-            val active = state_active.isChecked
-            val note = state_note.text.toString()
+        binding.bttnSubmit.setOnClickListener {
 
-            doAsync(
+            val name = binding.stateName.text.toString()
+            val active = binding.stateActive.isChecked
+            val note = binding.stateNote.text.toString()
+
+            DoAsync(
                 doWork = {
 
-                    client?.updateTicketState(
+                    client.updateTicketState(
                         id = state.id,
                         name = name,
                         active = active,

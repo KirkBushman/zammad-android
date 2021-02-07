@@ -3,18 +3,21 @@ package com.kirkbushman.sampleapp.activities
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.controllers.OnTicketCallback
+import com.kirkbushman.sampleapp.callbacks.OnTicketCallback
 import com.kirkbushman.sampleapp.controllers.TicketsController
-import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.databinding.ActivitySearchBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.SearchResult
 import com.kirkbushman.zammad.models.Ticket
-import kotlinx.android.synthetic.main.activity_search.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ActivitySearch : AppCompatActivity() {
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
 
     private var searchResult: SearchResult? = null
     private val tickets = ArrayList<Ticket>()
@@ -41,11 +44,11 @@ class ActivitySearch : AppCompatActivity() {
 
             override fun onDeleteClick(position: Int) {
 
-                doAsync(
+                DoAsync(
                     doWork = {
 
                         val ticket = tickets[position]
-                        client?.deleteTicket(ticket.id)
+                        client.deleteTicket(ticket.id)
                     },
                     onPost = {
                         Toast.makeText(this@ActivitySearch, "Ticket deleted!", Toast.LENGTH_SHORT).show()
@@ -55,30 +58,34 @@ class ActivitySearch : AppCompatActivity() {
         })
     }
 
+    private lateinit var binding: ActivitySearchBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
 
-        setSupportActionBar(toolbar)
+        binding = ActivitySearchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
         }
 
-        list.setHasFixedSize(true)
-        list.setController(controller)
+        binding.list.setHasFixedSize(true)
+        binding.list.setController(controller)
 
-        search_bttn.setOnClickListener {
+        binding.searchBttn.setOnClickListener {
 
-            val query = search_edit.text.trim().toString()
+            val query = binding.searchEdit.text.trim().toString()
             if (query != "") {
 
                 tickets.clear()
 
-                doAsync(
+                DoAsync(
                     doWork = {
 
-                        searchResult = client?.searchTickets(query = "title:$query", page = 1, perPage = 20)
+                        searchResult = client.searchTickets(query = "title:$query", page = 1, perPage = 20)
                         tickets.addAll(searchResult?.assets?.tickets?.values ?: listOf())
                     },
                     onPost = {

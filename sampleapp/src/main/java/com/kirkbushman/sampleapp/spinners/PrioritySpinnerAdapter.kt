@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.annotation.ColorInt
 import com.kirkbushman.sampleapp.R
+import com.kirkbushman.sampleapp.databinding.SpinnerPriorityItemBinding
 import com.kirkbushman.zammad.models.TicketPriority
-import kotlinx.android.synthetic.main.spinner_priority_item.view.*
 
 class PrioritySpinnerAdapter(
 
@@ -40,9 +40,10 @@ class PrioritySpinnerAdapter(
 
     private fun getCustomView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val layout = convertView ?: inflater.inflate(R.layout.spinner_priority_item, parent, false)
+        val binding = SpinnerPriorityItemBinding.bind(layout)
 
-        layout.priority_spinner_text.text = getTextFromindex(objects[position].id.toString())
-        layout.spinner_logo.setImageResource(priorityImageArray[position])
+        binding.prioritySpinnerText.text = getTextFromindex(objects[position].id.toString())
+        binding.spinnerLogo.setImageResource(priorityImageArray[position])
 
         return layout
     }

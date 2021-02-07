@@ -4,13 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.doAsync
-import com.kirkbushman.sampleapp.showToast
+import com.kirkbushman.sampleapp.databinding.ActivityUserUpdateBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.sampleapp.utils.showToast
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.User
-import kotlinx.android.synthetic.main.activity_user_update.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class UserUpdateActivity : AppCompatActivity() {
 
     companion object {
@@ -26,35 +28,41 @@ class UserUpdateActivity : AppCompatActivity() {
         }
     }
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
+
     private val user by lazy { intent.getParcelableExtra<User>(PARAM_USER)!! }
+
+    private lateinit var binding: ActivityUserUpdateBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_update)
 
-        user_firstname.setText(user.firstname)
-        user_lastname.setText(user.lastname)
-        user_active.isChecked = user.active
-        user_email.setText(user.email)
-        user_phone.setText(user.phone)
-        user_mobile.setText(user.mobile)
-        user_note.setText(user.note)
+        binding = ActivityUserUpdateBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        bttn_submit.setOnClickListener {
+        binding.userFirstname.setText(user.firstname)
+        binding.userLastname.setText(user.lastname)
+        binding.userActive.isChecked = user.active
+        binding.userEmail.setText(user.email)
+        binding.userPhone.setText(user.phone)
+        binding.userMobile.setText(user.mobile)
+        binding.userNote.setText(user.note)
 
-            val firstname = user_firstname.text.toString()
-            val lastname = user_lastname.text.toString()
-            val active = user_active.isChecked
-            val email = user_email.text.toString()
-            val phone = user_phone.text.toString()
-            val mobile = user_mobile.text.toString()
-            val note = user_note.text.toString()
+        binding.bttnSubmit.setOnClickListener {
 
-            doAsync(
+            val firstname = binding.userFirstname.text.toString()
+            val lastname = binding.userLastname.text.toString()
+            val active = binding.userActive.isChecked
+            val email = binding.userEmail.text.toString()
+            val phone = binding.userPhone.text.toString()
+            val mobile = binding.userMobile.text.toString()
+            val note = binding.userNote.text.toString()
+
+            DoAsync(
                 doWork = {
 
-                    client?.updateUser(
+                    client.updateUser(
                         id = user.id,
                         firstname = firstname,
                         lastname = lastname,

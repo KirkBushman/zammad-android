@@ -5,12 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.databinding.ActivityArticleCreateBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.Ticket
-import kotlinx.android.synthetic.main.activity_article_create.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ArticleCreateActivity : AppCompatActivity() {
 
     companion object {
@@ -26,24 +28,30 @@ class ArticleCreateActivity : AppCompatActivity() {
         }
     }
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
+
     private val ticket by lazy { intent.getParcelableExtra<Ticket>(PARAM_TICKET)!! }
+
+    private lateinit var binding: ActivityArticleCreateBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_article_create)
 
-        bttn_submit.setOnClickListener {
+        binding = ActivityArticleCreateBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-            val to = article_to.text.trim().toString()
-            val cc = article_cc.text.trim().toString()
-            val subject = article_subject.text.trim().toString()
-            val body = article_body.text.trim().toString()
+        binding.bttnSubmit.setOnClickListener {
 
-            doAsync(
+            val to = binding.articleTo.text.trim().toString()
+            val cc = binding.articleCc.text.trim().toString()
+            val subject = binding.articleSubject.text.trim().toString()
+            val body = binding.articleBody.text.trim().toString()
+
+            DoAsync(
                 doWork = {
 
-                    client?.createTicketArticle(
+                    client.createTicketArticle(
                         ticketId = ticket.id,
 
                         to = to,

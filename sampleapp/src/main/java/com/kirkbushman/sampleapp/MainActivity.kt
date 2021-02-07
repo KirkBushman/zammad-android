@@ -4,87 +4,91 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.kirkbushman.sampleapp.activities.*
-import kotlinx.android.synthetic.main.activity_main.*
+import com.kirkbushman.sampleapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        bttn_me.setOnClickListener {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.bttnMe.setOnClickListener {
 
             val intent = Intent(this, MeActivity::class.java)
             startActivity(intent)
         }
 
-        bttn_tickets.setOnClickListener {
+        binding.bttnTickets.setOnClickListener {
 
             val intent = Intent(this, TicketsActivity::class.java)
             startActivity(intent)
         }
 
-        bttn_tickets_search.setOnClickListener {
+        binding.bttnTicketsSearch.setOnClickListener {
 
             val intent = Intent(this, ActivitySearch::class.java)
             startActivity(intent)
         }
 
-        bttn_users.setOnClickListener {
+        binding.bttnUsers.setOnClickListener {
 
             val intent = Intent(this, UsersActivity::class.java)
             startActivity(intent)
         }
 
-        bttn_groups.setOnClickListener {
+        binding.bttnGroups.setOnClickListener {
 
             val intent = Intent(this, GroupsActivity::class.java)
             startActivity(intent)
         }
 
-        bttn_roles.setOnClickListener {
+        binding.bttnRoles.setOnClickListener {
 
             val intent = Intent(this, RolesActivity::class.java)
             startActivity(intent)
         }
 
-        bttn_tags.setOnClickListener {
+        binding.bttnTags.setOnClickListener {
 
             val intent = Intent(this, TagsActivity::class.java)
             startActivity(intent)
         }
 
-        bttn_overviews.setOnClickListener {
+        binding.bttnOverviews.setOnClickListener {
 
             val intent = Intent(this, OverviewsActivity::class.java)
             startActivity(intent)
         }
 
-        bttn_organizations.setOnClickListener {
+        binding.bttnOrganizations.setOnClickListener {
 
             val intent = Intent(this, OrganizationsActivity::class.java)
             startActivity(intent)
         }
 
-        bttn_priorities.setOnClickListener {
+        binding.bttnPriorities.setOnClickListener {
 
             val intent = Intent(this, PrioritiesActivity::class.java)
             startActivity(intent)
         }
 
-        bttn_states.setOnClickListener {
+        binding.bttnStates.setOnClickListener {
 
             val intent = Intent(this, StatesActivity::class.java)
             startActivity(intent)
         }
 
-        bttn_objects.setOnClickListener {
+        binding.bttnObjects.setOnClickListener {
 
             val intent = Intent(this, ObjectsActivity::class.java)
             startActivity(intent)
         }
 
-        bttn_notifications.setOnClickListener {
+        binding.bttnNotifications.setOnClickListener {
 
             val intent = Intent(this, NotificationsActivity::class.java)
             startActivity(intent)

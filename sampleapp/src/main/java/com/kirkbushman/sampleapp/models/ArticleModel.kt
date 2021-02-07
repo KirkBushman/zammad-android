@@ -8,9 +8,10 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.kirkbushman.sampleapp.R
+import com.kirkbushman.sampleapp.models.base.KotlinHolder
 import com.kirkbushman.zammad.models.TicketArticle
 
-@EpoxyModelClass(layout = R.layout.item_article)
+@EpoxyModelClass
 abstract class ArticleModel : EpoxyModelWithHolder<ArticleHolder>() {
 
     @EpoxyAttribute
@@ -21,6 +22,10 @@ abstract class ArticleModel : EpoxyModelWithHolder<ArticleHolder>() {
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var attachmentsClick: View.OnClickListener
+
+    override fun getDefaultLayout(): Int {
+        return R.layout.item_article
+    }
 
     override fun bind(holder: ArticleHolder) {
 

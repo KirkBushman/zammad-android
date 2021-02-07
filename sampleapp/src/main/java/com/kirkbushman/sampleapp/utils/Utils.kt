@@ -1,4 +1,4 @@
-package com.kirkbushman.sampleapp
+package com.kirkbushman.sampleapp.utils
 
 import android.content.Context
 import android.widget.Toast

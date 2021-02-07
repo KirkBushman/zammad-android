@@ -6,18 +6,21 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.databinding.ActivityTicketCreateBinding
+import com.kirkbushman.sampleapp.DoAsync
 import com.kirkbushman.sampleapp.spinners.GroupSpinnerAdapter
 import com.kirkbushman.sampleapp.spinners.UserSpinnerAdapter
 import com.kirkbushman.sampleapp.spinners.PrioritySpinnerAdapter
 import com.kirkbushman.sampleapp.spinners.StatesSpinnerAdapter
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.Group
 import com.kirkbushman.zammad.models.TicketPriority
 import com.kirkbushman.zammad.models.TicketState
 import com.kirkbushman.zammad.models.User
-import kotlinx.android.synthetic.main.activity_ticket_create.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class TicketCreateActivity : AppCompatActivity() {
 
     companion object {
@@ -29,16 +32,21 @@ class TicketCreateActivity : AppCompatActivity() {
         }
     }
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
+
+    private lateinit var binding: ActivityTicketCreateBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ticket_create)
+
+        binding = ActivityTicketCreateBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val groups = ArrayList<Group>()
-        doAsync(
+        DoAsync(
             doWork = {
-                groups.addAll(client?.groups() ?: listOf())
+                groups.addAll(client.groups() ?: listOf())
             },
             onPost = {
                 bindGroupSpinner(groups)
@@ -46,9 +54,9 @@ class TicketCreateActivity : AppCompatActivity() {
         )
 
         val states = ArrayList<TicketState>()
-        doAsync(
+        DoAsync(
             doWork = {
-                states.addAll(client?.ticketStates() ?: listOf())
+                states.addAll(client.ticketStates() ?: listOf())
             },
             onPost = {
                 bindStateSpinner(states)
@@ -56,9 +64,9 @@ class TicketCreateActivity : AppCompatActivity() {
         )
 
         val priorities = ArrayList<TicketPriority>()
-        doAsync(
+        DoAsync(
             doWork = {
-                priorities.addAll(client?.ticketPrioritites() ?: listOf())
+                priorities.addAll(client.ticketPrioritites() ?: listOf())
             },
             onPost = {
                 bindPrioritySpinner(priorities)
@@ -66,9 +74,9 @@ class TicketCreateActivity : AppCompatActivity() {
         )
 
         val users = ArrayList<User?>()
-        doAsync(
+        DoAsync(
             doWork = {
-                users.addAll(client?.users() ?: listOf())
+                users.addAll(client.users() ?: listOf())
             },
             onPost = {
 
@@ -77,26 +85,26 @@ class TicketCreateActivity : AppCompatActivity() {
             }
         )
 
-        bttn_submit.setOnClickListener {
+        binding.bttnSubmit.setOnClickListener {
 
-            val group = groups[ticket_group.selectedItemPosition]
-            val state = states[ticket_state.selectedItemPosition]
-            val priority = priorities[ticket_priority.selectedItemPosition]
-            val owner = users[ticket_owner.selectedItemPosition]
-            val customer = users[ticket_customer.selectedItemPosition]
+            val group = groups[binding.ticketGroup.selectedItemPosition]
+            val state = states[binding.ticketState.selectedItemPosition]
+            val priority = priorities[binding.ticketPriority.selectedItemPosition]
+            val owner = users[binding.ticketOwner.selectedItemPosition]
+            val customer = users[binding.ticketCustomer.selectedItemPosition]
 
-            doAsync(
+            DoAsync(
                 doWork = {
 
-                    client?.createTicket(
-                        title = ticket_title.text.trim().toString(),
+                    client.createTicket(
+                        title = binding.ticketTitle.text.trim().toString(),
                         groupId = group.id,
                         stateId = state.id,
                         priorityId = priority.id,
                         ownerId = owner?.id,
                         customerId = customer?.id,
-                        subject = ticket_article_subject.text.trim().toString(),
-                        body = ticket_article_body.text.trim().toString(),
+                        subject = binding.ticketArticleSubject.text.trim().toString(),
+                        body = binding.ticketArticleBody.text.trim().toString(),
                         type = "note",
                         internal = false
                     )
@@ -113,7 +121,7 @@ class TicketCreateActivity : AppCompatActivity() {
             setDropDownViewResource(R.layout.spinner_group_item)
         }
 
-        ticket_group.adapter = groupsAdapter
+        binding.ticketGroup.adapter = groupsAdapter
     }
 
     private fun bindStateSpinner(states: List<TicketState>) {
@@ -121,7 +129,7 @@ class TicketCreateActivity : AppCompatActivity() {
             setDropDownViewResource(R.layout.spinner_state_item)
         }
 
-        ticket_state.adapter = statesAdapter
+        binding.ticketState.adapter = statesAdapter
     }
 
     private fun bindPrioritySpinner(priorities: List<TicketPriority>) {
@@ -129,7 +137,7 @@ class TicketCreateActivity : AppCompatActivity() {
             setDropDownViewResource(R.layout.spinner_priority_item)
         }
 
-        ticket_priority.adapter = prioritiesAdapter
+        binding.ticketPriority.adapter = prioritiesAdapter
     }
 
     private fun bindOwnerSpinner(owners: List<User?>) {
@@ -137,7 +145,7 @@ class TicketCreateActivity : AppCompatActivity() {
             setDropDownViewResource(R.layout.spinner_user_item)
         }
 
-        ticket_owner.adapter = ownersAdapter
+        binding.ticketOwner.adapter = ownersAdapter
     }
 
     private fun bindCustomerSpinner(customers: List<User?>) {
@@ -145,6 +153,6 @@ class TicketCreateActivity : AppCompatActivity() {
             setDropDownViewResource(R.layout.spinner_user_item)
         }
 
-        ticket_customer.adapter = customersAdapter
+        binding.ticketCustomer.adapter = customersAdapter
     }
 }

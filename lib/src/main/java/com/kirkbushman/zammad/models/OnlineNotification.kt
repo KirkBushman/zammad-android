@@ -4,9 +4,10 @@ import android.os.Parcelable
 import com.kirkbushman.zammad.models.base.Creatable
 import com.kirkbushman.zammad.models.base.Identifiable
 import com.kirkbushman.zammad.models.base.Updatable
+import com.kirkbushman.zammad.models.enums.NotificationType
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @JsonClass(generateAdapter = true)
 @Parcelize
@@ -58,10 +59,3 @@ data class OnlineNotification(
     override val createdById: Int
 
 ) : Parcelable, Identifiable, Creatable, Updatable
-
-enum class NotificationType(val typeStr: String) {
-
-    @Json(name = "create") CREATE("create"),
-    @Json(name = "update") UPDATE("update"),
-    @Json(name = "escalation") ESCALATION("escalation")
-}

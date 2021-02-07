@@ -4,12 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.databinding.ActivityDetailBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.Organization
-import kotlinx.android.synthetic.main.activity_detail.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class OrganizationActivity : AppCompatActivity() {
 
     companion object {
@@ -25,20 +27,26 @@ class OrganizationActivity : AppCompatActivity() {
         }
     }
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
+
     private val organization by lazy { intent.getParcelableExtra<Organization>(PARAM_ORGAN)!! }
+
+    private lateinit var binding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
+
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         var newOrganization: Organization? = null
-        doAsync(
+        DoAsync(
             doWork = {
-                newOrganization = client?.organization(organization.id, true)
+                newOrganization = client.organization(organization.id, true)
             },
             onPost = {
-                model_text.text = newOrganization.toString()
+                binding.modelText.text = newOrganization.toString()
             }
         )
     }

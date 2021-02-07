@@ -1,4 +1,4 @@
-package com.kirkbushman.sampleapp.models
+package com.kirkbushman.sampleapp.models.base
 
 import android.view.View
 import com.airbnb.epoxy.EpoxyHolder

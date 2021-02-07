@@ -8,9 +8,10 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.kirkbushman.sampleapp.R
+import com.kirkbushman.sampleapp.models.base.KotlinHolder
 import com.kirkbushman.zammad.models.Organization
 
-@EpoxyModelClass(layout = R.layout.item_organization)
+@EpoxyModelClass
 abstract class OrganizationModel : EpoxyModelWithHolder<OrganizationHolder>() {
 
     @EpoxyAttribute
@@ -18,11 +19,14 @@ abstract class OrganizationModel : EpoxyModelWithHolder<OrganizationHolder>() {
 
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var clickListener: View.OnClickListener
-
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var updateListener: View.OnClickListener
     @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
     lateinit var deleteListener: View.OnClickListener
+
+    override fun getDefaultLayout(): Int {
+        return R.layout.item_organization
+    }
 
     override fun bind(holder: OrganizationHolder) {
 

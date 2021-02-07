@@ -4,13 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
 import com.kirkbushman.sampleapp.controllers.AttachmentsController
-import com.kirkbushman.sampleapp.controllers.OnClickCallback
+import com.kirkbushman.sampleapp.callbacks.OnClickCallback
+import com.kirkbushman.sampleapp.databinding.ActivityAttachmentsBinding
 import com.kirkbushman.zammad.models.ArticleAttachment
 import com.kirkbushman.zammad.models.Ticket
 import com.kirkbushman.zammad.models.TicketArticle
-import kotlinx.android.synthetic.main.activity_attachments.*
 
 class AttachmentsActivity : AppCompatActivity() {
 
@@ -45,18 +44,22 @@ class AttachmentsActivity : AppCompatActivity() {
         })
     }
 
+    private lateinit var binding: ActivityAttachmentsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_attachments)
 
-        setSupportActionBar(toolbar)
+        binding = ActivityAttachmentsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
         }
 
-        list.setHasFixedSize(true)
-        list.setController(controller)
+        binding.list.setHasFixedSize(true)
+        binding.list.setController(controller)
 
         attachments.addAll(article.attachments)
         controller.setItems(attachments)

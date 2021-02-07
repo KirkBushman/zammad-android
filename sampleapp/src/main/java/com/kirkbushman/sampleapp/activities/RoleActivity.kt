@@ -4,13 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
-import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.databinding.ActivityDetailBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.Role
-import kotlinx.android.synthetic.main.activity_detail.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class RoleActivity : AppCompatActivity(R.layout.activity_detail) {
+@AndroidEntryPoint
+class RoleActivity : AppCompatActivity() {
 
     companion object {
 
@@ -25,19 +27,26 @@ class RoleActivity : AppCompatActivity(R.layout.activity_detail) {
         }
     }
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
+
     private val role by lazy { intent.getParcelableExtra<Role>(PARAM_ROLE)!! }
+
+    private lateinit var binding: ActivityDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding = ActivityDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         var newRole: Role? = null
-        doAsync(
+        DoAsync(
             doWork = {
-                newRole = client?.role(role.id, true)
+                newRole = client.role(role.id, true)
             },
             onPost = {
-                model_text.text = newRole.toString()
+                binding.modelText.text = newRole.toString()
             }
         )
     }

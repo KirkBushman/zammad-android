@@ -2,17 +2,20 @@ package com.kirkbushman.sampleapp.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kirkbushman.sampleapp.R
-import com.kirkbushman.sampleapp.SampleApplication
 import com.kirkbushman.sampleapp.controllers.ObjectsController
-import com.kirkbushman.sampleapp.controllers.OnClickCallback
-import com.kirkbushman.sampleapp.doAsync
+import com.kirkbushman.sampleapp.callbacks.OnClickCallback
+import com.kirkbushman.sampleapp.databinding.ActivityObjectsBinding
+import com.kirkbushman.sampleapp.DoAsync
+import com.kirkbushman.zammad.ZammadClient
 import com.kirkbushman.zammad.models.Object
-import kotlinx.android.synthetic.main.activity_objects.*
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ObjectsActivity : AppCompatActivity() {
 
-    private val client by lazy { SampleApplication.instance.getClient() }
+    @Inject
+    lateinit var client: ZammadClient
 
     private val objects = ArrayList<Object>()
     private val controller by lazy {
@@ -26,22 +29,26 @@ class ObjectsActivity : AppCompatActivity() {
         })
     }
 
+    private lateinit var binding: ActivityObjectsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_objects)
 
-        setSupportActionBar(toolbar)
+        binding = ActivityObjectsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             it.setDisplayShowHomeEnabled(true)
         }
 
-        list.setHasFixedSize(true)
-        list.setController(controller)
+        binding.list.setHasFixedSize(true)
+        binding.list.setController(controller)
 
-        doAsync(
+        DoAsync(
             doWork = {
-                objects.addAll(client?.objects() ?: emptyList())
+                objects.addAll(client.objects() ?: emptyList())
             },
             onPost = {
                 controller.setItems(objects)
