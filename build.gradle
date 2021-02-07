@@ -5,6 +5,9 @@ buildscript {
     ext {
         android_gradle_ver = '4.1.2'
 
+        version_code = 2
+        version_name = "1.0.1"
+
         compile_sdk_ver = 30
         build_tools_ver = '30.0.3'
 
