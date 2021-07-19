@@ -35,6 +35,14 @@ dependencies {
         password = "**Your Password**", 
         logging = true
     )
+
+    //With Access or OAUTH2 Token
+    val client = ZammadClient(
+        baseurl = "**Zammad Url (https:// included)**",
+        token = "**Your Http Access or OAUTH2 Token**",
+        authType = "**Auth Type from utils/Constants **",
+        logging = true
+    )
 ```
 
 ### Use the Client.
