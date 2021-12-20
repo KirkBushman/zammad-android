@@ -14,7 +14,7 @@ class ZammadClient(
 
     private val auth: String,
     private val logging: Boolean,
-    loggedIn: Boolean //
+    loggedIn: Boolean //prevents bug when type wrong url
 ) {
 
     constructor(baseUrl: String, username: String, password: String, logging: Boolean ,loggedIn: Boolean) : this(baseUrl, "$username:$password", logging,loggedIn)
@@ -28,7 +28,7 @@ class ZammadClient(
         @Synchronized
         fun getRetrofit(baseUrl: String, logging: Boolean,loggedIn: Boolean): Retrofit {
             synchronized(this) {
-                //if (retrofit == null) { //soved login issue part1
+                //if (retrofit == null) { //solves login issue part1
                 if(!loggedIn) retrofit = buildRetrofit(baseUrl, logging)
                 if(retrofit == null) retrofit = buildRetrofit(baseUrl, logging)
                 //}
@@ -52,7 +52,7 @@ class ZammadClient(
         @Synchronized
         fun getApi(baseUrl: String, logging: Boolean, loggedIn: Boolean): ZammadApi {
             synchronized(this) {
-                // if (api == null) { //soved login issue part2
+                // if (api == null) { //solves login issue part2
                 if (!loggedIn) {api = getRetrofit(baseUrl, logging, loggedIn).create(ZammadApi::class.java)}
                 if (api == null) api = getRetrofit(baseUrl, logging, loggedIn).create(ZammadApi::class.java)
                 //}
@@ -89,17 +89,6 @@ class ZammadClient(
             }
 
             return res.body()
-        }
-
-        fun log(baseUrl: String, username: String, password: String, logging: Boolean, expanded: Boolean = false): Int {
-
-            val auth = "$username:$password"
-            val authMap = hashMapOf("Authorization" to "Basic ".plus(String(Base64.encode(auth.toByteArray(), Base64.NO_WRAP))))
-            val api = getApi(baseUrl, logging, loggedIn=false)
-            val req = api.me(expanded, authMap)
-            val res = req.execute()
-
-            return res.code()
         }
     }
 
@@ -212,10 +201,12 @@ class ZammadClient(
         phone: String? = null,
         fax: String? = null,
         mobile: String? = null,
+        department: String? = null,
         street: String? = null,
         zip: String? = null,
         city: String? = null,
         country: String? = null,
+        address: String? = null,
         isVip: Boolean? = null,
         isVerified: Boolean? = null,
         note: String? = null,
@@ -244,10 +235,12 @@ class ZammadClient(
             phone = phone,
             fax = fax,
             mobile = mobile,
+            department = department,
             street = street,
             zip = zip,
             city = city,
             country = country,
+            address = address,
             isVip = isVip,
             isVerified = isVerified,
             note = note,
