@@ -28,6 +28,12 @@ interface ZammadApi {
         @HeaderMap header: HashMap<String, String>
     ): Call<User>
 
+    @GET("/api/v1/signatures")
+    fun signature(
+        @Query("expand") expanded: Boolean,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<List<MailSignature>>
+
     @FormUrlEncoded
     @PUT("/api/v1/users/{id}")
     fun updateUser(
@@ -213,6 +219,23 @@ interface ZammadApi {
         @HeaderMap header: HashMap<String, String>
     ): Call<List<Tag>>
 
+    @GET("/api/v1/tags")
+    fun ticketTags(
+        @Query("object") ticket: String,
+        @Query("o_id") query: String,
+        @Query("expand") expanded: Boolean,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<TicketTag>
+
+    @FormUrlEncoded
+    @POST("/api/v1/tags/add")
+    fun addTag(
+        @Field("item") item: String,
+        @Field("object") tagObject: String,
+        @Field("o_id") oId: String,
+        @HeaderMap header: HashMap<String, String>
+    ): Call<Any?>
+
     @GET("/api/v1/ticket_states")
     fun ticketStates(
         @Query("expand") expanded: Boolean,
@@ -338,6 +361,7 @@ interface ZammadApi {
         @Field("customer_id") customerId: Int? = null,
         @Field("customer") customer: String? = null,
         @Field("note") note: String? = null,
+        @Field("pending_time") pendingTime: String? = null,
 
         @HeaderMap header: HashMap<String, String>
     ): Call<Ticket>

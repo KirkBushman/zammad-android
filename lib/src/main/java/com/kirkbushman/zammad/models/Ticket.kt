@@ -82,6 +82,9 @@ data class Ticket(
     override val createdBy: String?,
 
     @Json(name = "updated_by")
-    override val updatedBy: String?
+    override val updatedBy: String?,
+
+    @Json(name = "pending_time")
+    val pendingTime: String?
 
 ) : Parcelable, Identifiable, Creatable, Updatable

@@ -46,6 +46,9 @@ data class TicketCompat(
     val article: TicketArticleCompat,
 
     @Json(name = "note")
-    val note: String? = null
+    val note: String? = null,
+
+    @Json(name = "pending_time")
+    val pendingTime: String? = null
 
 ) : Parcelable

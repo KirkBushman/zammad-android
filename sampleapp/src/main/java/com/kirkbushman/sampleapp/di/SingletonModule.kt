@@ -47,7 +47,7 @@ object SingletonModule {
     ): ZammadClient {
 
         if (mClient == null) {
-            mClient = ZammadClient(prefs.getBaseUrl(), prefs.getUsername(), prefs.getPassword(), true)
+            mClient = ZammadClient(prefs.getBaseUrl(), prefs.getUsername(), prefs.getPassword(), true, true)
         }
 
         return mClient!!

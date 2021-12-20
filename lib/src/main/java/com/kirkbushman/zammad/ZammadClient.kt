@@ -13,10 +13,11 @@ class ZammadClient(
     baseUrl: String,
 
     private val auth: String,
-    private val logging: Boolean
+    private val logging: Boolean,
+    loggedIn: Boolean //
 ) {
 
-    constructor(baseUrl: String, username: String, password: String, logging: Boolean) : this(baseUrl, "$username:$password", logging)
+    constructor(baseUrl: String, username: String, password: String, logging: Boolean ,loggedIn: Boolean) : this(baseUrl, "$username:$password", logging,loggedIn)
 
     companion object {
 
@@ -24,14 +25,13 @@ class ZammadClient(
         private var retrofit: Retrofit? = null
         @Volatile
         private var api: ZammadApi? = null
-
         @Synchronized
-        fun getRetrofit(baseUrl: String, logging: Boolean): Retrofit {
+        fun getRetrofit(baseUrl: String, logging: Boolean,loggedIn: Boolean): Retrofit {
             synchronized(this) {
-
-                if (retrofit == null) {
-                    retrofit = buildRetrofit(baseUrl, logging)
-                }
+                //if (retrofit == null) { //soved login issue part1
+                if(!loggedIn) retrofit = buildRetrofit(baseUrl, logging)
+                if(retrofit == null) retrofit = buildRetrofit(baseUrl, logging)
+                //}
 
                 return retrofit!!
             }
@@ -50,13 +50,12 @@ class ZammadClient(
         }
 
         @Synchronized
-        fun getApi(baseUrl: String, logging: Boolean): ZammadApi {
+        fun getApi(baseUrl: String, logging: Boolean, loggedIn: Boolean): ZammadApi {
             synchronized(this) {
-
-                if (api == null) {
-                    api = getRetrofit(baseUrl, logging).create(ZammadApi::class.java)
-                }
-
+                // if (api == null) { //soved login issue part2
+                if (!loggedIn) {api = getRetrofit(baseUrl, logging, loggedIn).create(ZammadApi::class.java)}
+                if (api == null) api = getRetrofit(baseUrl, logging, loggedIn).create(ZammadApi::class.java)
+                //}
                 return api!!
             }
         }
@@ -82,19 +81,29 @@ class ZammadClient(
 
             val auth = "$username:$password"
             val authMap = hashMapOf("Authorization" to "Basic ".plus(String(Base64.encode(auth.toByteArray(), Base64.NO_WRAP))))
-            val api = getApi(baseUrl, logging)
+            val api = getApi(baseUrl, logging, loggedIn=false)
             val req = api.me(expanded, authMap)
             val res = req.execute()
-
             if (!res.isSuccessful) {
                 return null
             }
 
             return res.body()
         }
+
+        fun log(baseUrl: String, username: String, password: String, logging: Boolean, expanded: Boolean = false): Int {
+
+            val auth = "$username:$password"
+            val authMap = hashMapOf("Authorization" to "Basic ".plus(String(Base64.encode(auth.toByteArray(), Base64.NO_WRAP))))
+            val api = getApi(baseUrl, logging, loggedIn=false)
+            val req = api.me(expanded, authMap)
+            val res = req.execute()
+
+            return res.code()
+        }
     }
 
-    private val api = getApi(baseUrl, logging)
+    private val api = getApi(baseUrl, logging, loggedIn)
 
     fun me(expanded: Boolean = false): User? {
 
@@ -203,12 +212,10 @@ class ZammadClient(
         phone: String? = null,
         fax: String? = null,
         mobile: String? = null,
-        department: String? = null,
         street: String? = null,
         zip: String? = null,
         city: String? = null,
         country: String? = null,
-        address: String? = null,
         isVip: Boolean? = null,
         isVerified: Boolean? = null,
         note: String? = null,
@@ -237,12 +244,10 @@ class ZammadClient(
             phone = phone,
             fax = fax,
             mobile = mobile,
-            department = department,
             street = street,
             zip = zip,
             city = city,
             country = country,
-            address = address,
             isVip = isVip,
             isVerified = isVerified,
             note = note,
@@ -632,6 +637,24 @@ class ZammadClient(
         return res.body()
     }
 
+    fun signature(expanded: Boolean = false): List<MailSignature>? {
+
+        val authMap = getHeaderMap()
+        val req = api.signature(expanded, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
     fun ticketStates(expanded: Boolean = false): List<TicketState>? {
 
         val authMap = getHeaderMap()
@@ -868,6 +891,24 @@ class ZammadClient(
         return res.body()
     }
 
+    fun searchUnassignedTickets(query: String, page: Int, perPage: Int, expanded: Boolean = false): SearchResult? {
+
+        val authMap = getHeaderMap()
+        val req = api.searchTickets(query, page, perPage, expanded, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
     fun ticket(id: Int, expanded: Boolean = false): Ticket? {
 
         val authMap = getHeaderMap()
@@ -979,7 +1020,8 @@ class ZammadClient(
         owner: String? = null,
         customerId: Int? = null,
         customer: String? = null,
-        note: String? = null
+        note: String? = null,
+        pendingTime: String? = null
     ): Ticket? {
 
         val authMap = getHeaderMap()
@@ -997,7 +1039,8 @@ class ZammadClient(
             customerId = customerId,
             customer = customer,
             note = note,
-            header = authMap
+            header = authMap,
+            pendingTime = pendingTime
         )
 
         val res = req.execute()
@@ -1035,6 +1078,42 @@ class ZammadClient(
         }
 
         return true
+    }
+
+    fun ticketTags(ticket: String, query: String, expanded: Boolean = false): TicketTag? {
+
+        val authMap = getHeaderMap()
+        val req = api.ticketTags(ticket, query, expanded, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
+    }
+
+    fun addTag(item: String, tagObject: String, oId: String): Any? {
+
+        val authMap = getHeaderMap()
+        val req = api.addTag(item, tagObject, oId, authMap)
+        val res = req.execute()
+
+        if (!res.isSuccessful) {
+
+            if (logging) {
+                Log.i("Retrofit Error", res.errorBody().toString())
+            }
+
+            return null
+        }
+
+        return res.body()
     }
 
     fun searchTickets(query: String, page: Int, perPage: Int, expanded: Boolean = false): SearchResult? {

@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity() {
 
         if (prefs.getIsLoggedIn()) {
 
-            SingletonModule.setClient(ZammadClient(prefs.getBaseUrl(), prefs.getUsername(), prefs.getPassword(), true))
+            SingletonModule.setClient(ZammadClient(prefs.getBaseUrl(), prefs.getUsername(), prefs.getPassword(), true, true ))
 
             startActivity(Intent(this, MainActivity::class.java))
         }
@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
             val username = binding.emailEdit.text.trim().toString()
             val password = binding.passwordEdit.text.trim().toString()
 
-            if (baseUrl == "") {
+            if (!baseUrl.contains("https://")) {
                 Toast.makeText(this, "baseurl not found!", Toast.LENGTH_SHORT).show()
             }
 
@@ -51,30 +51,38 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "password not found!", Toast.LENGTH_SHORT).show()
             }
 
-            var me: User? = null
-            DoAsync(
-                doWork = {
-                    me = ZammadClient.me(baseUrl, username, password, true)
-                },
-                onPost = {
-
-                    if (me != null) {
-
-                        SingletonModule.setClient(ZammadClient(baseUrl, username, password, true))
-
-                        with(prefs) {
-                            setIsLoggedIn(true)
-                            setBaseUrl(baseUrl)
-                            setUsername(username)
-                            setPassword(password)
+            else {
+                var me: User? = null
+                var log: Int? = null
+                var logText: String?
+                DoAsync(
+                    doWork = {
+                        kotlin.runCatching {
+                            log = ZammadClient.log(baseUrl, username, password, true)
+                            me = if(log == 200) ZammadClient.me(baseUrl, username, password, true) else null
                         }
+                    },
+                    onPost = {
+                        logText = if (log == 401) getString(R.string.unauthorized_error) else getString(R.string.inaccessible_error)
+                        if (me != null) {
 
-                        startActivity(Intent(this, MainActivity::class.java))
-                    } else {
-                        Toast.makeText(this, "Error while trying to login!", Toast.LENGTH_SHORT).show()
+                            SingletonModule.setClient(ZammadClient(baseUrl, username, password, true, true))
+
+                            with(prefs) {
+                                setIsLoggedIn(true)
+                                setBaseUrl(baseUrl)
+                                setUsername(username)
+                                setPassword(password)
+                            }
+
+                            startActivity(Intent(this, MainActivity::class.java))
+                        } else {
+                            Toast.makeText(this, logText, Toast.LENGTH_LONG)
+                                .show()
+                        }
                     }
-                }
-            )
+                )
+            }
         }
     }
 }
