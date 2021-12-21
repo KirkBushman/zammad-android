@@ -20,7 +20,9 @@
             tools:targetApi="n"
             tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".LoginActivity">
+        <activity
+                android:name=".LoginActivity"
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -28,42 +30,42 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".activities.MeActivity" />
-        <activity android:name=".activities.TicketActivity" />
-        <activity android:name=".activities.TicketsActivity" />
-        <activity android:name=".activities.TicketCreateActivity" />
-        <activity android:name=".activities.TicketUpdateActivity" />
-        <activity android:name=".activities.ActivitySearch" />
-        <activity android:name=".activities.AttachmentActivity" />
-        <activity android:name=".activities.AttachmentsActivity" />
-        <activity android:name=".activities.UserActivity" />
-        <activity android:name=".activities.UserUpdateActivity" />
-        <activity android:name=".activities.UsersActivity" />
-        <activity android:name=".activities.GroupActivity" />
-        <activity android:name=".activities.GroupUpdateActivity" />
-        <activity android:name=".activities.GroupsActivity" />
-        <activity android:name=".activities.RoleActivity" />
-        <activity android:name=".activities.RolesActivity" />
-        <activity android:name=".activities.TagsActivity" />
-        <activity android:name=".activities.OverviewActivity" />
-        <activity android:name=".activities.OverviewsActivity" />
-        <activity android:name=".activities.OrganizationActivity" />
-        <activity android:name=".activities.OrganizationUpdateActivity" />
-        <activity android:name=".activities.OrganizationsActivity" />
-        <activity android:name=".activities.PriorityActivity" />
-        <activity android:name=".activities.PriorityUpdateActivity" />
-        <activity android:name=".activities.PrioritiesActivity" />
-        <activity android:name=".activities.StateActivity" />
-        <activity android:name=".activities.StateUpdateActivity" />
-        <activity android:name=".activities.StatesActivity" />
-        <activity android:name=".activities.ObjectActivity" />
-        <activity android:name=".activities.ObjectsActivity" />
-        <activity android:name=".activities.NotificationActivity" />
-        <activity android:name=".activities.NotificationsActivity" />
-        <activity android:name=".activities.ArticleActivity" />
-        <activity android:name=".activities.ArticlesActivity" />
-        <activity android:name=".activities.ArticleCreateActivity" />
+        <activity android:name=".MainActivity" android:exported="false" />
+        <activity android:name=".activities.MeActivity" android:exported="false" />
+        <activity android:name=".activities.TicketActivity" android:exported="false" />
+        <activity android:name=".activities.TicketsActivity" android:exported="false" />
+        <activity android:name=".activities.TicketCreateActivity" android:exported="false" />
+        <activity android:name=".activities.TicketUpdateActivity" android:exported="false" />
+        <activity android:name=".activities.ActivitySearch" android:exported="false" />
+        <activity android:name=".activities.AttachmentActivity" android:exported="false" />
+        <activity android:name=".activities.AttachmentsActivity" android:exported="false" />
+        <activity android:name=".activities.UserActivity" android:exported="false" />
+        <activity android:name=".activities.UserUpdateActivity" android:exported="false" />
+        <activity android:name=".activities.UsersActivity" android:exported="false" />
+        <activity android:name=".activities.GroupActivity" android:exported="false" />
+        <activity android:name=".activities.GroupUpdateActivity" android:exported="false" />
+        <activity android:name=".activities.GroupsActivity" android:exported="false" />
+        <activity android:name=".activities.RoleActivity" android:exported="false" />
+        <activity android:name=".activities.RolesActivity" android:exported="false" />
+        <activity android:name=".activities.TagsActivity" android:exported="false" />
+        <activity android:name=".activities.OverviewActivity" android:exported="false" />
+        <activity android:name=".activities.OverviewsActivity" android:exported="false" />
+        <activity android:name=".activities.OrganizationActivity" android:exported="false" />
+        <activity android:name=".activities.OrganizationUpdateActivity" android:exported="false" />
+        <activity android:name=".activities.OrganizationsActivity" android:exported="false" />
+        <activity android:name=".activities.PriorityActivity" android:exported="false" />
+        <activity android:name=".activities.PriorityUpdateActivity" android:exported="false" />
+        <activity android:name=".activities.PrioritiesActivity" android:exported="false" />
+        <activity android:name=".activities.StateActivity" android:exported="false" />
+        <activity android:name=".activities.StateUpdateActivity" android:exported="false" />
+        <activity android:name=".activities.StatesActivity" android:exported="false" />
+        <activity android:name=".activities.ObjectActivity" android:exported="false" />
+        <activity android:name=".activities.ObjectsActivity" android:exported="false" />
+        <activity android:name=".activities.NotificationActivity" android:exported="false" />
+        <activity android:name=".activities.NotificationsActivity" android:exported="false" />
+        <activity android:name=".activities.ArticleActivity" android:exported="false" />
+        <activity android:name=".activities.ArticlesActivity" android:exported="false" />
+        <activity android:name=".activities.ArticleCreateActivity" android:exported="false" />
 
         <meta-data android:name="android.max_aspect" android:value="2.1" />
 
