@@ -8,7 +8,7 @@ import kotlinx.parcelize.RawValue
 
 @JsonClass(generateAdapter = true)
 @Parcelize
-data class TicketTag(
+data class TicketTags(
 
     @Json(name = "tags")
     val tags: @RawValue List<String?>

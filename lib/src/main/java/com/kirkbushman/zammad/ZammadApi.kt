@@ -225,7 +225,7 @@ interface ZammadApi {
         @Query("o_id") query: String,
         @Query("expand") expanded: Boolean,
         @HeaderMap header: HashMap<String, String>
-    ): Call<TicketTag>
+    ): Call<TicketTags>
 
     @FormUrlEncoded
     @POST("/api/v1/tags/add")

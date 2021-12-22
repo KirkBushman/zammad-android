@@ -1066,7 +1066,7 @@ class ZammadClient(
         return true
     }
 
-    fun ticketTags(ticket: String, query: String, expanded: Boolean = false): TicketTag? {
+    fun ticketTags(ticket: String, query: String, expanded: Boolean = false): TicketTags? {
 
         val authMap = getHeaderMap()
         val req = api.ticketTags(ticket, query, expanded, authMap)
