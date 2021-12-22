@@ -26,7 +26,7 @@ data class SearchAssets(
 
     @Json(name = "Ticket")
     val tickets: Map<String, Ticket>?,
- // Massi edit causes crashes as it doesn't accept null for department
+
     @Json(name = "User")
     val users: Map<String, User>?,
 
