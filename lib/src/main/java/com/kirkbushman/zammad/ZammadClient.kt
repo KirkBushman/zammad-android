@@ -895,24 +895,6 @@ class ZammadClient(
         return res.body()
     }
 
-    fun searchUnassignedTickets(query: String, page: Int, perPage: Int, expanded: Boolean = false): SearchResult? {
-
-        val authMap = getHeaderMap()
-        val req = api.searchTickets(query, page, perPage, expanded, authMap)
-        val res = req.execute()
-
-        if (!res.isSuccessful) {
-
-            if (logging) {
-                Log.i("Retrofit Error", res.errorBody().toString())
-            }
-
-            return null
-        }
-
-        return res.body()
-    }
-
     fun ticket(id: Int, expanded: Boolean = false): Ticket? {
 
         val authMap = getHeaderMap()
