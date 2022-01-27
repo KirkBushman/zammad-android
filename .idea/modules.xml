@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/zammad-android.iml" filepath="$PROJECT_DIR$/zammad-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/zammad-android.iml" filepath="$PROJECT_DIR$/.idea/modules/zammad-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/lib/zammad-android.lib.iml" filepath="$PROJECT_DIR$/.idea/modules/lib/zammad-android.lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/sampleapp/zammad-android.sampleapp.iml" filepath="$PROJECT_DIR$/.idea/modules/sampleapp/zammad-android.sampleapp.iml" />
     </modules>

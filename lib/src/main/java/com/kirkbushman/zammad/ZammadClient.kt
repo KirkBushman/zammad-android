@@ -13,11 +13,10 @@ class ZammadClient(
     baseUrl: String,
 
     private val auth: String,
-    private val logging: Boolean,
-    loggedIn: Boolean
+    private val logging: Boolean
 ) {
 
-    constructor(baseUrl: String, username: String, password: String, logging: Boolean ,loggedIn: Boolean) : this(baseUrl, "$username:$password", logging,loggedIn)
+    constructor(baseUrl: String, username: String, password: String, logging: Boolean ) : this(baseUrl, "$username:$password", logging)
 
     companion object {
 
@@ -25,13 +24,14 @@ class ZammadClient(
         private var retrofit: Retrofit? = null
         @Volatile
         private var api: ZammadApi? = null
+
         @Synchronized
-        fun getRetrofit(baseUrl: String, logging: Boolean,loggedIn: Boolean): Retrofit {
+        fun getRetrofit(baseUrl: String, logging: Boolean): Retrofit {
             synchronized(this) {
-                //if (retrofit == null) {
-                if(!loggedIn) retrofit = buildRetrofit(baseUrl, logging)
-                if(retrofit == null) retrofit = buildRetrofit(baseUrl, logging)
-                //}
+
+                if (retrofit == null) {
+                    retrofit = buildRetrofit(baseUrl, logging)
+                }
 
                 return retrofit!!
             }
@@ -50,12 +50,11 @@ class ZammadClient(
         }
 
         @Synchronized
-        fun getApi(baseUrl: String, logging: Boolean, loggedIn: Boolean): ZammadApi {
+        fun getApi(baseUrl: String, logging: Boolean): ZammadApi {
             synchronized(this) {
-                // if (api == null) {
-                if (!loggedIn) {api = getRetrofit(baseUrl, logging, loggedIn).create(ZammadApi::class.java)}
-                if (api == null) api = getRetrofit(baseUrl, logging, loggedIn).create(ZammadApi::class.java)
-                //}
+                if (api == null) {
+                    api = getRetrofit(baseUrl, logging).create(ZammadApi::class.java)
+                }
                 return api!!
             }
         }
@@ -81,7 +80,7 @@ class ZammadClient(
 
             val auth = "$username:$password"
             val authMap = hashMapOf("Authorization" to "Basic ".plus(String(Base64.encode(auth.toByteArray(), Base64.NO_WRAP))))
-            val api = getApi(baseUrl, logging, loggedIn=false)
+            val api = getApi(baseUrl, logging)
             val req = api.me(expanded, authMap)
             val res = req.execute()
             if (!res.isSuccessful) {
@@ -91,19 +90,9 @@ class ZammadClient(
             return res.body()
         }
 
-        fun log(baseUrl: String, username: String, password: String, logging: Boolean, expanded: Boolean = false): Int {
-
-            val auth = "$username:$password"
-            val authMap = hashMapOf("Authorization" to "Basic ".plus(String(Base64.encode(auth.toByteArray(), Base64.NO_WRAP))))
-            val api = getApi(baseUrl, logging, loggedIn=false)
-            val req = api.me(expanded, authMap)
-            val res = req.execute()
-
-            return res.code()
-        }
     }
 
-    private val api = getApi(baseUrl, logging, loggedIn)
+    private val api = getApi(baseUrl, logging)
 
     fun me(expanded: Boolean = false): User? {
 

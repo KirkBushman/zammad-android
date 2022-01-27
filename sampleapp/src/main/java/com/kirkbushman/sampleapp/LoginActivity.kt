@@ -2,14 +2,16 @@ package com.kirkbushman.sampleapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Base64
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kirkbushman.sampleapp.data.Preferences
 import com.kirkbushman.sampleapp.databinding.ActivityLoginBinding
 import com.kirkbushman.sampleapp.di.SingletonModule
 import com.kirkbushman.zammad.ZammadClient
-import com.kirkbushman.zammad.models.User
 import dagger.hilt.android.AndroidEntryPoint
+import java.net.HttpURLConnection
+import java.net.URL
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -28,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
 
         if (prefs.getIsLoggedIn()) {
 
-            SingletonModule.setClient(ZammadClient(prefs.getBaseUrl(), prefs.getUsername(), prefs.getPassword(), true, true ))
+            SingletonModule.setClient(ZammadClient(prefs.getBaseUrl(), prefs.getUsername(), prefs.getPassword(), true ))
 
             startActivity(Intent(this, MainActivity::class.java))
         }
@@ -52,21 +54,52 @@ class LoginActivity : AppCompatActivity() {
             }
 
             else {
-                var me: User? = null
-                var log: Int? = null
                 var logText: String?
+                var isReachable:Int?=null
                 DoAsync(
                     doWork = {
                         kotlin.runCatching {
-                            log = ZammadClient.log(baseUrl, username, password, true)
-                            me = if(log == 200) ZammadClient.me(baseUrl, username, password, true) else null
+                            val userpass = "$username:$password"
+                            val basicAuth = "Basic " + Base64.encodeToString(
+                                userpass.toByteArray(),
+                                Base64.NO_WRAP
+                            )
+
+                            isReachable =
+                                if (android.os.Build.VERSION.SDK_INT >= 25) {
+                                    val connection: HttpURLConnection = URL(
+                                        baseUrl + "/api/v1/users/me"
+                                    ).openConnection() as HttpURLConnection
+                                    connection.setRequestProperty("Authorization", basicAuth);
+                                    connection.requestMethod = "GET"
+                                    connection.responseCode
+                                } else 200
                         }
                     },
                     onPost = {
-                        logText = if (log == 401) getString(R.string.unauthorized_error) else getString(R.string.inaccessible_error)
-                        if (me != null) {
+                        if (isReachable != 200) {
+                            Toast.makeText(
+                                this,
+                                getString(R.string.inaccessible_error) + "\nERROR: " + isReachable.toString(),
+                                Toast.LENGTH_LONG
+                            )
+                                .show()
+                            return@DoAsync
+                        }
+                        logText = if (isReachable == 401) getString(R.string.unauthorized_error) else getString(
+                            R.string.inaccessible_error
+                        )
 
-                            SingletonModule.setClient(ZammadClient(baseUrl, username, password, true, true))
+                        if (isReachable == 200) {
+
+                            SingletonModule.setClient(
+                                ZammadClient(
+                                    baseUrl,
+                                    username,
+                                    password,
+                                    true
+                                )
+                            )
 
                             with(prefs) {
                                 setIsLoggedIn(true)
