@@ -5,6 +5,7 @@ import android.util.Log
 import com.kirkbushman.zammad.models.*
 import com.kirkbushman.zammad.models.compat.TicketArticleCompat
 import com.kirkbushman.zammad.models.compat.TicketCompat
+import com.kirkbushman.zammad.utils.Constants
 import com.kirkbushman.zammad.utils.Utils.buildRetrofit
 import retrofit2.Retrofit
 
@@ -13,10 +14,12 @@ class ZammadClient(
     baseUrl: String,
 
     private val auth: String,
+    private val authType: Int,
     private val logging: Boolean
 ) {
 
-    constructor(baseUrl: String, username: String, password: String, logging: Boolean) : this(baseUrl, "$username:$password", logging)
+    constructor(baseUrl: String, username: String, password: String, logging: Boolean) : this(baseUrl, "$username:$password",
+        Constants.AUTH_TYPE_USERNAME_PASSWORD, logging)
 
     companion object {
 
@@ -1285,6 +1288,10 @@ class ZammadClient(
     }
 
     private fun getHeaderMap(): HashMap<String, String> {
-        return hashMapOf("Authorization" to "Basic ".plus(String(Base64.encode(auth.toByteArray(), Base64.NO_WRAP))))
+        return when (authType) {
+            Constants.AUTH_TYPE_ACCESS_TOKEN -> hashMapOf("Authorization" to "Token token=".plus(auth))
+            Constants.AUTH_TYPE_OAUTH2 -> hashMapOf("Authorization" to "Bearer ".plus(auth))
+            else -> hashMapOf("Authorization" to "Basic ".plus(String(Base64.encode(auth.toByteArray(), Base64.NO_WRAP))))
+        }
     }
 }
