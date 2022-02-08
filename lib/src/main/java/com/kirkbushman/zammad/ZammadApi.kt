@@ -29,7 +29,7 @@ interface ZammadApi {
     ): Call<User>
 
     @GET("/api/v1/signatures")
-    fun signature(
+    fun signatures(
         @Query("expand") expanded: Boolean,
         @HeaderMap header: HashMap<String, String>
     ): Call<List<MailSignature>>

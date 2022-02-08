@@ -630,10 +630,10 @@ class ZammadClient(
         return res.body()
     }
 
-    fun signature(expanded: Boolean = false): List<MailSignature>? {
+    fun signatures(expanded: Boolean = false): List<MailSignature>? {
 
         val authMap = getHeaderMap()
-        val req = api.signature(expanded, authMap)
+        val req = api.signatures(expanded, authMap)
         val res = req.execute()
 
         if (!res.isSuccessful) {
