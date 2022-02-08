@@ -31,7 +31,7 @@ data class TicketState(
     val defaultFollowUp: Boolean,
 
     @Json(name = "note")
-    val note: String,
+    val note: String?,
 
     @Json(name = "created_by_id")
     override val createdById: Int,

@@ -55,4 +55,6 @@
     <string name="hint_search">Search:</string>
 
     <string name="no_items">No items to show.</string>
+    <string name="unauthorized_error">Error while trying to login!\nUnauthorized! Please check your username and password.</string>
+    <string name="inaccessible_error">Error while trying to login!\nUrl is inaccessible! Check network and input!</string>
 </resources>
